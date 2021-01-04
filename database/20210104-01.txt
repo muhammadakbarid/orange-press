@@ -58,3 +58,14 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (94, 4, 3, 93, 'fas fa-bars', 'Nama SKPD', 'Skpd', 'Skpd', 1),
 (95, 5, 3, 93, 'fas fa-bars', 'Bagian SKPD', 'SkpdBagian', 'BagianSkps', 1),
 (96, 6, 3, 93, 'fas fa-bars', 'Sub Baigan SKPD', 'SkpdSubBagian', 'SkpdSubBagian', 1);
+
+CREATE TABLE `pangkat` (
+  `id` int(11) NOT NULL,
+  `golongan` varchar(10) NOT NULL,
+  `ruang` varchar(10) NOT NULL,
+  `nama_pangkat` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `pangkat`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `pangkat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
