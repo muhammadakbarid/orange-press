@@ -1,0 +1,53 @@
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(5, 'supervisor', 'Supervisor');
+
+CREATE TABLE `skpd` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `deskripsi` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `skpd`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `skpd`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+INSERT INTO `skpd` (`id`, `nama`, `deskripsi`) VALUES
+(1, 'DPRD', 'Dewan Perwakilan Rakyat'),
+(2, 'Sekretariat Dewan', 'Sekretariat Dewan');
+
+CREATE TABLE `skpd_bagian` (
+  `id` int(11) NOT NULL,
+  `skpd_id` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `deskripsi` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `skpd_bagian`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `skpd_bagian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE `skpd_sub_bagian` (
+  `id` int(11) NOT NULL,
+  `skpd_bagian_id` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `deskripsi` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `skpd_sub_bagian`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `skpd_sub_bagian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
+(5, 1),
+(3, 3),
+(5, 3),
+(1, 40),
+(1, 92),
+(5, 92),
+(1, 94),
+(5, 94),
+(1, 95),
+(5, 95),
+(1, 93),
+(5, 93),
+(1, 96),
+(5, 96);
