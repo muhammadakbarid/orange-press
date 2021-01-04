@@ -50,8 +50,8 @@ class SkpdSubBagian extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Sub Bagian SKPD';
-        $data['subtitle'] = '';
+        $data['title'] = 'SKPD';
+        $data['subtitle'] = 'Sub Bagian SKPD';
         $data['crumb'] = [
             'Skpdsubbagian' => '',
         ];
@@ -72,8 +72,8 @@ class SkpdSubBagian extends CI_Controller
                 'nama' => $row->nama,
                 'deskripsi' => $row->deskripsi,
             );
-            $data['title'] = 'Skpdsubbagian';
-            $data['subtitle'] = '';
+            $data['title'] = 'SKPD';
+            $data['subtitle'] = 'Sub Bagian SKPD';
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
@@ -97,8 +97,8 @@ class SkpdSubBagian extends CI_Controller
             'nama' => set_value('nama'),
             'deskripsi' => set_value('deskripsi'),
         );
-        $data['title'] = 'Skpdsubbagian';
-        $data['subtitle'] = '';
+        $data['title'] = 'SKPD';
+        $data['subtitle'] = 'Sub Bagian SKPD';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
@@ -151,8 +151,8 @@ class SkpdSubBagian extends CI_Controller
                 'nama' => set_value('nama', $row->nama),
                 'deskripsi' => set_value('deskripsi', $row->deskripsi),
             );
-            $data['title'] = 'Skpdsubbagian';
-            $data['subtitle'] = '';
+            $data['title'] = 'SKPD';
+            $data['subtitle'] = 'Sub Bagian SKPD';
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
