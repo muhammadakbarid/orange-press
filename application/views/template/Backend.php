@@ -225,6 +225,8 @@
 
         <ul class="sidebar-menu list" id="menuList">
         </ul>
+        <ul class="sidebar-menu list" id="menuList">
+        </ul>
         <ul class="sidebar-menu list" id="menuSub">
           <?php $menus = $this->layout->get_menu() ?>
           <?php foreach ($menus as $menu) : ?>
