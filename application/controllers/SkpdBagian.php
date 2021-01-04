@@ -9,9 +9,9 @@ class SkpdBagian extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
-        $this->load->model('MSkpdBagian');
+        $this->load->model(array('MSkpdBagian', 'MSkpd'));
         $this->load->library('form_validation');
     }
 
@@ -19,7 +19,7 @@ class SkpdBagian extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'skpdbagian?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'skpdbagian?q=' . urlencode($q);
@@ -43,7 +43,7 @@ class SkpdBagian extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Skpdbagian';
+        $data['title'] = 'Bagian SKPD';
         $data['subtitle'] = '';
         $data['crumb'] = [
             'Skpdbagian' => '',
@@ -53,51 +53,54 @@ class SkpdBagian extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->MSkpdBagian->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'skpd_id' => $row->skpd_id,
-		'nama' => $row->nama,
-		'deskripsi' => $row->deskripsi,
-	    );
-        $data['title'] = 'Skpdbagian';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id' => $row->id,
+                'skpd_id' => $row->skpd_id,
+                'nama' => $row->nama,
+                'deskripsi' => $row->deskripsi,
+            );
+            $data['title'] = 'Skpdbagian';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'skpdbagian/skpd_bagian_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'skpdbagian/skpd_bagian_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('skpdbagian'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('skpdbagian/create_action'),
-	    'id' => set_value('id'),
-	    'skpd_id' => set_value('skpd_id'),
-	    'nama' => set_value('nama'),
-	    'deskripsi' => set_value('deskripsi'),
-	);
-        $data['title'] = 'Skpdbagian';
+            'id' => set_value('id'),
+            'skpd_id' => set_value('skpd_id'),
+            'nama' => set_value('nama'),
+            'deskripsi' => set_value('deskripsi'),
+        );
+        $data['title'] = 'Bagian SKPD';
         $data['subtitle'] = '';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
 
+        // get data from SKPD
+        $data['list_skpd'] = $this->MSkpd->get_all();
+
         $data['page'] = 'skpdbagian/skpd_bagian_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -105,18 +108,18 @@ class SkpdBagian extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'skpd_id' => $this->input->post('skpd_id',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
-		'deskripsi' => $this->input->post('deskripsi',TRUE),
-	    );
+                'skpd_id' => $this->input->post('skpd_id', TRUE),
+                'nama' => $this->input->post('nama', TRUE),
+                'deskripsi' => $this->input->post('deskripsi', TRUE),
+            );
 
             $this->MSkpdBagian->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('skpdbagian'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->MSkpdBagian->get_by_id($id);
 
@@ -124,26 +127,29 @@ class SkpdBagian extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('skpdbagian/update_action'),
-		'id' => set_value('id', $row->id),
-		'skpd_id' => set_value('skpd_id', $row->skpd_id),
-		'nama' => set_value('nama', $row->nama),
-		'deskripsi' => set_value('deskripsi', $row->deskripsi),
-	    );
+                'id' => set_value('id', $row->id),
+                'skpd_id' => set_value('skpd_id', $row->skpd_id),
+                'nama' => set_value('nama', $row->nama),
+                'deskripsi' => set_value('deskripsi', $row->deskripsi),
+            );
             $data['title'] = 'Skpdbagian';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'skpdbagian/skpd_bagian_form';
-        $this->load->view('template/backend', $data);
+            // get data from SKPD
+            $data['list_skpd'] = $this->MSkpd->get_all();
+
+            $data['page'] = 'skpdbagian/skpd_bagian_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('skpdbagian'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -151,18 +157,18 @@ class SkpdBagian extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'skpd_id' => $this->input->post('skpd_id',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
-		'deskripsi' => $this->input->post('deskripsi',TRUE),
-	    );
+                'skpd_id' => $this->input->post('skpd_id', TRUE),
+                'nama' => $this->input->post('nama', TRUE),
+                'deskripsi' => $this->input->post('deskripsi', TRUE),
+            );
 
             $this->MSkpdBagian->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('skpdbagian'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->MSkpdBagian->get_by_id($id);
 
@@ -176,26 +182,26 @@ class SkpdBagian extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->MSkpdBagian->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('message', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('message_error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('skpd_id', 'skpd id', 'trim|required');
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
-	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
+        $this->form_validation->set_rules('skpd_id', 'skpd id', 'trim|required');
+        $this->form_validation->set_rules('nama', 'nama', 'trim|required');
+        $this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file SkpdBagian.php */
