@@ -9,7 +9,7 @@ class Skpd extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('MSkpd');
         $this->load->library('form_validation');
@@ -19,7 +19,7 @@ class Skpd extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'skpd?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'skpd?q=' . urlencode($q);
@@ -43,48 +43,48 @@ class Skpd extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Skpd';
-        $data['subtitle'] = '';
+        $data['title'] = 'Nama SKPD';
+        $data['subtitle'] = 'List';
         $data['crumb'] = [
-            'Skpd' => '',
+            'SKPD' => '',
         ];
 
         $data['page'] = 'skpd/skpd_list';
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->MSkpd->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'nama' => $row->nama,
-		'deskripsi' => $row->deskripsi,
-	    );
-        $data['title'] = 'Skpd';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id' => $row->id,
+                'nama' => $row->nama,
+                'deskripsi' => $row->deskripsi,
+            );
+            $data['title'] = 'Skpd';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'skpd/skpd_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'skpd/skpd_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('skpd'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('skpd/create_action'),
-	    'id' => set_value('id'),
-	    'nama' => set_value('nama'),
-	    'deskripsi' => set_value('deskripsi'),
-	);
+            'id' => set_value('id'),
+            'nama' => set_value('nama'),
+            'deskripsi' => set_value('deskripsi'),
+        );
         $data['title'] = 'Skpd';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -94,8 +94,8 @@ class Skpd extends CI_Controller
         $data['page'] = 'skpd/skpd_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -103,17 +103,17 @@ class Skpd extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama' => $this->input->post('nama',TRUE),
-		'deskripsi' => $this->input->post('deskripsi',TRUE),
-	    );
+                'nama' => $this->input->post('nama', TRUE),
+                'deskripsi' => $this->input->post('deskripsi', TRUE),
+            );
 
             $this->MSkpd->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('skpd'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->MSkpd->get_by_id($id);
 
@@ -121,25 +121,25 @@ class Skpd extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('skpd/update_action'),
-		'id' => set_value('id', $row->id),
-		'nama' => set_value('nama', $row->nama),
-		'deskripsi' => set_value('deskripsi', $row->deskripsi),
-	    );
+                'id' => set_value('id', $row->id),
+                'nama' => set_value('nama', $row->nama),
+                'deskripsi' => set_value('deskripsi', $row->deskripsi),
+            );
             $data['title'] = 'Skpd';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'skpd/skpd_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'skpd/skpd_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('skpd'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -147,17 +147,17 @@ class Skpd extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'nama' => $this->input->post('nama',TRUE),
-		'deskripsi' => $this->input->post('deskripsi',TRUE),
-	    );
+                'nama' => $this->input->post('nama', TRUE),
+                'deskripsi' => $this->input->post('deskripsi', TRUE),
+            );
 
             $this->MSkpd->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('skpd'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->MSkpd->get_by_id($id);
 
@@ -171,25 +171,25 @@ class Skpd extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->MSkpd->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('message', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('message_error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
-	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
+        $this->form_validation->set_rules('nama', 'nama', 'trim|required');
+        $this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Skpd.php */

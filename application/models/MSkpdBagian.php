@@ -21,6 +21,12 @@ class MSkpdBagian extends CI_Model
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
+    function get_all_by_skpd_id($skpd_id)
+    {
+        $this->db->where('skpd_id', $skpd_id);
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
 
     // get data by id
     function get_by_id($id)
@@ -28,26 +34,31 @@ class MSkpdBagian extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
-        $this->db->like('id', $q);
-	$this->db->or_like('skpd_id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('deskripsi', $q);
-	$this->db->from($this->table);
+    function total_rows($q = NULL)
+    {
+        $this->db->select('sb.*, sk.nama as skpd');
+        $this->db->from('skpd_bagian sb');
+        $this->db->join('skpd sk', 'sk.id = sb.skpd_id', 'left');
+        $this->db->like('sk.nama', $q);
+        $this->db->or_like('sb.nama', $q);
+        $this->db->or_like('sb.deskripsi', $q);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
+        $this->db->select('sb.*, sk.nama as skpd');
+        $this->db->from('skpd_bagian sb');
+        $this->db->join('skpd sk', 'sk.id = sb.skpd_id', 'left');
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-	$this->db->or_like('skpd_id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('deskripsi', $q);
-	$this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
+        $this->db->like('sk.nama', $q);
+        $this->db->or_like('sb.nama', $q);
+        $this->db->or_like('sb.deskripsi', $q);
+        $this->db->limit($limit, $start);
+        return $this->db->get()->result();
     }
 
     // insert data
@@ -71,13 +82,13 @@ class MSkpdBagian extends CI_Model
     }
 
     // delete bulkdata
-    function deletebulk(){
+    function deletebulk()
+    {
         $data = $this->input->post('msg_', TRUE);
-        $arr_id = explode(",", $data); 
+        $arr_id = explode(",", $data);
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
     }
-
 }
 
 /* End of file MSkpdBagian.php */

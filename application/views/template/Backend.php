@@ -157,42 +157,67 @@
             <li class="header"><?php echo $menu['label'] ?></li>
             <?php if (is_array($menu['children'])) : ?>
               <?php foreach ($menu['children'] as $menu2) : ?>
-                <li <?php echo $menu2['attr'] != '' ? ' id="' . $menu2['attr'] . '" ' : '' ?> <?php echo is_array($menu2['children']) ? ' class="treeview" ' : '' ?>>
+                <?php if ($title == $menu2['label']) : ?>
+                  <li <?php echo $menu2['attr'] != '' ? ' id="' . $menu2['attr'] . '" ' : '' ?> <?php echo is_array($menu2['children']) ? ' class="treeview active" ' : '' ?>>
+                  <?php else : ?>
+                  <li <?php echo $menu2['attr'] != '' ? ' id="' . $menu2['attr'] . '" ' : '' ?> <?php echo is_array($menu2['children']) ? ' class="treeview" ' : '' ?>>
+                  <?php endif ?>
                   <?php if (is_array($menu2['children'])) : ?>
                     <a href="<?php echo $menu2['link'] != '#' ? base_url($menu2['link']) : '#' ?>" class="name">
                       <i class="<?php echo $menu2['icon'] ?>"></i> <span><?php echo $menu2['label'] ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
                       <?php foreach ($menu2['children'] as $menu3) : ?>
-                        <li <?php echo $menu3['attr'] != '' ? ' id="' . $menu3['attr'] . '" ' : '' ?>>
-                          <?php if (is_array($menu3['children'])) : ?>
+                        <?php if (is_array($menu3['children'])) : ?>
+                          <?php if ($title  and $subtitle == $menu3['label']) : ?>
+                            <li <?php echo $menu3['attr'] != '' ? ' id="' . $menu3['attr'] . '" ' : '' ?> class="active">
+                            <?php else : ?>
+                            <li <?php echo $menu3['attr'] != '' ? ' id="' . $menu3['attr'] . '" ' : '' ?>>
+                            <?php endif ?>
                             <a href="<?php echo $menu3['link'] != '#' ? base_url($menu3['link']) : '#' ?>" class="name">
                               <i class="<?php echo $menu3['icon'] ?>"></i> <span><?php echo $menu3['label'] ?></span>
                               <i class="fa fa-angle-left pull-right"></i>
                             </a>
+                            </li>
                             <ul class="treeview-menu">
                               <?php foreach ($menu3['children'] as $menu4) : ?>
-                                <li <?php echo $menu4['attr'] != '' ? ' id="' . $menu4['attr'] . '" ' : '' ?>>
+                                <?php if ($title and $subtitle  == $menu4['label']) : ?>
+                                  <li <?php echo $menu4['attr'] != '' ? ' id="' . $menu4['attr'] . '" ' : '' ?>>
+                                  <?php else : ?>
+                                  <li <?php echo $menu4['attr'] != '' ? ' id="' . $menu4['attr'] . '" ' : '' ?>>
+                                  <?php endif ?>
                                   <a href="<?php echo $menu4['link'] != '#' ? base_url($menu4['link']) : '#' ?>" class="name">
                                     <i class="<?php echo $menu4['icon'] ?>"></i> <span><?php echo $menu4['label'] ?></span>
                                   </a>
-                                </li>
-                              <?php endforeach ?>
+                                  </li>
+                                <?php endforeach ?>
                             </ul>
                           <?php else : ?>
-                            <a href="<?php echo $menu3['link'] != '#' ? base_url($menu3['link']) : '#' ?>" class="name">
-                              <i class="<?php echo $menu3['icon'] ?>"></i> <span><?php echo $menu3['label'] ?></span>
-                            </a>
-                          <?php endif ?>
-                        </li>
-                      <?php endforeach ?>
+                            <?php if ($subtitle == $menu3['label']) : ?>
+                              <li class="active">
+                              <?php else : ?>
+                              <li>
+                              <?php endif ?>
+                              <a href="<?php echo $menu3['link'] != '#' ? base_url($menu3['link']) : '#' ?>" class="name">
+                                <i class="<?php echo $menu3['icon'] ?>"></i> <span><?php echo $menu3['label'] ?></span>
+                              </a>
+                              </li>
+
+                            <?php endif ?>
+
+                          <?php endforeach ?>
                     </ul>
                   <?php else : ?>
-                    <a href="<?php echo $menu2['link'] != '#' ? base_url($menu2['link']) : '#' ?>" class="name">
-                      <i class="<?php echo $menu2['icon'] ?>"></i> <span><?php echo $menu2['label'] ?>
-                    </a>
+                    <?php if ($title == $menu2['label']) : ?>
+                  <li class="active">
+                  <?php else : ?>
+                  <li>
                   <?php endif ?>
-                </li>
+                  <a href="<?php echo $menu2['link'] != '#' ? base_url($menu2['link']) : '#' ?>" class="name">
+                    <i class="<?php echo $menu2['icon'] ?>"></i> <span><?php echo $menu2['label'] ?>
+                  </a>
+                  </li>
+                <?php endif ?>
               <?php endforeach ?>
             <?php endif ?>
           <?php endforeach ?>
