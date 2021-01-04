@@ -51,3 +51,10 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (5, 93),
 (1, 96),
 (5, 96);
+
+INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `link`, `id`, `id_menu_type`) VALUES
+(92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
+(93, 3, 2, 92, 'fas fa-archive', 'SKPD', '#', 'bagianskpd', 1),
+(94, 4, 3, 93, 'fas fa-bars', 'Nama SKPD', 'Skpd', 'Skpd', 1),
+(95, 5, 3, 93, 'fas fa-bars', 'Bagian SKPD', 'SkpdBagian', 'BagianSkps', 1),
+(96, 6, 3, 93, 'fas fa-bars', 'Sub Baigan SKPD', 'SkpdSubBagian', 'SkpdSubBagian', 1);
