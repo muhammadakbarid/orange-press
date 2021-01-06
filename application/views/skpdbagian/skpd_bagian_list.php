@@ -46,7 +46,6 @@
                         <tr>
                             <th style="width: 10px;"><input type="checkbox" name="selectall" /></th>
                             <th>No</th>
-                            <th>SKPD</th>
                             <th>Nama Bagian</th>
                             <th>Deskripsi</th>
                             <th>Action</th>
@@ -58,7 +57,6 @@
                                 <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $skpdbagian->id; ?>" />&nbsp;</td>
 
                                 <td width="80px"><?php echo ++$start ?></td>
-                                <td><?php echo $skpdbagian->skpd ?></td>
                                 <td><?php echo $skpdbagian->nama ?></td>
                                 <td><?php echo $skpdbagian->deskripsi ?></td>
                                 <td style="text-align:center" width="200px">

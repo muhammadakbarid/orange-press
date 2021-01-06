@@ -32,19 +32,20 @@ class MSkpdSubBagian extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
-        $this->db->or_like('nama', $q);
-        $this->db->from($this->table);
+        $this->db->select('ssb.*, sb.nama as bagian');
+        $this->db->from('skpd_sub_bagian ssb');
+        $this->db->join('skpd_bagian sb', 'sb.id = ssb.skpd_bagian_id', 'left');
+        $this->db->like('ssb.nama', $q);
+        $this->db->or_like('ssb.deskripsi', $q);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->select('ssb.*, sk.nama as skpd, sb.nama as bagian');
+        $this->db->select('ssb.*, sb.nama as bagian');
         $this->db->from('skpd_sub_bagian ssb');
         $this->db->join('skpd_bagian sb', 'sb.id = ssb.skpd_bagian_id', 'left');
-        $this->db->join('skpd sk', 'sk.id = sb.skpd_id', 'left');
         $this->db->order_by($this->id, $this->order);
         $this->db->like('ssb.nama', $q);
         $this->db->or_like('ssb.deskripsi', $q);

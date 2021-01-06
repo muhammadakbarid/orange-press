@@ -11,15 +11,8 @@ class SkpdSubBagian extends CI_Controller
         $c_url = $this->router->fetch_class();
         $this->layout->auth();
         $this->layout->auth_privilege($c_url);
-        $this->load->model(array('MSkpdSubBagian', 'MSkpd', 'MSkpdBagian'));
+        $this->load->model(array('MSkpdSubBagian', 'MSkpdBagian'));
         $this->load->library('form_validation');
-    }
-
-    function get_skpd_bagian()
-    {
-        $id = $this->input->post('p_skpd_id');
-        $data = $this->MSkpdBagian->get_all_by_skpd_id($id);
-        echo json_encode($data);
     }
 
     public function index()
@@ -56,8 +49,6 @@ class SkpdSubBagian extends CI_Controller
             'Skpdsubbagian' => '',
         ];
 
-
-
         $data['page'] = 'skpdsubbagian/skpd_sub_bagian_list';
         $this->load->view('template/backend', $data);
     }
@@ -93,7 +84,6 @@ class SkpdSubBagian extends CI_Controller
             'action' => site_url('skpdsubbagian/create_action'),
             'id' => set_value('id'),
             'skpd_bagian_id' => set_value('skpd_bagian_id'),
-            'skpd_id' => set_value('skpd_id'),
             'nama' => set_value('nama'),
             'deskripsi' => set_value('deskripsi'),
         );
@@ -103,16 +93,8 @@ class SkpdSubBagian extends CI_Controller
             'Dashboard' => '',
         ];
 
-        // get data from SKPD
-        $data['list_skpd'] = $this->MSkpd->get_all();
-
-        /*
-        get data from Sub Bagian SKPD
-        jika ada kiriman skpd_id (submit error message)
-        */
-        if ($data['skpd_id']) {
-            $data['list_bagian'] = $this->MSkpdBagian->get_all_by_skpd_id($data['skpd_id']);
-        }
+        //get data from Sub Bagian SKPD
+        $data['list_bagian'] = $this->MSkpdBagian->get_all();
 
 
         $data['page'] = 'skpdsubbagian/skpd_sub_bagian_form';
@@ -156,6 +138,9 @@ class SkpdSubBagian extends CI_Controller
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
+
+            //get data from Sub Bagian SKPD
+            $data['list_bagian'] = $this->MSkpdBagian->get_all();
 
             $data['page'] = 'skpdsubbagian/skpd_sub_bagian_form';
             $this->load->view('template/backend', $data);
@@ -211,7 +196,6 @@ class SkpdSubBagian extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('skpd_id', 'SKPD', 'trim|required');
         $this->form_validation->set_rules('skpd_bagian_id', 'Bagian SKPD', 'trim|required');
         $this->form_validation->set_rules('nama', 'Nama Sub Bagian', 'trim|required');
         //$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');

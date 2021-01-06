@@ -14,17 +14,6 @@
             <div class="box-body">
                 <form action="<?php echo $action; ?>" method="post">
                     <div class="form-group">
-                        <label for="int">SKPD<?php echo form_error('skpd_id') ?></label>
-                        <select name="skpd_id" class="form-control">
-                            <option value="">Pilih SKPD</option>
-                            <?php if ($list_skpd) : ?>
-                                <?php foreach ($list_skpd as $ls) : ?>
-                                    <option value="<?php echo $ls->id ?>" <?php echo ($skpd_id == $ls->id ? "selected" : "") ?>><?php echo $ls->nama ?></option>
-                                <?php endforeach ?>
-                            <?php endif ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="varchar">Nama <?php echo form_error('nama') ?></label>
                         <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
                     </div>

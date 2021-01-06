@@ -38,27 +38,20 @@ class MSkpdBagian extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->select('sb.*, sk.nama as skpd');
-        $this->db->from('skpd_bagian sb');
-        $this->db->join('skpd sk', 'sk.id = sb.skpd_id', 'left');
-        $this->db->like('sk.nama', $q);
-        $this->db->or_like('sb.nama', $q);
-        $this->db->or_like('sb.deskripsi', $q);
+        $this->db->like('id', $q);
+        $this->db->or_like('nama', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->select('sb.*, sk.nama as skpd');
-        $this->db->from('skpd_bagian sb');
-        $this->db->join('skpd sk', 'sk.id = sb.skpd_id', 'left');
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('sk.nama', $q);
-        $this->db->or_like('sb.nama', $q);
-        $this->db->or_like('sb.deskripsi', $q);
+        $this->db->like('id', $q);
+        $this->db->or_like('nama', $q);
         $this->db->limit($limit, $start);
-        return $this->db->get()->result();
+        return $this->db->get($this->table)->result();
     }
 
     // insert data
