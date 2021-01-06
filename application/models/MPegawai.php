@@ -28,45 +28,29 @@ class MPegawai extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
-        $this->db->like('id', $q);
-	$this->db->or_like('nip', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('jenis_kelamin', $q);
-	$this->db->or_like('jabatan', $q);
-	$this->db->or_like('pangkat_id', $q);
-	$this->db->or_like('jabatan_status', $q);
-	$this->db->or_like('jabatan_fungsi', $q);
-	$this->db->or_like('eselon', $q);
-	$this->db->or_like('skpd_sub_bagian_id', $q);
-	$this->db->or_like('komisi', $q);
-	$this->db->or_like('status', $q);
-	$this->db->or_like('create_on', $q);
-	$this->db->or_like('users_id', $q);
-	$this->db->from($this->table);
+    function total_rows($q = NULL)
+    {
+        $this->db->like('nip', $q);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('jabatan', $q);
+        $this->db->or_like('eselon', $q);
+        $this->db->or_like('skpd_sub_bagian_id', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-	$this->db->or_like('nip', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('jenis_kelamin', $q);
-	$this->db->or_like('jabatan', $q);
-	$this->db->or_like('pangkat_id', $q);
-	$this->db->or_like('jabatan_status', $q);
-	$this->db->or_like('jabatan_fungsi', $q);
-	$this->db->or_like('eselon', $q);
-	$this->db->or_like('skpd_sub_bagian_id', $q);
-	$this->db->or_like('komisi', $q);
-	$this->db->or_like('status', $q);
-	$this->db->or_like('create_on', $q);
-	$this->db->or_like('users_id', $q);
-	$this->db->limit($limit, $start);
+        $this->db->like('nip', $q);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('jabatan', $q);
+        $this->db->or_like('eselon', $q);
+        $this->db->or_like('skpd_sub_bagian_id', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -91,13 +75,13 @@ class MPegawai extends CI_Model
     }
 
     // delete bulkdata
-    function deletebulk(){
+    function deletebulk()
+    {
         $data = $this->input->post('msg_', TRUE);
-        $arr_id = explode(",", $data); 
+        $arr_id = explode(",", $data);
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
     }
-
 }
 
 /* End of file MPegawai.php */

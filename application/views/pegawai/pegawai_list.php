@@ -47,14 +47,8 @@
                         <th>No</th>
                         <th>NIP</th>
                         <th>Nama</th>
-                        <th>Jenis Kelamin</th>
                         <th>Jabatan</th>
-                        <th>Pangkat</th>
-                        <th>Jabatan Status</th>
-                        <th>Jabatan Fungsi</th>
-                        <th>Eselon</th>
-                        <th>SKPD Bagian</th>
-                        <th>Komisi</th>
+                        <th>Bagian</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr><?php
@@ -64,16 +58,10 @@
                             <td width="80px"><?php echo ++$start ?></td>
                             <td><?php echo $pegawai->nip ?></td>
                             <td><?php echo $pegawai->nama ?></td>
-                            <td><?php echo $pegawai->jenis_kelamin ?></td>
                             <td><?php echo $pegawai->jabatan ?></td>
-                            <td><?php echo $pegawai->pangkat_id ?></td>
-                            <td><?php echo $pegawai->jabatan_status ?></td>
-                            <td><?php echo $pegawai->jabatan_fungsi ?></td>
-                            <td><?php echo $pegawai->eselon ?></td>
                             <td><?php echo $pegawai->skpd_sub_bagian_id ?></td>
-                            <td><?php echo $pegawai->komisi ?></td>
                             <td><?php echo $pegawai->status ?></td>
-                            <td style="text-align:center" width="200px">
+                            <td style="text-align:center" nowrap>
                                 <?php
                                 echo anchor(site_url('pegawai/read/' . $pegawai->id), '<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"');
                                 echo ' ';
