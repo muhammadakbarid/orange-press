@@ -215,7 +215,7 @@ class SkpdSubBagian extends CI_Controller
         $this->form_validation->set_rules('skpd_bagian_id', 'Bagian SKPD', 'trim|required');
         $this->form_validation->set_rules('nama', 'Nama Sub Bagian', 'trim|required');
         //$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
-
+        // tidak ada
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
