@@ -60,7 +60,6 @@ class SkpdBagian extends CI_Controller
             $data = array(
                 'id' => $row->id,
                 'nama' => $row->nama,
-                'deskripsi' => $row->deskripsi,
             );
             $data['title'] = 'SKPD';
             $data['subtitle'] = 'Bagian SKPD';
@@ -83,7 +82,6 @@ class SkpdBagian extends CI_Controller
             'action' => site_url('skpdbagian/create_action'),
             'id' => set_value('id'),
             'nama' => set_value('nama'),
-            'deskripsi' => set_value('deskripsi'),
         );
         $data['title'] = 'SKPD';
         $data['subtitle'] = 'Bagian SKPD';
@@ -104,7 +102,6 @@ class SkpdBagian extends CI_Controller
         } else {
             $data = array(
                 'nama' => $this->input->post('nama', TRUE),
-                'deskripsi' => $this->input->post('deskripsi', TRUE),
             );
 
             $this->MSkpdBagian->insert($data);
@@ -123,7 +120,6 @@ class SkpdBagian extends CI_Controller
                 'action' => site_url('skpdbagian/update_action'),
                 'id' => set_value('id', $row->id),
                 'nama' => set_value('nama', $row->nama),
-                'deskripsi' => set_value('deskripsi', $row->deskripsi),
             );
             $data['title'] = 'SKPD';
             $data['subtitle'] = 'Bagian SKPD';
@@ -148,7 +144,6 @@ class SkpdBagian extends CI_Controller
         } else {
             $data = array(
                 'nama' => $this->input->post('nama', TRUE),
-                'deskripsi' => $this->input->post('deskripsi', TRUE),
             );
 
             $this->MSkpdBagian->update($this->input->post('id', TRUE), $data);
@@ -185,8 +180,6 @@ class SkpdBagian extends CI_Controller
     public function _rules()
     {
         $this->form_validation->set_rules('nama', 'nama', 'trim|required');
-        $this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
-
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

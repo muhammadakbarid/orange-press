@@ -26,3 +26,11 @@ $config['list_fungsi_jabatan'] = array(
   4 => "Sekretaris",
   5 => "Sekretaris Daerah"
 );
+
+// komisi Anggota Dewan
+$config['list_komisi'] = array(
+  1 => "Komisi A",
+  2 => "Komisi B",
+  3 => "Komisi C",
+  4 => "Komisi D"
+);

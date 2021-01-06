@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/datatables/dataTables.checkboxes.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/AdminLTE.min.css">
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/select2/dist/css/select2-spn.min.css">
+
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
@@ -53,6 +57,7 @@
   <script src="<?= base_url(); ?>assets/plugins/bootstrap-show-password/bootstrap-show-password.min.js"></script>
   <!-- Select2 -->
   <script src="<?= base_url(); ?>assets/bower_components/bootstrap-select/js/bootstrap-select.js"></script>
+  <script src="<?= base_url(); ?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
   <style type="text/css">
     .pagination>li>a,
     .pagination>li>span {
@@ -342,6 +347,7 @@
       $('.sidebar-menu').tree()
     })
     $(function() {
+      $('.select2').select2();
       $('#sidebar-form').on('submit', function(e) {
         e.preventDefault();
       });

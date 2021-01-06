@@ -22,6 +22,13 @@ class MSkpdSubBagian extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_by_skpd_bidang_id($id)
+    {
+        $this->db->where('skpd_bagian_id', $id);
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {
@@ -36,7 +43,6 @@ class MSkpdSubBagian extends CI_Model
         $this->db->from('skpd_sub_bagian ssb');
         $this->db->join('skpd_bagian sb', 'sb.id = ssb.skpd_bagian_id', 'left');
         $this->db->like('ssb.nama', $q);
-        $this->db->or_like('ssb.deskripsi', $q);
         return $this->db->count_all_results();
     }
 
@@ -46,9 +52,8 @@ class MSkpdSubBagian extends CI_Model
         $this->db->select('ssb.*, sb.nama as bagian');
         $this->db->from('skpd_sub_bagian ssb');
         $this->db->join('skpd_bagian sb', 'sb.id = ssb.skpd_bagian_id', 'left');
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by('skpd_bagian_id', $this->order);
         $this->db->like('ssb.nama', $q);
-        $this->db->or_like('ssb.deskripsi', $q);
         $this->db->limit($limit, $start);
         return $this->db->get()->result();
     }

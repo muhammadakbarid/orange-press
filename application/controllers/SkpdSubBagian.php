@@ -15,6 +15,14 @@ class SkpdSubBagian extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    function get_skpd_sub_bagian()
+    {
+        $id = $this->input->post('p_skpd_bagian_id');
+        $data = $this->MSkpdSubBagian->get_all_by_skpd_bidang_id($id);
+        echo json_encode($data);
+    }
+
+
     public function index()
     {
         $q = urldecode($this->input->get('q', TRUE));
@@ -61,7 +69,6 @@ class SkpdSubBagian extends CI_Controller
                 'id' => $row->id,
                 'skpd_bagian_id' => $row->skpd_bagian_id,
                 'nama' => $row->nama,
-                'deskripsi' => $row->deskripsi,
             );
             $data['title'] = 'SKPD';
             $data['subtitle'] = 'Sub Bagian SKPD';
@@ -85,7 +92,6 @@ class SkpdSubBagian extends CI_Controller
             'id' => set_value('id'),
             'skpd_bagian_id' => set_value('skpd_bagian_id'),
             'nama' => set_value('nama'),
-            'deskripsi' => set_value('deskripsi'),
         );
         $data['title'] = 'SKPD';
         $data['subtitle'] = 'Sub Bagian SKPD';
@@ -131,7 +137,6 @@ class SkpdSubBagian extends CI_Controller
                 'id' => set_value('id', $row->id),
                 'skpd_bagian_id' => set_value('skpd_bagian_id', $row->skpd_bagian_id),
                 'nama' => set_value('nama', $row->nama),
-                'deskripsi' => set_value('deskripsi', $row->deskripsi),
             );
             $data['title'] = 'SKPD';
             $data['subtitle'] = 'Sub Bagian SKPD';
