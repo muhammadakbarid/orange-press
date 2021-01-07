@@ -1,5 +1,6 @@
 <!-- Begin Page Content -->
-<?= print_r($s_aplikasi); ?>
+<!-- <?= print_r($_FILES); ?> -->
+<!-- <?= print_r($s_aplikasi->kode); ?> -->
 <div class="container-fluid">
 
   <!-- Page Heading -->
@@ -12,7 +13,7 @@
       <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Nama Aplikasi</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" name="name" value="<?= $s_aplikasi->nama; ?>">
+          <input type="text" class="form-control" id="nama" name="nama" value="<?= $s_aplikasi->nama; ?>">
           <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
       </div>
