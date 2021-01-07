@@ -58,6 +58,9 @@
   <!-- Select2 -->
   <script src="<?= base_url(); ?>assets/bower_components/bootstrap-select/js/bootstrap-select.js"></script>
   <script src="<?= base_url(); ?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+  <!-- mask -->
+  <script src="<?= base_url(); ?>assets/dist/js/jquery.mask.min.js"></script>
   <style type="text/css">
     .pagination>li>a,
     .pagination>li>span {
@@ -350,6 +353,9 @@
       $('.select2').select2();
       $('#sidebar-form').on('submit', function(e) {
         e.preventDefault();
+      });
+      $('.rupiah').mask('000.000.000.000', {
+        reverse: true
       });
       $('.sidebar-menu li.active').data('lte.pushmenu.active', true);
       $('#search-input').on('keyup', function() {
