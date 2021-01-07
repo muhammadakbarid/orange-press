@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
+<?php
+// $this->load->model('MSetting');
+// $setting_aplikasi = $this->MSetting->get_setting_aplikasi();
+$setting_aplikasi = $this->db->get('setting')->row();
+?>
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= "{$title} - {$this->config->item('nama_aplikasi')}"; ?></title>
+  <title><?= "{$title} - {$setting_aplikasi->nama}"; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+  <!-- logo website -->
+  <link rel="icon" type="image/png" href="<?= base_url('assets/uploads/image/logo/') . $setting_aplikasi->kode; ?>">
+
   <!-- Font Awesome -->
 
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.css">
@@ -79,7 +88,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><?= $this->config->item('sitename_mini') ?></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><?= $this->config->item('sitename') ?></span>
+        <span class="logo-lg"><?= $this->config->item('sitename') . "{$setting_aplikasi->nama}" ?></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
