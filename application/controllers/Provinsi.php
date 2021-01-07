@@ -9,7 +9,7 @@ class Provinsi extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('MProvinsi');
         $this->load->library('form_validation');
@@ -19,7 +19,7 @@ class Provinsi extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'provinsi?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'provinsi?q=' . urlencode($q);
@@ -43,8 +43,8 @@ class Provinsi extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Provinsi';
-        $data['subtitle'] = '';
+        $data['title'] = 'Wilayah';
+        $data['subtitle'] = 'Provinsi';
         $data['crumb'] = [
             'Provinsi' => '',
         ];
@@ -53,38 +53,38 @@ class Provinsi extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->MProvinsi->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_prov' => $row->id_prov,
-		'nama' => $row->nama,
-	    );
-        $data['title'] = 'Provinsi';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_prov' => $row->id_prov,
+                'nama' => $row->nama,
+            );
+            $data['title'] = 'Wilayah';
+            $data['subtitle'] = 'Provinsi';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'provinsi/provinsi_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'provinsi/provinsi_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('provinsi'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('provinsi/create_action'),
-	    'id_prov' => set_value('id_prov'),
-	    'nama' => set_value('nama'),
-	);
-        $data['title'] = 'Provinsi';
-        $data['subtitle'] = '';
+            'id_prov' => set_value('id_prov'),
+            'nama' => set_value('nama'),
+        );
+        $data['title'] = 'Wilayah';
+        $data['subtitle'] = 'Provinsi';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
@@ -92,8 +92,8 @@ class Provinsi extends CI_Controller
         $data['page'] = 'provinsi/provinsi_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -101,16 +101,16 @@ class Provinsi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama' => $this->input->post('nama',TRUE),
-	    );
+                'nama' => $this->input->post('nama', TRUE),
+            );
 
             $this->MProvinsi->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('provinsi'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->MProvinsi->get_by_id($id);
 
@@ -118,24 +118,24 @@ class Provinsi extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('provinsi/update_action'),
-		'id_prov' => set_value('id_prov', $row->id_prov),
-		'nama' => set_value('nama', $row->nama),
-	    );
-            $data['title'] = 'Provinsi';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_prov' => set_value('id_prov', $row->id_prov),
+                'nama' => set_value('nama', $row->nama),
+            );
+            $data['title'] = 'Wilayah';
+            $data['subtitle'] = 'Provinsi';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'provinsi/provinsi_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'provinsi/provinsi_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('provinsi'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -143,16 +143,16 @@ class Provinsi extends CI_Controller
             $this->update($this->input->post('id_prov', TRUE));
         } else {
             $data = array(
-		'nama' => $this->input->post('nama',TRUE),
-	    );
+                'nama' => $this->input->post('nama', TRUE),
+            );
 
             $this->MProvinsi->update($this->input->post('id_prov', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('provinsi'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->MProvinsi->get_by_id($id);
 
@@ -166,24 +166,24 @@ class Provinsi extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->MProvinsi->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('message', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('message_error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+        $this->form_validation->set_rules('nama', 'nama', 'trim|required');
 
-	$this->form_validation->set_rules('id_prov', 'id_prov', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_prov', 'id_prov', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Provinsi.php */

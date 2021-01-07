@@ -9,9 +9,9 @@ class Kecamatan extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
-        $this->load->model('MKecamatan');
+        $this->load->model(array('MKecamatan', 'MKabupaten'));
         $this->load->library('form_validation');
     }
 
@@ -19,7 +19,7 @@ class Kecamatan extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'kecamatan?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'kecamatan?q=' . urlencode($q);
@@ -43,8 +43,8 @@ class Kecamatan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Kecamatan';
-        $data['subtitle'] = '';
+        $data['title'] = 'Wilayah';
+        $data['subtitle'] = 'Kecamatan';
         $data['crumb'] = [
             'Kecamatan' => '',
         ];
@@ -53,67 +53,74 @@ class Kecamatan extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->MKecamatan->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_kec' => $row->id_kec,
-		'id_kab' => $row->id_kab,
-		'nama' => $row->nama,
-	    );
-        $data['title'] = 'Kecamatan';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_kec' => $row->id_kec,
+                'id_kab' => $row->id_kab,
+                'nama' => $row->nama,
+            );
+            $data['title'] = 'Wilayah';
+            $data['subtitle'] = 'Kecamatan';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kecamatan/kecamatan_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'kecamatan/kecamatan_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('kecamatan'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('kecamatan/create_action'),
-	    'id_kec' => set_value('id_kec'),
-	    'id_kab' => set_value('id_kab'),
-	    'nama' => set_value('nama'),
-	);
-        $data['title'] = 'Kecamatan';
-        $data['subtitle'] = '';
+            'id_kec' => set_value('id_kec'),
+            'id_kab' => set_value('id_kab'),
+            'nama' => set_value('nama'),
+        );
+        $data['title'] = 'Wilayah';
+        $data['subtitle'] = 'Kecamatan';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
 
+        // get Kab
+        $data['list_kabupaten'] = $this->MKabupaten->get_all();
+
         $data['page'] = 'kecamatan/kecamatan_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            // get last id_kac
+            $last_id_kec = $this->MKecamatan->get_last_id_kec($this->input->post('id_kab', TRUE));
+            $new_id_kec = ($last_id_kec->id_kec + 1);
             $data = array(
-		'id_kab' => $this->input->post('id_kab',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
-	    );
+                'id_kec' => $new_id_kec,
+                'id_kab' => $this->input->post('id_kab', TRUE),
+                'nama' => $this->input->post('nama', TRUE),
+            );
 
             $this->MKecamatan->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('kecamatan'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->MKecamatan->get_by_id($id);
 
@@ -121,25 +128,28 @@ class Kecamatan extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('kecamatan/update_action'),
-		'id_kec' => set_value('id_kec', $row->id_kec),
-		'id_kab' => set_value('id_kab', $row->id_kab),
-		'nama' => set_value('nama', $row->nama),
-	    );
-            $data['title'] = 'Kecamatan';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_kec' => set_value('id_kec', $row->id_kec),
+                'id_kab' => set_value('id_kab', $row->id_kab),
+                'nama' => set_value('nama', $row->nama),
+            );
+            $data['title'] = 'Wilayah';
+            $data['subtitle'] = 'Kecamatan';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kecamatan/kecamatan_form';
-        $this->load->view('template/backend', $data);
+            // get Kab
+            $data['list_kabupaten'] = $this->MKabupaten->get_all();
+
+            $data['page'] = 'kecamatan/kecamatan_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('kecamatan'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -147,17 +157,17 @@ class Kecamatan extends CI_Controller
             $this->update($this->input->post('id_kec', TRUE));
         } else {
             $data = array(
-		'id_kab' => $this->input->post('id_kab',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
-	    );
+                'id_kab' => $this->input->post('id_kab', TRUE),
+                'nama' => $this->input->post('nama', TRUE),
+            );
 
             $this->MKecamatan->update($this->input->post('id_kec', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('kecamatan'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->MKecamatan->get_by_id($id);
 
@@ -171,25 +181,25 @@ class Kecamatan extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->MKecamatan->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('message', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('message_error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('id_kab', 'id kab', 'trim|required');
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+        $this->form_validation->set_rules('id_kab', 'id kab', 'trim|required');
+        $this->form_validation->set_rules('nama', 'nama', 'trim|required');
 
-	$this->form_validation->set_rules('id_kec', 'id_kec', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_kec', 'id_kec', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Kecamatan.php */

@@ -9,9 +9,9 @@ class Kabupaten extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
-        $this->load->model('MKabupaten');
+        $this->load->model(array('MKabupaten', 'MProvinsi'));
         $this->load->library('form_validation');
     }
 
@@ -19,7 +19,7 @@ class Kabupaten extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'kabupaten?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'kabupaten?q=' . urlencode($q);
@@ -43,8 +43,8 @@ class Kabupaten extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Kabupaten';
-        $data['subtitle'] = '';
+        $data['title'] = 'Wilayah';
+        $data['subtitle'] = 'Kabupaten';
         $data['crumb'] = [
             'Kabupaten' => '',
         ];
@@ -53,70 +53,80 @@ class Kabupaten extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->MKabupaten->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_kab' => $row->id_kab,
-		'id_prov' => $row->id_prov,
-		'nama' => $row->nama,
-		'id_jenis' => $row->id_jenis,
-	    );
-        $data['title'] = 'Kabupaten';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_kab' => $row->id_kab,
+                'id_prov' => $row->id_prov,
+                'nama' => $row->nama,
+                'id_jenis' => $row->id_jenis,
+            );
+            $data['title'] = 'Wilayah';
+            $data['subtitle'] = 'Kabupaten';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kabupaten/kabupaten_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'kabupaten/kabupaten_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('kabupaten'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('kabupaten/create_action'),
-	    'id_kab' => set_value('id_kab'),
-	    'id_prov' => set_value('id_prov'),
-	    'nama' => set_value('nama'),
-	    'id_jenis' => set_value('id_jenis'),
-	);
-        $data['title'] = 'Kabupaten';
-        $data['subtitle'] = '';
+            'id_kab' => set_value('id_kab'),
+            'id_prov' => set_value('id_prov'),
+            'nama' => set_value('nama'),
+            'id_jenis' => set_value('id_jenis'),
+        );
+        $data['title'] = 'Wilayah';
+        $data['subtitle'] = 'Kabupaten';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
 
+        // get Provinsi
+        $data['list_provinsi'] = $this->MProvinsi->get_all();
+
         $data['page'] = 'kabupaten/kabupaten_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+
+            // get last id_kab
+            $last_id_kab = $this->MKabupaten->get_last_id_kab($this->input->post('id_prov', TRUE));
+            //print_r($last_id_kab);
+            $new_id_kab = ($last_id_kab->id_kab + 1);
+
             $data = array(
-		'id_prov' => $this->input->post('id_prov',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
-		'id_jenis' => $this->input->post('id_jenis',TRUE),
-	    );
+                'id_kab' => $new_id_kab,
+                'id_prov' => $this->input->post('id_prov', TRUE),
+                'nama' => $this->input->post('nama', TRUE),
+                'id_jenis' => $this->input->post('id_jenis', TRUE),
+            );
 
             $this->MKabupaten->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('kabupaten'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->MKabupaten->get_by_id($id);
 
@@ -124,26 +134,29 @@ class Kabupaten extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('kabupaten/update_action'),
-		'id_kab' => set_value('id_kab', $row->id_kab),
-		'id_prov' => set_value('id_prov', $row->id_prov),
-		'nama' => set_value('nama', $row->nama),
-		'id_jenis' => set_value('id_jenis', $row->id_jenis),
-	    );
-            $data['title'] = 'Kabupaten';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_kab' => set_value('id_kab', $row->id_kab),
+                'id_prov' => set_value('id_prov', $row->id_prov),
+                'nama' => set_value('nama', $row->nama),
+                'id_jenis' => set_value('id_jenis', $row->id_jenis),
+            );
+            $data['title'] = 'Wilayah';
+            $data['subtitle'] = 'Kabupaten';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kabupaten/kabupaten_form';
-        $this->load->view('template/backend', $data);
+            // get Provinsi
+            $data['list_provinsi'] = $this->MProvinsi->get_all();
+
+            $data['page'] = 'kabupaten/kabupaten_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('kabupaten'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -151,18 +164,18 @@ class Kabupaten extends CI_Controller
             $this->update($this->input->post('id_kab', TRUE));
         } else {
             $data = array(
-		'id_prov' => $this->input->post('id_prov',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
-		'id_jenis' => $this->input->post('id_jenis',TRUE),
-	    );
+                'id_prov' => $this->input->post('id_prov', TRUE),
+                'nama' => $this->input->post('nama', TRUE),
+                'id_jenis' => $this->input->post('id_jenis', TRUE),
+            );
 
             $this->MKabupaten->update($this->input->post('id_kab', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('kabupaten'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->MKabupaten->get_by_id($id);
 
@@ -176,26 +189,26 @@ class Kabupaten extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->MKabupaten->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('message', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('message_error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('id_prov', 'id prov', 'trim|required');
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
-	$this->form_validation->set_rules('id_jenis', 'id jenis', 'trim|required');
+        $this->form_validation->set_rules('id_prov', 'id prov', 'trim|required');
+        $this->form_validation->set_rules('nama', 'nama', 'trim|required');
+        $this->form_validation->set_rules('id_jenis', 'id jenis', 'trim|required');
 
-	$this->form_validation->set_rules('id_kab', 'id_kab', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_kab', 'id_kab', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Kabupaten.php */

@@ -28,24 +28,34 @@ class MKecamatan extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+    function get_last_id_kec($id_kab)
+    {
+        $this->db->where('id_kab', $id_kab);
+        $this->db->order_by($this->id, 'DESC');
+        $this->db->limit(1);
+        return $this->db->get($this->table)->row();
+    }
+
     // get total rows
-    function total_rows($q = NULL) {
-        $this->db->like('id_kec', $q);
-	$this->db->or_like('id_kab', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->from($this->table);
+    function total_rows($q = NULL)
+    {
+        $this->db->select('kc.*, kb.nama as kabupaten');
+        $this->db->from('kecamatan kc');
+        $this->db->join('kabupaten kb', 'kb.id_kab = kc.id_kab', 'left');
+        $this->db->like('kb.nama', $q);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
+        $this->db->select('kc.*, kb.nama as kabupaten');
+        $this->db->from('kecamatan kc');
+        $this->db->join('kabupaten kb', 'kb.id_kab = kc.id_kab', 'left');
+        $this->db->like('kb.nama', $q);
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id_kec', $q);
-	$this->db->or_like('id_kab', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
+        $this->db->limit($limit, $start);
+        return $this->db->get()->result();
     }
 
     // insert data
@@ -69,13 +79,13 @@ class MKecamatan extends CI_Model
     }
 
     // delete bulkdata
-    function deletebulk(){
+    function deletebulk()
+    {
         $data = $this->input->post('msg_', TRUE);
-        $arr_id = explode(",", $data); 
+        $arr_id = explode(",", $data);
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
     }
-
 }
 
 /* End of file MKecamatan.php */
