@@ -6,20 +6,11 @@ class Setting extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $c_url = $this->router->fetch_class();
+        $this->layout->auth();
+        $this->layout->auth_privilege($c_url);
     }
 
-    // public function index()
-    // {
-    //     $data['s_aplikasi'] = $this->db->get('setting')->row();
-    //     $data['title'] = 'Setting';
-    //     $data['subtitle'] = '';
-    //     $data['crumb'] = [
-    //         'Setting' => '',
-    //     ];
-
-    //     $data['page'] = 'setting/setting_aplikasi';
-    //     $this->load->view('template/backend', $data);
-    // }
 
     public function index()
     {

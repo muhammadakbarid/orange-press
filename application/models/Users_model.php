@@ -16,12 +16,13 @@ class Users_model extends CI_Model
     }
 
     // datatables
-    function json() {
+    function json()
+    {
         $this->datatables->select('id,ip_address,username,password,salt,email,activation_code,forgotten_password_code,forgotten_password_time,remember_code,created_on,last_login,active,first_name,last_name,company,phone');
         $this->datatables->from('users');
         //add this line for join
         //$this->datatables->join('table2', 'users.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('users/read/$1'),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"')."  ".anchor(site_url('users/update/$1'),'<i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"')."  ".anchor(site_url('users/delete/$1'),'<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'users/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'id');
+        $this->datatables->add_column('action', anchor(site_url('users/read/$1'), '<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"') . "  " . anchor(site_url('users/update/$1'), '<i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"') . "  " . anchor(site_url('users/delete/$1'), '<i class="fa fa-trash"></i>', 'class="btn btn-xs btn-danger" onclick="return confirmdelete(\'users/delete/$1\')" data-toggle="tooltip" title="Delete"'), 'id');
         return $this->datatables->generate();
     }
 
@@ -38,51 +39,53 @@ class Users_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('ip_address', $q);
-	$this->db->or_like('username', $q);
-	$this->db->or_like('password', $q);
-	$this->db->or_like('salt', $q);
-	$this->db->or_like('email', $q);
-	$this->db->or_like('activation_code', $q);
-	$this->db->or_like('forgotten_password_code', $q);
-	$this->db->or_like('forgotten_password_time', $q);
-	$this->db->or_like('remember_code', $q);
-	$this->db->or_like('created_on', $q);
-	$this->db->or_like('last_login', $q);
-	$this->db->or_like('active', $q);
-	$this->db->or_like('first_name', $q);
-	$this->db->or_like('last_name', $q);
-	$this->db->or_like('company', $q);
-	$this->db->or_like('phone', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('ip_address', $q);
+        $this->db->or_like('username', $q);
+        $this->db->or_like('password', $q);
+        $this->db->or_like('salt', $q);
+        $this->db->or_like('email', $q);
+        $this->db->or_like('activation_code', $q);
+        $this->db->or_like('forgotten_password_code', $q);
+        $this->db->or_like('forgotten_password_time', $q);
+        $this->db->or_like('remember_code', $q);
+        $this->db->or_like('created_on', $q);
+        $this->db->or_like('last_login', $q);
+        $this->db->or_like('active', $q);
+        $this->db->or_like('first_name', $q);
+        $this->db->or_like('last_name', $q);
+        $this->db->or_like('company', $q);
+        $this->db->or_like('phone', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('ip_address', $q);
-	$this->db->or_like('username', $q);
-	$this->db->or_like('password', $q);
-	$this->db->or_like('salt', $q);
-	$this->db->or_like('email', $q);
-	$this->db->or_like('activation_code', $q);
-	$this->db->or_like('forgotten_password_code', $q);
-	$this->db->or_like('forgotten_password_time', $q);
-	$this->db->or_like('remember_code', $q);
-	$this->db->or_like('created_on', $q);
-	$this->db->or_like('last_login', $q);
-	$this->db->or_like('active', $q);
-	$this->db->or_like('first_name', $q);
-	$this->db->or_like('last_name', $q);
-	$this->db->or_like('company', $q);
-	$this->db->or_like('phone', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('ip_address', $q);
+        $this->db->or_like('username', $q);
+        $this->db->or_like('password', $q);
+        $this->db->or_like('salt', $q);
+        $this->db->or_like('email', $q);
+        $this->db->or_like('activation_code', $q);
+        $this->db->or_like('forgotten_password_code', $q);
+        $this->db->or_like('forgotten_password_time', $q);
+        $this->db->or_like('remember_code', $q);
+        $this->db->or_like('created_on', $q);
+        $this->db->or_like('last_login', $q);
+        $this->db->or_like('active', $q);
+        $this->db->or_like('first_name', $q);
+        $this->db->or_like('last_name', $q);
+        $this->db->or_like('company', $q);
+        $this->db->or_like('phone', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -106,6 +109,16 @@ class Users_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function getUserGroups($user_id)
+    {
+        $query = "SELECT `users_groups`.*,`groups`.`name`
+    FROM `users_groups` JOIN `groups`
+    ON `users_groups`.`group_id` = `groups`.`id`
+    WHERE user_id=$user_id
+    ";
+
+        return $this->db->query($query)->row_array();
+    }
 }
 
 /* End of file Users_model.php */

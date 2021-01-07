@@ -1,7 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
-$config['sitename'] = '<i class="fa fa-laptop-code"></i> SIPD';
+// $this->load->model('MSetting');
+// $setting_aplikasi = $this->MSetting->get_setting_aplikasi();
+$config['nama_aplikasi'] = 'SIPD Garut';
+$config['sitename'] = '<i class="fa fa-laptop-code"></i> ' . $config['nama_aplikasi'];
 $config['sitename_mini'] = '<i class="fa fa-laptop-code"></i>';
 
 // Data eselon: eselon 1 sd eselon 4
