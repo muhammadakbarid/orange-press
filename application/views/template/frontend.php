@@ -56,7 +56,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<?php echo site_url() ?>">
-            <h1>MI 19</h1><span><?= "{$setting_aplikasi->nama}"; ?></span>
+            <h1>AKBR 4 U</h1><span><?= "{$setting_aplikasi->nama}"; ?></span>
           </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
