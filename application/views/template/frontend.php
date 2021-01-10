@@ -176,7 +176,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
           <a href="#">Terms of Use</a>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12 copyright">
-          Developed by <a href="#">Aspire Software Solutions</a> designed by <a href="#">Designing Team</a>
+          Developed by <a href="www.muhakbar.com">Muhammad Akbar</a>
         </div>
       </div>
     </div>
