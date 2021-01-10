@@ -62,7 +62,7 @@ class Profile extends CI_Controller
 					$new_image = $this->upload->data('file_name');
 					$this->db->set('image', $new_image);
 				} else {
-					$this->session->set_flashdata('success', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+					$this->session->set_flashdata('success', $this->upload->display_errors());
 					redirect('profile');
 				}
 			}
@@ -75,11 +75,11 @@ class Profile extends CI_Controller
 			$this->db->update('users');
 
 			if ($email <> $this->session->userdata('email')) {
-				$this->session->set_flashdata('success', '<div class="alert alert-success" role="alert">Your profile hass been updated!</div>');
+				$this->session->set_flashdata('success', 'Your profile hass been updated!');
 				$this->ion_auth->logout();
 				redirect('login');
 			} else {
-				$this->session->set_flashdata('success', '<div class="alert alert-success" role="alert">Your profile hass been updated!</div>');
+				$this->session->set_flashdata('success', 'Your profile hass been updated!');
 				redirect('profile');
 			}
 		}

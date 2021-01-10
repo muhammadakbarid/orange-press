@@ -1,70 +1,29 @@
-###################
-What is CodeIgniter
-###################
+# Lisensi Template Admin
+Back End : [Codeigniter](https://codeigniter.com) 
+Template Admin : [AdminLTE](https://adminlte.io/)
+CMS : [TAMA] (https://Solutama.com)
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Ini adalah template Admin yang sudah di integrasikan dengan Codeigniter 3 dan juga template adminLTE versi 2. Author hanya membuat templating dan juga menjadikan satu template Back End. Author menyadari bahwa masih banyak kekurangan dan kedepannya author akan membuat update-an nya kembali.
 
-*******************
-Release Information
-*******************
+Template ini sudah dibuat untuk halaman login & dashboard serta sudah menggunakan sistem login multi level. Didalam project, sudah ada file SQL bawaan untuk template back end ini.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+## Cara instalasi
+1. Pull/Download zip project
+2. Ekstrak ke direktori web server masing-masing. Contoh di C:/xampp/htdocs/akbr_for_u
+3. Buat database dengan nama 'akbr_for_u' lalu import file SQL kedalam database
+4. Buka halaman di web browser
+   
+**Note** : Halaman default adalah halaman login, silahkan akses http://localhost/akbr_for_u
 
-**************************
-Changelog and New Features
-**************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+#### User Default
+email: admin@muhakbar.com <br>
+password: password
 
-*******************
-Server Requirements
-*******************
+## Feature
+- Login dengan Ion Auth
+- CRUD Builder
+- Notifikasi dengan sweetallert2
 
-PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+### Author
+- [Muhammad AKbar](https://muhakbar.com)

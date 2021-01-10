@@ -92,7 +92,7 @@ class Users extends CI_Controller
             $data['page'] = 'users/users_read';
             $this->load->view('template/backend', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('users'));
         }
     }
@@ -157,7 +157,7 @@ class Users extends CI_Controller
             );
 
             $this->Users_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('users'));
         }
     }
@@ -197,7 +197,7 @@ class Users extends CI_Controller
             $data['page'] = 'users/users_form';
             $this->load->view('template/backend', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('users'));
         }
     }
@@ -229,7 +229,7 @@ class Users extends CI_Controller
             );
 
             $this->Users_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('users'));
         }
     }
@@ -240,10 +240,10 @@ class Users extends CI_Controller
 
         if ($row) {
             $this->ion_auth->delete_user($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('success', 'Delete Record Success');
             redirect(site_url('users'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('users'));
         }
     }
@@ -254,7 +254,7 @@ class Users extends CI_Controller
         $dataid = explode(',', $data);
         foreach ($dataid as $key => $value) {
             $this->Users_model->delete($value);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('success', 'Delete Record Success');
         }
         echo true;
     }

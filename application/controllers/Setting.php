@@ -51,7 +51,7 @@ class Setting extends CI_Controller
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('kode', $new_image);
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
                     redirect('setting');
                 }
             }
@@ -61,7 +61,7 @@ class Setting extends CI_Controller
             $this->db->where('id', 1);
             $this->db->update('setting');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile hass been updated!</div>');
+            $this->session->set_flashdata('success', 'Your profile hass been updated!');
             redirect('setting');
         }
     }

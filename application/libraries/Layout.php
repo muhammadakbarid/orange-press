@@ -12,7 +12,7 @@ class Layout
     // CI
     private $CI;
     private $privilege = true;
-    
+
 
 
     public function __construct()
@@ -34,36 +34,43 @@ class Layout
         }
     }
 
-    public function auth_privilege($current_url){
+    public function auth_privilege($current_url)
+    {
         $query = $this->CI->db->query("select menu.id, substring_index(menu.link, '/', 1) as menulink, menu.label, groups_menu.id_groups from menu JOIN groups_menu on menu.id_menu = groups_menu.id_menu where substring_index(menu.link, '/', 1) = '$current_url'");
         $count = $query->num_rows();
-        if($count != 0){
+        if ($count != 0) {
             $user_id = $this->CI->ion_auth->get_user_id();
             $q = $this->CI->db->query("select * from users_groups where user_id = '$user_id'")->result();
             $check = false;
             foreach ($q as $key => $value) {
                 $x = $this->CI->db->query("select menu.id, substring_index(menu.link, '/', 1) as menulink, menu.label, groups_menu.id_groups from menu left JOIN groups_menu on menu.id_menu = groups_menu.id_menu where substring_index(menu.link, '/', 1) = '$current_url' and groups_menu.id_groups = '$value->group_id'");
                 $countpriv = $x->num_rows();
-                if($countpriv>0){
+                if ($countpriv > 0) {
                     $check = true;
                 }
             }
-            if(!$check){
-               redirect('Dashboard', 'refresh');
+            if (!$check) {
+                redirect('Dashboard', 'refresh');
             }
             //echo $count;
         }
-            
-
     }
 
+    public function get_frontend_menu()
+    {
+        // $this->load->model('MFrontend_menu');
+        $this->CI->db->order_by('sort', 'ASC');
+        $this->CI->db->order_by('label', 'ASC');
+        $fmenus = $this->CI->db->get('frontend_menu');
 
+        return $fmenus->result_array();
+    }
     /**
      * Get multy level menu.
      *
      * @return HTML
      **/
-     public function get_menu($type = 'side menu')
+    public function get_menu($type = 'side menu')
     {
         // Privilage
         $this->CI->db->where('id_groups', null);
@@ -85,13 +92,13 @@ class Layout
             }
         }
 
-        $where_type = 'type = "'.$type.'"';
+        $where_type = 'type = "' . $type . '"';
         if (is_array($id_menu)) {
-            $where_privilage = 'id_menu in ('.implode(',', $id_menu).') and ';
+            $where_privilage = 'id_menu in (' . implode(',', $id_menu) . ') and ';
         } else {
             $where_privilage = null;
         }
-        $this->CI->db->where($where_privilage.$where_type);
+        $this->CI->db->where($where_privilage . $where_type);
         $this->CI->db->join('menu_type', 'menu_type.id_menu_type = menu.id_menu_type', 'left');
         $this->CI->db->order_by('sort', 'ASC');
         $this->CI->db->order_by('label', 'ASC');
@@ -123,7 +130,7 @@ class Layout
         return $new_menus;
     }
 
-    
+
     /**
      * @param string     $view
      * @param array|null $data
@@ -131,21 +138,20 @@ class Layout
      *
      * @return mixed
      */
-    public function _render_page($view, $data = NULL, $returnhtml = FALSE)//I think this makes more sense
+    public function _render_page($view, $data = NULL, $returnhtml = FALSE) //I think this makes more sense
     {
 
         $this->viewdata = (empty($data)) ? $this->data : $data;
-        
+
         $view_html = $this->load->view($view, $this->viewdata, $returnhtml);
 
         // This will return html on 3rd argument being true
-        if ($returnhtml)
-        {
+        if ($returnhtml) {
             return $view_html;
         }
     }
 
-     /**
+    /**
      * Return breadcrumb list $crumb = array.
      *
      * @return HTML
@@ -159,9 +165,9 @@ class Layout
         }
         echo '<ol class="breadcrumb">';
         if (!isset($crumb)) {
-            echo '<li class="active"><i class="fa fa-'.$homecrumb['icon'].'"></i> '.$homecrumb['label'].'</li>';
+            echo '<li class="active"><i class="fa fa-' . $homecrumb['icon'] . '"></i> ' . $homecrumb['label'] . '</li>';
         } else {
-            echo '<li><a href="'.site_url($homecrumb['link']).'"><i class="fa fa-tachometer-alt"></i> '.$homecrumb['label'].'</a></li>';
+            echo '<li><a href="' . site_url($homecrumb['link']) . '"><i class="fa fa-tachometer-alt"></i> ' . $homecrumb['label'] . '</a></li>';
             foreach ($crumb as $label => $link) {
                 if ($link == '') {
                     $add_crumb = strpos(current_url(), '/add');
@@ -180,20 +186,20 @@ class Layout
                             $part_link = strstr(current_url(), '/read', true);
                             $label_new = 'Read';
                         }
-                        echo '<li><a href="'.$part_link.'">'.$label.'</a></li>';
-                        echo '<li class="active">'.$label_new.'</li>';
+                        echo '<li><a href="' . $part_link . '">' . $label . '</a></li>';
+                        echo '<li class="active">' . $label_new . '</li>';
                     } else {
-                        echo '<li class="active">'.$label.'</li>';
+                        echo '<li class="active">' . $label . '</li>';
                     }
                 } else {
-                    echo '<li><a href="'.site_url($link).'">'.$label.'</a></li>';
+                    echo '<li><a href="' . site_url($link) . '">' . $label . '</a></li>';
                 }
             }
         }
         echo '</ol>';
     }
 
-     /**
+    /**
      * Privilage.
      *
      * @return bool
@@ -205,8 +211,7 @@ class Layout
         }
     }
 
-    public function set_menu_privilege($controller){
-            }
-    
-   
+    public function set_menu_privilege($controller)
+    {
+    }
 }

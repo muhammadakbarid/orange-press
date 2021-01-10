@@ -50,7 +50,7 @@ class Groups extends CI_Controller
             $data['page'] = 'groups/groups_read';
             $this->load->view('template/backend', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('groups'));
         }
     }
@@ -87,7 +87,7 @@ class Groups extends CI_Controller
             );
 
             $this->Groups_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('groups'));
         }
     }
@@ -113,7 +113,7 @@ class Groups extends CI_Controller
             $data['page'] = 'groups/groups_form';
             $this->load->view('template/backend', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('groups'));
         }
     }
@@ -131,7 +131,7 @@ class Groups extends CI_Controller
             );
 
             $this->Groups_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('groups'));
         }
     }
@@ -142,10 +142,10 @@ class Groups extends CI_Controller
 
         if ($row) {
             $this->Groups_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('success', 'Delete Record Success');
             redirect(site_url('groups'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('groups'));
         }
     }
@@ -156,7 +156,7 @@ class Groups extends CI_Controller
         $dataid = explode(',', $data);
         foreach ($dataid as $key => $value) {
             $this->Groups_model->delete($value);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('success', 'Delete Record Success');
         }
         echo true;
     }

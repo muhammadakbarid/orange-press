@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <?php
-// $this->load->model('MSetting');
-// $setting_aplikasi = $this->MSetting->get_setting_aplikasi();
 $setting_aplikasi = $this->db->get('setting')->row();
 ?>
 
@@ -28,12 +26,15 @@ $setting_aplikasi = $this->db->get('setting')->row();
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/AdminLTE.min.css">
 
+  <!-- akbr custom -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/akbr_custom.css">
+
   <!-- Select2 -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/select2/dist/css/select2-spn.min.css">
 
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/skin-custom.min.css">
   <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/pace/pace.min.css">
   <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/jquery-nestable/jquery.nestable.css">
   <!-- DataTables -->
@@ -78,7 +79,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
   </style>
 </head>
 
-<body class="sidebar-mini hold-transition fixed skin-purple sidebar-fixed">
+<body class="sidebar-mini hold-transition fixed skin-blue sidebar-fixed">
   <!-- Site wrapper -->
   <div class="wrapper">
 
@@ -343,16 +344,17 @@ $setting_aplikasi = $this->db->get('setting')->row();
 
     <footer class="main-footer">
       <div class="pull-right hidden-xs">
-        <b>Version</b> 0.0.1 <b>BETA</b>
+        <b>Developed by<a href="https://muhakbar.com"> Muhammad Akbar</b></a>
       </div>
-      <strong>Copyright &copy; 2018 <a href="https://Solutama.com">TAMA</a>.</strong> All rights
+      <strong>Copyright &copy; <?= date('Y'); ?> <a href="https://muhakbar.com">Akbr Template</a>.</strong> All rights
       reserved.
     </footer>
 
   </div>
   <!-- ./wrapper -->
 
-
+  <!-- sweetallert -->
+  <script src="<?= base_url('/assets/dist/js/'); ?>sweetalert2.all.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script>
     $(document).ready(function() {
@@ -412,11 +414,25 @@ $setting_aplikasi = $this->db->get('setting')->row();
     $(document).ajaxStart(function() {
       Pace.restart()
     });
-    <?php
-    if (isset($this->session->message)) { ?>
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('<a style="color:white"><?= $this->session->message; ?></a>');
 
+
+    // sweetallert
+    <?php
+    if (isset($this->session->success)) { ?>
+      alertify.set('notifier', 'position', 'center');
+      Swal.fire(
+        'Good Job!',
+        '<?= $this->session->success; ?>',
+        'success'
+      )
+
+    <?php } elseif (isset($this->session->error)) { ?>
+      alertify.set('notifier', 'position', 'center');
+      Swal.fire(
+        'Oopss!',
+        '<?= $this->session->error; ?>',
+        'error'
+      )
     <?php } ?>
 
     //var notification = alertify.notify('sample', 'success', 5, function(){  console.log('dismissed'); });

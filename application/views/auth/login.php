@@ -1,125 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<?php
+$setting_aplikasi = $this->db->get('setting')->row();
+?>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Log in</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/fontawesome/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/AdminLTE.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/iCheck/square/purple.css">
-  <style type="text/css">
-    .kiri {
-      background-image: url("<?= base_url(); ?>assets/dist/img/bglogin.jpg");
-      background-size: cover;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?= "{$title} - {$setting_aplikasi->nama}"; ?></title>
+  <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/bootstrap.css">
 
-    .kanan {
-      background-color: white;
-      height: 100%;
-      padding-top: 5%;
-    }
-
-    .container-login {
-      padding: 10%;
-      padding-top: 0;
-    }
-
-    .login-logo {
-      padding-top: 5%;
-    }
-  </style>
+  <link rel="shortcut icon" href="<?= base_url('assets/uploads/image/logo/') . $setting_aplikasi->kode; ?>" type="image/x-icon">
+  <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/app.css">
+  <!-- akbr custom -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/akbr_custom.css">
 </head>
 
-<body class="hold-transition login-page" style="height: 100%;overflow: hidden;">
+<body>
+  <div id="auth">
 
-  <div class="col-md-8 hidden-xs hidden-sm kiri">
-  </div>
-  <div class="col-md-4 col-xs-12 kanan">
-    <div class="login-logo">
-      <h1><?= $this->config->item('sitename') ?></h1>
-    </div>
-    <div class="container-login ">
-      <p class="login-box-msg"><?php echo lang('login_subheading'); ?></p>
-      <div id="infoMessage" style="color: red"><?php echo $message; ?></div>
-      <?php echo form_open("auth/login"); ?>
-      <div class="form-group has-feedback">
-        <label><?php echo lang('login_identity_label') ?></label>
-        <input type="text" name="identity" class="form-control" placeholder="<?php echo lang('login_identity_label') ?>" autofocus />
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <label><?php echo lang('login_password_label') ?></label>
-        <input type="password" id="password" data-toggle="password" name="password" class="form-control" placeholder="<?php echo lang('login_password_label') ?>" />
-      </div>
-      <div class="row form-group">
-        <div class="col-xs-12">
-          <div class="select icheck">
-            <label for="exampleFormControlSelect1">Tahun Anggaran</label>
-            <input type="text" class="form-control" id="datepicker" placeholder="Tahun Anggaran" name="tahun_anggaran" />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-sm-12 mx-auto">
+          <div class="card pt-4">
+            <div class="card-body">
+              <div class="text-center mb-5">
+                <img src="<?= base_url('assets/uploads/image/logo/') . $setting_aplikasi->kode; ?>" height="48" class='mb-4'>
+                <h3><?= "{$setting_aplikasi->nama}"; ?></h3>
+                <p>Please sign in to continue to <?= "{$setting_aplikasi->nama}"; ?>.</p>
+              </div>
+              <?php echo $message; ?>
+              <?php echo form_open("auth/login"); ?>
+              <div class="form-group position-relative has-icon-left">
+                <label for="identity">Email</label>
+                <div class="position-relative">
+                  <input type="text" class="form-control" id="identity" name="identity">
+                  <div class="form-control-icon">
+                    <i data-feather="user"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group position-relative has-icon-left">
+                <div class="clearfix">
+                  <label for="password">Password</label>
+                  <a href="<?= base_url('auth/forgot_password'); ?>" class='float-right'>
+                    <small>Forgot password?</small>
+                  </a>
+                </div>
+                <div class="position-relative">
+                  <input type="password" class="form-control" id="password" name="password">
+                  <div class="form-control-icon">
+                    <i data-feather="lock"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class='form-check clearfix my-4'>
+                <div class="checkbox float-left">
+                  <input type="checkbox" class='form-check-input' name="remember" id="remember">
+                  <label for="checkbox1">Remember me</label>
+                </div>
+                <!-- <div class="float-right">
+                  <a href="<?= base_url('auth/create_account'); ?>">Don't have an account?</a>
+                </div> -->
+              </div>
+              <div class="clearfix">
+                <button class="btn btn-primary float-right" type="submit">Submit</button>
+              </div>
+              <?php echo form_close(); ?>
+              <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div>
+              <!-- <div class="divider">
+                <div class="divider-text">OR</div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <button class="btn btn-block mb-2 btn-primary"><i data-feather="facebook"></i> Facebook</button>
+                </div>
+                <div class="col-sm-6">
+                  <button class="btn btn-block mb-2 btn-secondary"><i data-feather="github"></i> Github</button>
+                </div> -->
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="row form-group">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input name="remember" type="checkbox" class="icheckbox_flat-green" value="1"> <?php echo lang('login_remember_label') ?>
-            </label>
-          </div>
-        </div><!-- /.col -->
-        <div class="col-xs-4">
-          <input type="submit" class="btn bg-purple btn-block" id="loginBtn" value="<?php echo lang('login_submit_btn') ?>" />
-        </div><!-- /.col -->
-      </div>
-      <?php echo form_close(); ?>
-      <a href="forgot_password"><?php echo lang('login_forgot_password'); ?></a><br />
-      <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
-
     </div>
   </div>
-  <!-- /.login-box -->
 
-  <!-- jQuery 3 -->
-  <script src="<?= base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
-  <!-- Bootstrap 3.3.7 -->
-  <script src="<?= base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!-- iCheck -->
-  <script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
-  <script src="<?= base_url(); ?>assets/plugins/bootstrap-show-password/bootstrap-show-password.min.js"></script>
+  </div>
+  <script src="<?= base_url(); ?>assets/js/feather-icons/feather.min.js"></script>
+  <script src="<?= base_url(); ?>assets/js/app.js"></script>
 
-  <!-- year picker -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+  <script src="<?= base_url(); ?>assets/js/main.js"></script>
+  <script src="<?= base_url('/assets/dist/js/'); ?>sweetalert2.all.min.js"></script>
 
   <script>
-    $(function() {
-      $('input').iCheck({
-        checkboxClass: 'icheckbox_square-purple',
-        radioClass: 'icheckbox_flat-green',
-        increaseArea: '20%' /* optional */
-      });
-    });
+    // sweetallert
+    <?php
+    if (isset($this->session->success)) { ?>
+      alertify.set('notifier', 'position', 'center');
+      Swal.fire(
+        'Good Job!',
+        '<?= $this->session->success; ?>',
+        'success'
+      )
 
-    // select tahun anggaran
-    $("#datepicker").datepicker({
-      format: "yyyy",
-      viewMode: "years",
-      minViewMode: "years"
-    });
+    <?php } elseif (isset($this->session->error)) { ?>
+      alertify.set('notifier', 'position', 'center');
+      Swal.fire(
+        'Oopss!',
+        '<?= $this->session->error; ?>',
+        'error'
+      )
+    <?php } ?>
   </script>
 </body>
 

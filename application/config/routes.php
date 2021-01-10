@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -49,11 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'auth';
+$route['default_controller'] = 'frontend';
 $route['404_override'] = 'notfound';
 $route['translate_uri_dashes'] = FALSE;
 //$route['pilar/(:any)'] = 'pilar/index/$1';
 $route['login'] = 'auth/login';
 $route['user'] = 'users';
 $route['forgot_password'] = 'auth/forgot_password';
-

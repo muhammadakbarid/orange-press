@@ -102,7 +102,7 @@ $string .= "\n\t    );
         \$data['page'] = '$c_url/$v_read';
         \$this->load->view('template/backend', \$data);
         } else {
-            \$this->session->set_flashdata('message', 'Record Not Found');
+            \$this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('$c_url'));
         }
     }
@@ -140,7 +140,7 @@ foreach ($non_pk as $row) {
 $string .= "\n\t    );
 
             \$this->".$m."->insert(\$data);
-            \$this->session->set_flashdata('message', 'Create Record Success');
+            \$this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('$c_url'));
         }
     }
@@ -166,7 +166,7 @@ $string .= "\n\t    );
         \$data['page'] = '$c_url/$v_form';
         \$this->load->view('template/backend', \$data);
         } else {
-            \$this->session->set_flashdata('message', 'Record Not Found');
+            \$this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('$c_url'));
         }
     }
@@ -185,7 +185,7 @@ foreach ($non_pk as $row) {
 $string .= "\n\t    );
 
             \$this->".$m."->update(\$this->input->post('$pk', TRUE), \$data);
-            \$this->session->set_flashdata('message', 'Update Record Success');
+            \$this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('$c_url'));
         }
     }
@@ -196,10 +196,10 @@ $string .= "\n\t    );
 
         if (\$row) {
             \$this->".$m."->delete(\$id);
-            \$this->session->set_flashdata('message', 'Delete Record Success');
+            \$this->session->set_flashdata('success', 'Delete Record Success');
             redirect(site_url('$c_url'));
         } else {
-            \$this->session->set_flashdata('message', 'Record Not Found');
+            \$this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('$c_url'));
         }
     }
@@ -207,9 +207,9 @@ $string .= "\n\t    );
     public function deletebulk(){
         \$delete = \$this->".$m."->deletebulk();
         if(\$delete){
-            \$this->session->set_flashdata('message', 'Delete Record Success');
+            \$this->session->set_flashdata('success', 'Delete Record Success');
         }else{
-            \$this->session->set_flashdata('message_error', 'Delete Record failed');
+            \$this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo \$delete;
     }
@@ -305,5 +305,3 @@ $string .= "\n\n}\n\n/* End of file $c_file */
 
 
 $hasil_controller = createFile($string, $target . "controllers/" . $c_file);
-
-?>
