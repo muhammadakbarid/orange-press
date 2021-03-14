@@ -68,6 +68,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
                 <button class="btn btn-primary float-right" type="submit">Submit</button>
               </div>
               <?php echo form_close(); ?>
+              <div class="row"><a href="<?= base_url('auth/register_user'); ?>">Daftar Sekarang</a></div>
               <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div>
               <!-- <div class="divider">
                 <div class="divider-text">OR</div>
