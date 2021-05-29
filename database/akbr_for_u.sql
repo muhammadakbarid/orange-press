@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2021 at 08:29 PM
+-- Generation Time: May 29, 2021 at 09:39 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mi`
+-- Database: `akbr_for_u`
 --
 
 -- --------------------------------------------------------
@@ -84,7 +84,16 @@ CREATE TABLE `groups` (
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
 (2, 'members', 'General User'),
-(3, 'operator', 'Untuk Operator');
+(7, 'Wadir', 'Wakil Direktur'),
+(8, 'Direktur', 'Direktur'),
+(17, 'KA. Prodi', 'Kepala Program Studi'),
+(18, 'DIR EKS. LSP', 'DIR EKS. LSP'),
+(24, 'DEPUTI WADIR I', 'DEPUTI WADIR I'),
+(26, 'KABAG MHS & KERJASAM', 'KABAG MHS & KERJASAMA'),
+(28, 'KA. Unit', 'Kepala Unit'),
+(29, 'STAFF DIREKTUR', 'STAFF DIREKTUR'),
+(30, 'KA. HUMAS', 'Kepala Hubungan Masyarakat'),
+(31, 'STAFF UNIT', 'Staff Unit');
 
 -- --------------------------------------------------------
 
@@ -102,44 +111,137 @@ CREATE TABLE `groups_menu` (
 --
 
 INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
+(1, 40),
 (1, 8),
 (1, 89),
-(1, 42),
+(1, 91),
+(4, 91),
+(1, 93),
+(1, 94),
 (1, 43),
 (1, 44),
+(1, 115),
+(1, 42),
 (1, 1),
-(3, 1),
+(2, 1),
 (5, 1),
-(1, 40),
-(1, 92),
-(5, 92),
-(1, 95),
-(5, 95),
-(1, 96),
-(5, 96),
-(1, 100),
-(5, 100),
-(1, 101),
-(5, 101),
-(1, 102),
-(5, 102),
-(1, 104),
-(5, 104),
-(1, 105),
-(5, 105),
-(1, 106),
-(5, 106),
-(1, 107),
-(5, 107),
-(1, 4),
-(2, 4),
-(3, 4),
-(5, 4),
-(1, 108),
-(1, 109),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1),
+(29, 1),
 (1, 3),
 (2, 3),
-(3, 3);
+(5, 3),
+(6, 3),
+(7, 3),
+(8, 3),
+(9, 3),
+(10, 3),
+(11, 3),
+(12, 3),
+(13, 3),
+(14, 3),
+(15, 3),
+(16, 3),
+(17, 3),
+(18, 3),
+(19, 3),
+(20, 3),
+(21, 3),
+(22, 3),
+(23, 3),
+(24, 3),
+(25, 3),
+(26, 3),
+(27, 3),
+(28, 3),
+(29, 3),
+(1, 118),
+(5, 118),
+(6, 118),
+(7, 118),
+(8, 118),
+(9, 118),
+(10, 118),
+(11, 118),
+(12, 118),
+(13, 118),
+(14, 118),
+(15, 118),
+(16, 118),
+(17, 118),
+(18, 118),
+(19, 118),
+(20, 118),
+(21, 118),
+(22, 118),
+(23, 118),
+(24, 118),
+(25, 118),
+(26, 118),
+(27, 118),
+(28, 118),
+(29, 118),
+(1, 117),
+(2, 117),
+(5, 117),
+(6, 117),
+(7, 117),
+(8, 117),
+(9, 117),
+(10, 117),
+(11, 117),
+(12, 117),
+(13, 117),
+(14, 117),
+(15, 117),
+(16, 117),
+(17, 117),
+(18, 117),
+(19, 117),
+(20, 117),
+(21, 117),
+(22, 117),
+(23, 117),
+(24, 117),
+(25, 117),
+(26, 117),
+(27, 117),
+(28, 117),
+(29, 117),
+(1, 125),
+(2, 125),
+(7, 125),
+(8, 125),
+(17, 125),
+(18, 125),
+(24, 125),
+(26, 125),
+(28, 125),
+(29, 125),
+(1, 127),
+(2, 127),
+(1, 111);
 
 -- --------------------------------------------------------
 
@@ -176,6 +278,13 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+(10, '::1', 'admin@admin.com', 1622265617);
 
 -- --------------------------------------------------------
 
@@ -252,7 +361,9 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
 (107, 5, 2, 40, 'fas fa-cog', 'Setting', 'setting', 'setting', 1),
 (108, 3, 2, 92, 'fab fa-affiliatetheme', 'Mahasiswa', 'mahasiswa', 'mahasiswa', 1),
-(109, 6, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1);
+(109, 6, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1),
+(110, 1, 2, 92, 'fab fa-affiliatetheme', 'sadsa', 'asdasd', '1', 1),
+(111, 1, 2, 92, 'fab fa-affiliatetheme', 'asd', 'asdsa', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -290,7 +401,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
-(1, 'default.jpg', 'Akbr Template', 'www.muhakbar.com');
+(1, 'default.jpg', 'D3 MI 19', 'www.muhakbar.com');
 
 -- --------------------------------------------------------
 
@@ -324,8 +435,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `image`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@muhakbar.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'WcHCQ5vcXwT1z99BvJUWnu', 1268889823, 1610306303, 1, 'Akbar', 'Admin', 'ADMIN', '0', 'akbr_pp_2.jpg'),
-(2, '127.0.0.1', 'member', '$2y$08$ipVAkJ.rjy35wARE9Px47eS2k.gz2FPYy14M019VFwLtBcUax2YJS', '', 'member@member.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'lHtbqmxsnla1izZ5LcXd9O', 1268889823, 1610296135, 1, 'Member', 'Apps', 'ADMIN', '0', 'default.jpg');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@muhakbar.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'WcHCQ5vcXwT1z99BvJUWnu', 1268889823, 1622270562, 1, 'Akbar', 'Admin', 'ADMIN', '0', 'akbr_pp_2.jpg'),
+(2, '127.0.0.1', 'member', '$2y$08$ipVAkJ.rjy35wARE9Px47eS2k.gz2FPYy14M019VFwLtBcUax2YJS', '', 'member@member.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'lHtbqmxsnla1izZ5LcXd9O', 1268889823, 1622270376, 1, 'Member', 'Apps', 'ADMIN', '0', 'default.jpg'),
+(10, '::1', 'admin@admins.com', '$2y$08$84usfeLIVmNdVrFuq8trr.P8Qe/WTwy2SQStmDufhyRcgNcZMOP1e', NULL, 'admin@admins.com', NULL, NULL, NULL, NULL, 1615708586, NULL, 1, 'asdasd', 'asdasd', 'asdasdas', '888888888', 'default.jpg'),
+(11, '::1', 'abc@abc.com', '$2y$08$IuTQwpVfnyv8v3hcm4.KzOuR76KYnmEoaOQCe3ZF9azb7CilQO4X6', NULL, 'abc@abc.com', NULL, NULL, NULL, NULL, 1615708721, NULL, 1, 'saya', 'kansdkjnaskjd', 'askjdnkjasndkj', '77787878', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -344,8 +457,46 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(3, 1, 1),
-(24, 2, 2);
+(24, 1, 1),
+(25, 2, 2),
+(11, 3, 2),
+(10, 4, 2),
+(13, 5, 8),
+(17, 6, 5),
+(19, 7, 6),
+(21, 8, 7),
+(1, 9, 17),
+(28, 10, 29),
+(74, 11, 24),
+(67, 12, 8),
+(64, 13, 18),
+(66, 14, 30),
+(68, 15, 17),
+(70, 16, 17),
+(75, 17, 17),
+(76, 18, 17),
+(77, 19, 17),
+(84, 20, 17),
+(78, 21, 17),
+(81, 22, 28),
+(85, 23, 17),
+(60, 24, 28),
+(73, 25, 28),
+(79, 26, 28),
+(80, 27, 28),
+(82, 28, 28),
+(72, 29, 28),
+(83, 30, 28),
+(59, 31, 17),
+(86, 32, 26),
+(65, 33, 7),
+(69, 34, 7),
+(71, 35, 7),
+(61, 36, 29),
+(62, 37, 2),
+(63, 38, 2),
+(88, 39, 31),
+(89, 40, 2);
 
 --
 -- Indexes for dumped tables
@@ -442,7 +593,7 @@ ALTER TABLE `frontend_menu`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `list_session_token`
@@ -454,7 +605,7 @@ ALTER TABLE `list_session_token`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
@@ -466,7 +617,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -484,24 +635,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `users_groups`
---
-ALTER TABLE `users_groups`
-  ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
