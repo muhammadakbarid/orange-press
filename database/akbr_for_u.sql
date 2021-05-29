@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2021 at 09:39 AM
+-- Generation Time: May 29, 2021 at 02:26 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -83,17 +83,7 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User'),
-(7, 'Wadir', 'Wakil Direktur'),
-(8, 'Direktur', 'Direktur'),
-(17, 'KA. Prodi', 'Kepala Program Studi'),
-(18, 'DIR EKS. LSP', 'DIR EKS. LSP'),
-(24, 'DEPUTI WADIR I', 'DEPUTI WADIR I'),
-(26, 'KABAG MHS & KERJASAM', 'KABAG MHS & KERJASAMA'),
-(28, 'KA. Unit', 'Kepala Unit'),
-(29, 'STAFF DIREKTUR', 'STAFF DIREKTUR'),
-(30, 'KA. HUMAS', 'Kepala Hubungan Masyarakat'),
-(31, 'STAFF UNIT', 'Staff Unit');
+(2, 'members', 'General User');
 
 -- --------------------------------------------------------
 
@@ -241,7 +231,7 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (29, 125),
 (1, 127),
 (2, 127),
-(1, 111);
+(2, 113);
 
 -- --------------------------------------------------------
 
@@ -362,8 +352,7 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (107, 5, 2, 40, 'fas fa-cog', 'Setting', 'setting', 'setting', 1),
 (108, 3, 2, 92, 'fab fa-affiliatetheme', 'Mahasiswa', 'mahasiswa', 'mahasiswa', 1),
 (109, 6, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1),
-(110, 1, 2, 92, 'fab fa-affiliatetheme', 'sadsa', 'asdasd', '1', 1),
-(111, 1, 2, 92, 'fab fa-affiliatetheme', 'asd', 'asdsa', '1', 1);
+(113, 1, 2, 92, 'fab fa-accusoft', 'Member', '12sad', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -435,10 +424,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `image`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@muhakbar.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'WcHCQ5vcXwT1z99BvJUWnu', 1268889823, 1622270562, 1, 'Akbar', 'Admin', 'ADMIN', '0', 'akbr_pp_2.jpg'),
-(2, '127.0.0.1', 'member', '$2y$08$ipVAkJ.rjy35wARE9Px47eS2k.gz2FPYy14M019VFwLtBcUax2YJS', '', 'member@member.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'lHtbqmxsnla1izZ5LcXd9O', 1268889823, 1622270376, 1, 'Member', 'Apps', 'ADMIN', '0', 'default.jpg'),
-(10, '::1', 'admin@admins.com', '$2y$08$84usfeLIVmNdVrFuq8trr.P8Qe/WTwy2SQStmDufhyRcgNcZMOP1e', NULL, 'admin@admins.com', NULL, NULL, NULL, NULL, 1615708586, NULL, 1, 'asdasd', 'asdasd', 'asdasdas', '888888888', 'default.jpg'),
-(11, '::1', 'abc@abc.com', '$2y$08$IuTQwpVfnyv8v3hcm4.KzOuR76KYnmEoaOQCe3ZF9azb7CilQO4X6', NULL, 'abc@abc.com', NULL, NULL, NULL, NULL, 1615708721, NULL, 1, 'saya', 'kansdkjnaskjd', 'askjdnkjasndkj', '77787878', 'default.jpg');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@muhakbar.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'WcHCQ5vcXwT1z99BvJUWnu', 1268889823, 1622290859, 1, 'Akbar', 'Admin', 'ADMIN', '0', 'akbr_pp_2.jpg'),
+(2, '127.0.0.1', 'member', '$2y$08$ipVAkJ.rjy35wARE9Px47eS2k.gz2FPYy14M019VFwLtBcUax2YJS', '', 'member@member.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'lHtbqmxsnla1izZ5LcXd9O', 1268889823, 1622291092, 1, 'Member', 'Apps', 'ADMIN', '0', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -466,8 +453,6 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (19, 7, 6),
 (21, 8, 7),
 (1, 9, 17),
-(28, 10, 29),
-(74, 11, 24),
 (67, 12, 8),
 (64, 13, 18),
 (66, 14, 30),
@@ -617,7 +602,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
