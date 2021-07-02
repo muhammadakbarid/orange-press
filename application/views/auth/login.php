@@ -30,6 +30,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
                 <p>Please sign in to continue to <?= "{$setting_aplikasi->nama}"; ?>.</p>
               </div>
               <?php echo $message; ?>
+              <?= $this->session->flashdata('success'); ?>
               <?php echo form_open("auth/login"); ?>
               <div class="form-group position-relative has-icon-left">
                 <label for="identity">Email</label>
