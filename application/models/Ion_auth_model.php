@@ -307,7 +307,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('password, salt')
+		$query = $this->db->select('password')
 			->where('id', $id)
 			->limit(1)
 			->order_by('id', 'desc')
@@ -866,7 +866,7 @@ class Ion_auth_model extends CI_Model
 	 * @return    bool
 	 * @author    Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = array(), $groups = array())
+	public function register($identity, $password, $additional_data = array(), $groups = array())
 	{
 		$this->trigger_events('pre_register');
 
@@ -891,24 +891,24 @@ class Ion_auth_model extends CI_Model
 		$default_group = $query;
 
 		// IP Address
-		$ip_address = $this->_prepare_ip($this->input->ip_address());
-		$salt = $this->store_salt ? $this->salt() : FALSE;
-		$password = $this->hash_password($password, $salt);
+		// $ip_address = $this->_prepare_ip($this->input->ip_address());
+		// $salt = $this->store_salt ? $this->salt() : FALSE;
+		$password = $this->hash_password($password);
 
 		// Users table.
 		$data = array(
 			$this->identity_column => $identity,
-			'username' => $identity,
+			// 'username' => $identity,
 			'password' => $password,
-			'email' => $email,
-			'ip_address' => $ip_address,
-			'created_on' => time(),
+			'email' => $identity,
+			// 'ip_address' => $ip_address,
+			// 'created_on' => time(),
 			'active' => ($manual_activation === FALSE ? 1 : 0)
 		);
 
-		if ($this->store_salt) {
-			$data['salt'] = $salt;
-		}
+		// if ($this->store_salt) {
+		// 	$data['salt'] = $salt;
+		// }
 
 		// filter out any data passed that doesnt have a matching column in the users table
 		// and merge the set user data and the additional data
@@ -958,7 +958,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
+		$query = $this->db->select($this->identity_column . ', email, id, password, active')
 			->where($this->identity_column, $identity)
 			->limit(1)
 			->order_by('id', 'desc')
@@ -989,7 +989,7 @@ class Ion_auth_model extends CI_Model
 
 				$this->set_session($user);
 
-				$this->update_last_login($user->id);
+				// $this->update_last_login($user->id);
 
 				$this->clear_login_attempts($identity);
 
@@ -1863,7 +1863,7 @@ class Ion_auth_model extends CI_Model
 			$this->identity_column => $user->{$this->identity_column},
 			'email'                => $user->email,
 			'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-			'old_last_login'       => $user->last_login,
+			// 'old_last_login'       => $user->last_login,
 			'last_check'           => time(),
 		);
 

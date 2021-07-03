@@ -57,19 +57,19 @@ $setting_aplikasi = $this->db->get('setting')->row();
                                     ?>
 
                                     <p>
-                                          <?php echo lang('create_user_company_label', 'company'); ?> <br />
-                                          <?php echo form_input($company); ?>
-                                    </p>
-
-                                    <p>
                                           <?php echo lang('create_user_email_label', 'email'); ?> <br />
                                           <?php echo form_input($email); ?>
                                     </p>
+                                    <!-- <p>
+                                          <?php echo lang('create_user_company_label', 'company'); ?> <br />
+                                          <?php echo form_input($company); ?>
+                                    </p> -->
 
-                                    <p>
+
+                                    <!-- <p>
                                           <?php echo lang('create_user_phone_label', 'phone'); ?> <br />
                                           <?php echo form_input($phone); ?>
-                                    </p>
+                                    </p> -->
 
                                     <p>
                                           <?php echo lang('create_user_password_label', 'password'); ?> <br />
