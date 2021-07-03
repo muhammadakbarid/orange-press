@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2021 at 07:59 AM
+-- Generation Time: Jul 03, 2021 at 04:11 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -393,22 +393,11 @@ INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
-  `ip_address` varchar(45) NOT NULL,
-  `username` varchar(100) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `salt` varchar(255) DEFAULT NULL,
   `email` varchar(254) NOT NULL,
-  `activation_code` varchar(40) DEFAULT NULL,
-  `forgotten_password_code` varchar(40) DEFAULT NULL,
-  `forgotten_password_time` int(11) UNSIGNED DEFAULT NULL,
-  `remember_code` varchar(40) DEFAULT NULL,
-  `created_on` int(11) UNSIGNED NOT NULL,
-  `last_login` int(11) UNSIGNED DEFAULT NULL,
   `active` tinyint(1) UNSIGNED DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `company` varchar(100) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
   `image` varchar(128) NOT NULL DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -416,10 +405,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `image`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@muhakbar.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'WcHCQ5vcXwT1z99BvJUWnu', 1268889823, 1624867023, 1, 'Akbar', 'Admin', 'ADMIN', '0', 'akbr_pp_2.jpg'),
-(2, '127.0.0.1', 'member', '$2y$08$ipVAkJ.rjy35wARE9Px47eS2k.gz2FPYy14M019VFwLtBcUax2YJS', '', 'member@member.com', '', 'm0vyKu2zW7L8PTG20bquF.707e055aeea8a30aca', 1541329145, 'lHtbqmxsnla1izZ5LcXd9O', 1268889823, 1622291092, 1, 'Member', 'Apps', 'ADMIN', '0', 'default.jpg'),
-(12, '::1', 'a@a.com', '$2y$08$T1j1YJGXbdGI9XMS9CUyoeGvl2EdSWv7QYbarRtR7eTHR936ZBINq', NULL, 'a@a.com', NULL, NULL, NULL, NULL, 1623835278, NULL, 1, 'asdasd', 'asdasdasd', 'asdasdasdas', '089646464664', 'default.jpg');
+INSERT INTO `users` (`id`, `password`, `email`, `active`, `first_name`, `last_name`, `image`) VALUES
+(1, '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 'admin@muhakbar.com', 1, 'Akbar', 'Admin', 'akbr_pp_2.jpg'),
+(19, '$2y$08$zpb.V7m5NJbG3Abc6If8qO6kZOPZXyYndV8A2ao7c0K5OJr6bvH0K', '22@gmail.com', 1, 'Muhammad', 'Akbar', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -449,12 +437,7 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 9, 17),
 (90, 12, 2),
 (67, 12, 8),
-(64, 13, 18),
-(66, 14, 30),
-(68, 15, 17),
-(70, 16, 17),
-(75, 17, 17),
-(76, 18, 17),
+(91, 19, 2),
 (77, 19, 17),
 (84, 20, 17),
 (78, 21, 17),
@@ -615,13 +598,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
