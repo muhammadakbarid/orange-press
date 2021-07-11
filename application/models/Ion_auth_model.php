@@ -460,7 +460,7 @@ class Ion_auth_model extends CI_Model
 			}
 
 			$data = array(
-				'activation_code' => NULL,
+				// 'activation_code' => NULL,
 				'active'          => 1
 			);
 
@@ -468,7 +468,7 @@ class Ion_auth_model extends CI_Model
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
 		} else {
 			$data = array(
-				'activation_code' => NULL,
+				// 'activation_code' => NULL,
 				'active'          => 1
 			);
 
@@ -513,7 +513,7 @@ class Ion_auth_model extends CI_Model
 		$this->activation_code = $activation_code;
 
 		$data = array(
-			'activation_code' => $activation_code,
+			// 'activation_code' => $activation_code,
 			'active'          => 0
 		);
 
