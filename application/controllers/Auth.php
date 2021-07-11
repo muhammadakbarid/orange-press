@@ -387,9 +387,11 @@ class Auth extends CI_Controller
 		}
 	}
 
+
 	/**
 	 * Create a new user
 	 */
+
 	public function create_user()
 	{
 		$this->data['title'] = $this->lang->line('create_user_heading');
@@ -411,9 +413,9 @@ class Auth extends CI_Controller
 		} else {
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
 		}
-		// $this->form_validation->set_rules('foto', 'foto', 'required');
+
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
+
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
@@ -425,9 +427,8 @@ class Auth extends CI_Controller
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
-				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone'),
-				// 'foto' => $this->input->post('foto'),
+
 			);
 		}
 		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data)) {
@@ -476,13 +477,13 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('email'),
 				'class' => 'form-control'
 			);
-			$this->data['company'] = array(
-				'name' => 'company',
-				'id' => 'company',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('company'),
-				'class' => 'form-control'
-			);
+			// $this->data['company'] = array(
+			// 	'name' => 'company',
+			// 	'id' => 'company',
+			// 	'type' => 'text',
+			// 	'value' => $this->form_validation->set_value('company'),
+			// 	'class' => 'form-control'
+			// );
 			$this->data['phone'] = array(
 				'name' => 'phone',
 				'id' => 'phone',
@@ -490,6 +491,20 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('phone'),
 				'class' => 'form-control'
 			);
+			// $this->data['nik'] = array(
+			// 	'name' => 'nik',
+			// 	'id' => 'nik',
+			// 	'type' => 'text',
+			// 	'value' => $this->form_validation->set_value('nik'),
+			// 	'class' => 'form-control'
+			// );
+			// $this->data['jabatan'] = array(
+			// 	'name' => 'jabatan',
+			// 	'id' => '',
+			// 	'type' => 'text',
+			// 	'value' => $this->form_validation->set_value('jabatan'),
+			// 	'class' => 'form-control'
+			// );
 			$this->data['password'] = array(
 				'name' => 'password',
 				'id' => 'password',
@@ -515,6 +530,150 @@ class Auth extends CI_Controller
 			//$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
 		}
 	}
+
+	// public function create_user()
+	// {
+	// 	$this->data['title'] = $this->lang->line('create_user_heading');
+
+	// 	if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+	// 		redirect('auth', 'refresh');
+	// 	}
+
+	// 	$tables = $this->config->item('tables', 'ion_auth');
+	// 	$identity_column = $this->config->item('identity', 'ion_auth');
+	// 	$this->data['identity_column'] = $identity_column;
+
+	// 	// validate form input
+	// 	$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'trim|required');
+	// 	$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'trim|required');
+	// 	if ($identity_column !== 'email') {
+	// 		$this->form_validation->set_rules('identity', $this->lang->line('create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
+	// 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email');
+	// 	} else {
+	// 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
+	// 	}
+	// 	// $this->form_validation->set_rules('foto', 'foto', 'required');
+	// 	$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
+	// 	// $this->form_validation->set_rules('nik', $this->lang->line('create_user_validation_nik_label'), 'trim');
+	// 	// $this->form_validation->set_rules('jabatan', $this->lang->line('create_user_validation_jabatan_label'), 'trim');
+	// 	// $this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
+	// 	$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+	// 	$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+
+	// 	if ($this->form_validation->run() === TRUE) {
+	// 		$email = strtolower($this->input->post('email'));
+	// 		$identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
+	// 		$password = $this->input->post('password');
+
+	// 		$additional_data = array(
+	// 			'first_name' => $this->input->post('first_name'),
+	// 			'last_name' => $this->input->post('last_name'),
+	// 			// 'company' => $this->input->post('company'),
+	// 			'phone' => $this->input->post('phone'),
+	// 			// 'nik' => $this->input->post('nik'),
+	// 			// 'jabatan' => $this->input->post('jabatan'),
+	// 			// 'foto' => $this->input->post('foto'),
+	// 		);
+	// 	}
+	// 	if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data)) {
+	// 		// check to see if we are creating the user
+	// 		// redirect them back to the admin page
+	// 		$this->session->set_flashdata('success', $this->ion_auth->messages());
+
+	// 		redirect("user", 'refresh');
+	// 	} else {
+	// 		// display the create user form
+	// 		// set the flash data error message if there is one
+	// 		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+	// 		$this->data['first_name'] = array(
+	// 			'name' => 'first_name',
+	// 			'id' => 'first_name',
+	// 			'type' => 'text',
+	// 			'value' => $this->form_validation->set_value('first_name'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['last_name'] = array(
+	// 			'name' => 'last_name',
+	// 			'id' => 'last_name',
+	// 			'type' => 'text',
+	// 			'value' => $this->form_validation->set_value('last_name'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['foto'] = array(
+	// 			'name' => 'foto',
+	// 			'id' => 'foto',
+	// 			'type' => 'file',
+	// 			'value' => $this->form_validation->set_value('foto'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['identity'] = array(
+	// 			'name' => 'identity',
+	// 			'id' => 'identity',
+	// 			'type' => 'text',
+	// 			'value' => $this->form_validation->set_value('identity'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['email'] = array(
+	// 			'name' => 'email',
+	// 			'id' => 'email',
+	// 			'type' => 'text',
+	// 			'value' => $this->form_validation->set_value('email'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		// $this->data['company'] = array(
+	// 		// 	'name' => 'company',
+	// 		// 	'id' => 'company',
+	// 		// 	'type' => 'text',
+	// 		// 	'value' => $this->form_validation->set_value('company'),
+	// 		// 	'class' => 'form-control'
+	// 		// );
+	// 		$this->data['phone'] = array(
+	// 			'name' => 'phone',
+	// 			'id' => 'phone',
+	// 			'type' => 'text',
+	// 			'value' => $this->form_validation->set_value('phone'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		// $this->data['nik'] = array(
+	// 		// 	'name' => 'nik',
+	// 		// 	'id' => 'nik',
+	// 		// 	'type' => 'text',
+	// 		// 	'value' => $this->form_validation->set_value('nik'),
+	// 		// 	'class' => 'form-control'
+	// 		// );
+	// 		$this->data['jabatan'] = array(
+	// 			'name' => 'jabatan',
+	// 			'id' => '',
+	// 			'type' => 'text',
+	// 			'value' => $this->form_validation->set_value('jabatan'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['password'] = array(
+	// 			'name' => 'password',
+	// 			'id' => 'password',
+	// 			'type' => 'password',
+	// 			'value' => $this->form_validation->set_value('password'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['password_confirm'] = array(
+	// 			'name' => 'password_confirm',
+	// 			'id' => 'password_confirm',
+	// 			'type' => 'password',
+	// 			'value' => $this->form_validation->set_value('password_confirm'),
+	// 			'class' => 'form-control'
+	// 		);
+	// 		$this->data['title'] = 'User';
+	// 		$this->data['subtitle'] = '';
+	// 		$this->data['crumb'] = [
+	// 			'User' => '',
+	// 		];
+
+	// 		$this->data['page'] = 'auth/create_user';
+	// 		$this->load->view('template/backend', $this->data);
+	// 		//$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+	// 	}
+	// }
 	/**
 	 * Redirect a user checking if is admin
 	 */
@@ -547,7 +706,7 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim|required');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim|required');
+		// $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim|required');
 
 		if (isset($_POST) && !empty($_POST)) {
 			// do we have a valid request?
@@ -633,14 +792,14 @@ class Auth extends CI_Controller
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('company', $user->company),
+			// 'value' => $this->form_validation->set_value('company', $user->company),
 			'class' => 'form-control'
 		);
 		$this->data['phone'] = array(
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('phone', $user->phone),
+			// 'value' => $this->form_validation->set_value('phone', $user->phone),
 			'class' => 'form-control'
 		);
 		$this->data['password'] = array(
@@ -833,14 +992,12 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'trim|required');
 		if ($identity_column !== 'email') {
-			$this->form_validation->set_rules('identity', $this->lang->line('create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
+
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email');
 		} else {
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
 		}
-		// $this->form_validation->set_rules('foto', 'foto', 'required');
-		// $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
-		// $this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
+
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
@@ -852,12 +1009,9 @@ class Auth extends CI_Controller
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
-				// 'company' => $this->input->post('company'),
-				// 'phone' => $this->input->post('phone'),
-				// 'foto' => $this->input->post('foto'),
 			);
 		}
-		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $additional_data)) {
+		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data)) {
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -882,20 +1036,7 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('last_name'),
 				'class' => 'form-control'
 			);
-			$this->data['foto'] = array(
-				'name' => 'foto',
-				'id' => 'foto',
-				'type' => 'file',
-				'value' => $this->form_validation->set_value('foto'),
-				'class' => 'form-control'
-			);
-			$this->data['identity'] = array(
-				'name' => 'identity',
-				'id' => 'identity',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('identity'),
-				'class' => 'form-control'
-			);
+
 			$this->data['email'] = array(
 				'name' => 'email',
 				'id' => 'email',
@@ -903,20 +1044,7 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('email'),
 				'class' => 'form-control'
 			);
-			$this->data['company'] = array(
-				'name' => 'company',
-				'id' => 'company',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('company'),
-				'class' => 'form-control'
-			);
-			$this->data['phone'] = array(
-				'name' => 'phone',
-				'id' => 'phone',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone'),
-				'class' => 'form-control'
-			);
+
 			$this->data['password'] = array(
 				'name' => 'password',
 				'id' => 'password',

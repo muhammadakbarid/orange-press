@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2021 at 04:11 AM
+-- Generation Time: Jul 11, 2021 at 05:35 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -393,11 +393,12 @@ INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `email` varchar(254) NOT NULL,
-  `active` tinyint(1) UNSIGNED DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `active` tinyint(1) UNSIGNED DEFAULT NULL,
   `image` varchar(128) NOT NULL DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -405,9 +406,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `password`, `email`, `active`, `first_name`, `last_name`, `image`) VALUES
-(1, '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 'admin@muhakbar.com', 1, 'Akbar', 'Admin', 'akbr_pp_2.jpg'),
-(19, '$2y$08$zpb.V7m5NJbG3Abc6If8qO6kZOPZXyYndV8A2ao7c0K5OJr6bvH0K', '22@gmail.com', 1, 'Muhammad', 'Akbar', 'default.jpg');
+INSERT INTO `users` (`id`, `username`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
+(1, '', 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg'),
+(46, 'member@muhakbar.com', 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -437,29 +438,7 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 9, 17),
 (90, 12, 2),
 (67, 12, 8),
-(91, 19, 2),
-(77, 19, 17),
-(84, 20, 17),
-(78, 21, 17),
-(81, 22, 28),
-(85, 23, 17),
-(60, 24, 28),
-(73, 25, 28),
-(79, 26, 28),
-(80, 27, 28),
-(82, 28, 28),
-(72, 29, 28),
-(83, 30, 28),
-(59, 31, 17),
-(86, 32, 26),
-(65, 33, 7),
-(69, 34, 7),
-(71, 35, 7),
-(61, 36, 29),
-(62, 37, 2),
-(63, 38, 2),
-(88, 39, 31),
-(89, 40, 2);
+(123, 46, 2);
 
 --
 -- Indexes for dumped tables
@@ -556,7 +535,7 @@ ALTER TABLE `frontend_menu`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `list_session_token`
@@ -598,13 +577,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

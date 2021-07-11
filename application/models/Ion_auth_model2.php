@@ -307,7 +307,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('password')
+		$query = $this->db->select('password, salt')
 			->where('id', $id)
 			->limit(1)
 			->order_by('id', 'desc')
@@ -900,7 +900,7 @@ class Ion_auth_model extends CI_Model
 			$this->identity_column => $identity,
 			'username' => $identity,
 			'password' => $password,
-			'email' => $identity,
+			'email' => $email,
 			// 'ip_address' => $ip_address,
 			// 'created_on' => time(),
 			'active' => ($manual_activation === FALSE ? 1 : 0)
@@ -958,7 +958,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', email, id, password, active')
+		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
 			->where($this->identity_column, $identity)
 			->limit(1)
 			->order_by('id', 'desc')
@@ -989,7 +989,7 @@ class Ion_auth_model extends CI_Model
 
 				$this->set_session($user);
 
-				// $this->update_last_login($user->id);
+				$this->update_last_login($user->id);
 
 				$this->clear_login_attempts($identity);
 
@@ -1863,7 +1863,7 @@ class Ion_auth_model extends CI_Model
 			$this->identity_column => $user->{$this->identity_column},
 			'email'                => $user->email,
 			'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-			// 'old_last_login'       => $user->last_login,
+			'old_last_login'       => $user->last_login,
 			'last_check'           => time(),
 		);
 
@@ -1948,7 +1948,7 @@ class Ion_auth_model extends CI_Model
 
 		// get the user
 		$this->trigger_events('extra_where');
-		$query = $this->db->select($this->identity_column . ', id, email')
+		$query = $this->db->select($this->identity_column . ', id, email, last_login')
 			->where($this->identity_column, urldecode(get_cookie($this->config->item('identity_cookie_name', 'ion_auth'))))
 			->where('remember_code', get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 			->where('active', 1)
@@ -1960,7 +1960,7 @@ class Ion_auth_model extends CI_Model
 		if ($query->num_rows() == 1) {
 			$user = $query->row();
 
-			// $this->update_last_login($user->id);
+			$this->update_last_login($user->id);
 
 			$this->set_session($user);
 
