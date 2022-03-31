@@ -44,9 +44,6 @@ $setting_aplikasi = $this->db->get('setting')->row();
               <div class="form-group position-relative has-icon-left">
                 <div class="clearfix">
                   <label for="password">Password</label>
-                  <a href="<?= base_url('auth/forgot_password'); ?>" class='float-right'>
-                    <small>Forgot password?</small>
-                  </a>
                 </div>
                 <div class="position-relative">
                   <input type="password" class="form-control" id="password" name="password">
@@ -56,20 +53,11 @@ $setting_aplikasi = $this->db->get('setting')->row();
                 </div>
               </div>
 
-              <div class='form-check clearfix my-4'>
-                <div class="checkbox float-left">
-                  <input type="checkbox" class='form-check-input' name="remember" id="remember">
-                  <label for="checkbox1">Remember me</label>
-                </div>
-                <!-- <div class="float-right">
-                  <a href="<?= base_url('auth/create_account'); ?>">Don't have an account?</a>
-                </div> -->
-              </div>
-              <div class="clearfix">
-                <button class="btn btn-primary float-right" type="submit">Submit</button>
+              <div class="clearfix mt-4">
+                <button class="btn btn-warning float-right" type="submit">Login</button>
               </div>
               <?php echo form_close(); ?>
-              <div class="row"><a href="<?= base_url('auth/register_user'); ?>">Daftar Sekarang</a></div>
+              <!-- <div class="row"><a href="<?= base_url('auth/register_user'); ?>">Daftar Sekarang</a></div> -->
               <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div>
               <!-- <div class="divider">
                 <div class="divider-text">OR</div>

@@ -73,12 +73,27 @@
 $active_group = 'default';
 $query_builder = TRUE;
 
+$whitelist = array(
+	'127.0.0.1',
+	'localhost',
+	'::1'
+);
+if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+	$u_db = 'root';
+	$p_db = '';
+	$n_db = 'orange-press';
+} else {
+	$u_db = '';
+	$p_db = '';
+	$n_db = '';
+}
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'akbr_for_u',
+	'username' => $u_db,
+	'password' => $p_db,
+	'database' => $n_db,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

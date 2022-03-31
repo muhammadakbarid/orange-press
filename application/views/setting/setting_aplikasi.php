@@ -1,6 +1,3 @@
-<!-- Begin Page Content -->
-<!-- <?= print_r($_FILES); ?> -->
-<!-- <?= print_r($s_aplikasi->kode); ?> -->
 <div class="container-fluid">
 
   <!-- Page Heading -->

@@ -964,15 +964,15 @@ class Ion_auth_model extends CI_Model
 			->order_by('id', 'desc')
 			->get($this->tables['users']);
 
-		if ($this->is_max_login_attempts_exceeded($identity)) {
-			// Hash something anyway, just to take up time
-			$this->hash_password($password);
+		// if ($this->is_max_login_attempts_exceeded($identity)) {
+		// 	// Hash something anyway, just to take up time
+		// 	$this->hash_password($password);
 
-			$this->trigger_events('post_login_unsuccessful');
-			$this->set_error('login_timeout');
+		// 	$this->trigger_events('post_login_unsuccessful');
+		// 	$this->set_error('login_timeout');
 
-			return FALSE;
-		}
+		// 	return FALSE;
+		// }
 
 		if ($query->num_rows() === 1) {
 			$user = $query->row();
@@ -991,7 +991,7 @@ class Ion_auth_model extends CI_Model
 
 				// $this->update_last_login($user->id);
 
-				$this->clear_login_attempts($identity);
+				// $this->clear_login_attempts($identity);
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth')) {
 					$this->remember_user($user->id);
@@ -1010,7 +1010,7 @@ class Ion_auth_model extends CI_Model
 		// Hash something anyway, just to take up time
 		$this->hash_password($password);
 
-		$this->increase_login_attempts($identity);
+		// $this->increase_login_attempts($identity);
 
 		$this->trigger_events('post_login_unsuccessful');
 		$this->set_error('login_unsuccessful');
