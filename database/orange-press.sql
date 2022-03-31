@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2021 at 05:35 PM
+-- Generation Time: Mar 31, 2022 at 07:29 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -18,28 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `akbr_for_u`
+-- Database: `orange-press`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `akbr_contoh`
---
-
-CREATE TABLE `akbr_contoh` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `alamat` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `akbr_contoh`
---
-
-INSERT INTO `akbr_contoh` (`id`, `nama`, `alamat`, `email`) VALUES
-(1, 'Muhammad Akbar', 'Sarijadi, Bandung', 'muhammad.akbar5999@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -230,84 +210,7 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (28, 125),
 (29, 125),
 (1, 127),
-(2, 127),
-(2, 113);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `list_session_token`
---
-
-CREATE TABLE `list_session_token` (
-  `session_id` int(11) NOT NULL,
-  `session_token` varchar(100) NOT NULL,
-  `admin_id` int(11) NOT NULL,
-  `active_time` datetime NOT NULL,
-  `expire_time` datetime NOT NULL,
-  `is_login` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `list_session_token`
---
-
-INSERT INTO `list_session_token` (`session_id`, `session_token`, `admin_id`, `active_time`, `expire_time`, `is_login`) VALUES
-(12, 'mFu6GqJ9laWV3G9pwgch9pETdg', 1, '2021-01-07 12:35:04', '2021-01-07 12:50:04', 0),
-(13, 'S7oAgkk63Xm8n2MGzXIdnJsXho', 1, '2021-01-07 12:41:35', '2021-01-07 12:56:35', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login_attempts`
---
-
-CREATE TABLE `login_attempts` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `ip_address` varchar(45) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `time` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mahasiswa`
---
-
-CREATE TABLE `mahasiswa` (
-  `id` int(11) NOT NULL,
-  `npm` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `tgl_lahir` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `mahasiswa`
---
-
-INSERT INTO `mahasiswa` (`id`, `npm`, `nama`, `tgl_lahir`) VALUES
-(1, 2193001, 'Alvi Yatul Wardah', '2000-12-09'),
-(2, 2193002, 'Aryaputra Wicaksono', '2001-05-30'),
-(3, 2193003, 'Charles Marpaung', '2000-10-19'),
-(4, 2193004, 'Ester Cibro', '2001-04-07'),
-(5, 2193005, 'Fajar Somantri', '2000-08-10'),
-(6, 2193006, 'Genta Tabah Pengabdian', '2001-04-20'),
-(7, 2193007, 'Gerald Rajagukguk', '2001-06-03'),
-(8, 2193008, 'Grenius Natanael Sidabutar', '2001-12-31'),
-(9, 2193009, 'Ilfah Rifany', '2001-06-02'),
-(10, 2193010, 'Khaliza Diva Qintanada', '2001-09-07'),
-(11, 2193011, 'Koestiyandi Prayoga', '2001-05-17'),
-(12, 2193012, 'Mita Hasanah', '2000-07-19'),
-(13, 2193013, 'Muhammad Akbar', '1999-09-05'),
-(14, 2193014, 'Nazzilla Auliya Putri', '2000-08-11'),
-(15, 2193015, 'Popy Geovani', '2001-04-30'),
-(16, 2193016, 'Prita Fitria Waluyo', '2001-01-09'),
-(17, 2193017, 'Savia Almira Salsabilla', '2001-02-14'),
-(18, 2193018, 'Tegar Nova Silviana', '2001-11-08'),
-(19, 2193019, 'Thifal Irbah Anan', '2000-07-04'),
-(20, 2193020, 'Vinda Ayu Lestari', '2001-01-20'),
-(21, 2193021, 'Zsa Zsa Sabilla', '2001-05-06');
+(2, 127);
 
 -- --------------------------------------------------------
 
@@ -334,18 +237,16 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `link`, `id`, `id_menu_type`) VALUES
 (1, 0, 1, 0, 'empty', 'MAIN NAVIGATION', '#', '#', 1),
 (3, 1, 2, 1, 'fas fa-tachometer-alt', 'Dashboard', 'dashboard', '#', 1),
-(4, 9, 2, 40, 'fas fa-table', 'CRUD Generator', 'crudbuilder', '1', 1),
-(8, 7, 2, 40, 'fas fa-bars', 'Menu', 'cms/menu/side-menu', 'navMenu', 1),
-(40, 4, 1, 0, 'empty', 'DEV', '#', '#', 1),
-(42, 10, 2, 40, 'fas fa-users-cog', 'User', '#', '1', 1),
-(43, 11, 3, 42, 'fas fa-angle-double-right', 'Users', 'users', '1', 1),
-(44, 12, 3, 42, 'fas fa-angle-double-right', 'Groups', 'groups', '2', 1),
-(89, 8, 2, 40, 'fas fa-th-list', 'Menu Type', 'menu_type', 'menu_type', 1),
+(4, 11, 2, 40, 'fas fa-table', 'CRUD Generator', 'crudbuilder', '1', 1),
+(8, 9, 2, 40, 'fas fa-bars', 'Menu', 'cms/menu/side-menu', 'navMenu', 1),
+(40, 6, 1, 0, 'empty', 'DEV', '#', '#', 1),
+(42, 3, 2, 92, 'fas fa-users-cog', 'User', '#', '1', 1),
+(43, 4, 3, 42, 'fas fa-angle-double-right', 'Users', 'users', '1', 1),
+(44, 5, 3, 42, 'fas fa-angle-double-right', 'Groups', 'groups', '2', 1),
+(89, 10, 2, 40, 'fas fa-th-list', 'Menu Type', 'menu_type', 'menu_type', 1),
 (92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
-(107, 5, 2, 40, 'fas fa-cog', 'Setting', 'setting', 'setting', 1),
-(108, 3, 2, 92, 'fab fa-affiliatetheme', 'Mahasiswa', 'mahasiswa', 'mahasiswa', 1),
-(109, 6, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1),
-(113, 1, 2, 92, 'fab fa-accusoft', 'Member', '12sad', '1', 1);
+(107, 7, 2, 40, 'fas fa-cog', 'Setting', 'setting', 'setting', 1),
+(109, 8, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1);
 
 -- --------------------------------------------------------
 
@@ -383,7 +284,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
-(1, 'default.jpg', 'D3 MI 19', 'www.muhakbar.com');
+(1, 'LogoOrangePress_backgorund.jpg', 'Orange Press', 'www.orange-press.com');
 
 -- --------------------------------------------------------
 
@@ -393,7 +294,6 @@ INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
-  `username` varchar(100) NOT NULL,
   `email` varchar(254) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
@@ -406,9 +306,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
-(1, '', 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg'),
-(46, 'member@muhakbar.com', 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
+(1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg'),
+(46, 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg'),
+(48, 'coba@gmail.com', 'coba', '1', '$2y$08$Lt7VVxsYwGjVtJ0AtsYhUeUILx8iNhOd89UfEYxx18M/T6iq6rkYi', 1, 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -438,17 +339,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 9, 17),
 (90, 12, 2),
 (67, 12, 8),
-(123, 46, 2);
+(123, 46, 2),
+(126, 48, 2);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `akbr_contoh`
---
-ALTER TABLE `akbr_contoh`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `frontend_menu`
@@ -461,26 +357,6 @@ ALTER TABLE `frontend_menu`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `list_session_token`
---
-ALTER TABLE `list_session_token`
-  ADD PRIMARY KEY (`session_id`),
-  ADD KEY `FK__list_admin` (`admin_id`);
-
---
--- Indexes for table `login_attempts`
---
-ALTER TABLE `login_attempts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `mahasiswa`
---
-ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `npm` (`npm`) USING BTREE;
 
 --
 -- Indexes for table `menu`
@@ -520,12 +396,6 @@ ALTER TABLE `users_groups`
 --
 
 --
--- AUTO_INCREMENT for table `akbr_contoh`
---
-ALTER TABLE `akbr_contoh`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `frontend_menu`
 --
 ALTER TABLE `frontend_menu`
@@ -536,24 +406,6 @@ ALTER TABLE `frontend_menu`
 --
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT for table `list_session_token`
---
-ALTER TABLE `list_session_token`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `login_attempts`
---
-ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `mahasiswa`
---
-ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `menu`
@@ -577,13 +429,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
