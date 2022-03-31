@@ -18,7 +18,7 @@ class Users_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id,ip_address,username,password,salt,email,activation_code,forgotten_password_code,forgotten_password_time,remember_code,created_on,last_login,active,first_name,last_name,company,phone');
+        $this->datatables->select('id,ip_address,password,salt,email,activation_code,forgotten_password_code,forgotten_password_time,remember_code,created_on,last_login,active,first_name,last_name,company,phone');
         $this->datatables->from('users');
         //add this line for join
         //$this->datatables->join('table2', 'users.field = table2.field');
@@ -45,7 +45,7 @@ class Users_model extends CI_Model
     {
         $this->db->like('id', $q);
         $this->db->or_like('ip_address', $q);
-        $this->db->or_like('username', $q);
+        // $this->db->or_like('username', $q);
         $this->db->or_like('password', $q);
         $this->db->or_like('salt', $q);
         $this->db->or_like('email', $q);
@@ -70,7 +70,7 @@ class Users_model extends CI_Model
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
         $this->db->or_like('ip_address', $q);
-        $this->db->or_like('username', $q);
+        // $this->db->or_like('username', $q);
         $this->db->or_like('password', $q);
         $this->db->or_like('salt', $q);
         $this->db->or_like('email', $q);
