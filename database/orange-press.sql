@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 07:29 PM
+-- Generation Time: Apr 01, 2022 at 08:16 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `orange-press`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file_attach`
+--
+
+CREATE TABLE `file_attach` (
+  `id_file` int(11) NOT NULL,
+  `id_riwayat` int(11) NOT NULL,
+  `nama_file` varchar(256) NOT NULL,
+  `url_file` varchar(256) NOT NULL,
+  `keterangan` varchar(256) NOT NULL,
+  `create_on` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -63,7 +78,12 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User');
+(2, 'members', 'General User'),
+(33, 'editor', 'Editor'),
+(34, 'penulis', 'Penulis'),
+(35, 'proofreader', 'Proofreader'),
+(36, 'editor sunting', 'Editor Sunting'),
+(37, 'desainer', 'Desainer');
 
 -- --------------------------------------------------------
 
@@ -210,7 +230,22 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (28, 125),
 (29, 125),
 (1, 127),
-(2, 127);
+(2, 127),
+(1, 114),
+(1, 115);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_kti`
+--
+
+CREATE TABLE `jenis_kti` (
+  `id_kti` int(11) NOT NULL,
+  `nama_kti` varchar(256) NOT NULL,
+  `harga_terbit` int(11) NOT NULL,
+  `nama_paket` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -246,7 +281,9 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (89, 10, 2, 40, 'fas fa-th-list', 'Menu Type', 'menu_type', 'menu_type', 1),
 (92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
 (107, 7, 2, 40, 'fas fa-cog', 'Setting', 'setting', 'setting', 1),
-(109, 8, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1);
+(109, 8, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1),
+(114, 1, 2, 92, 'fas fa-edit', 'Status Sunting', 'Status_sunting', 'Status_sunting', 1),
+(115, 1, 2, 92, 'fas fa-book', 'Jenis KTI', 'Jenis_kti', 'Jenis_kti', 1);
 
 -- --------------------------------------------------------
 
@@ -265,6 +302,50 @@ CREATE TABLE `menu_type` (
 
 INSERT INTO `menu_type` (`id_menu_type`, `type`) VALUES
 (1, 'Side menu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id_bayar` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `tanggal_bayar` date NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `jenis` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produk`
+--
+
+CREATE TABLE `produk` (
+  `id_produk` int(11) NOT NULL,
+  `id_kti` int(11) NOT NULL,
+  `judul` varchar(256) NOT NULL,
+  `edisi` varchar(256) NOT NULL,
+  `tgl_submit` date NOT NULL,
+  `no_isbn` varchar(50) NOT NULL,
+  `file_hakcipta` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `riyawat`
+--
+
+CREATE TABLE `riyawat` (
+  `id_riwayat` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `tgl_plotting` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `status_kerjaan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -289,6 +370,31 @@ INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `status_sunting`
+--
+
+CREATE TABLE `status_sunting` (
+  `id_status` int(11) NOT NULL,
+  `nama_status` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tim_penulis`
+--
+
+CREATE TABLE `tim_penulis` (
+  `id` int(11) NOT NULL,
+  `id_penulis` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `penulis_ke` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -299,17 +405,37 @@ CREATE TABLE `users` (
   `last_name` varchar(50) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `active` tinyint(1) UNSIGNED DEFAULT NULL,
-  `image` varchar(128) NOT NULL DEFAULT 'default.jpg'
+  `image` varchar(128) NOT NULL DEFAULT 'default.jpg',
+  `no_ktp` varchar(16) NOT NULL COMMENT '16 digit',
+  `nip` varchar(20) NOT NULL,
+  `no_npwp` varchar(15) NOT NULL COMMENT '15 digit',
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') NOT NULL COMMENT '- Laki-Laki\r\n- Perempuan',
+  `tempat_lahir` varchar(50) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `alamat` text NOT NULL,
+  `no_hp` varchar(15) NOT NULL,
+  `profesi` varchar(50) NOT NULL,
+  `nama_instansi` varchar(100) NOT NULL,
+  `alamat_instansi` text NOT NULL,
+  `email_instansi` varchar(100) NOT NULL,
+  `no_telp_instansi` varchar(15) NOT NULL,
+  `sc_form_penulis` varchar(256) NOT NULL,
+  `sc_ktp` varchar(256) NOT NULL,
+  `sc_cv` varchar(256) NOT NULL,
+  `sc_npwp` varchar(256) NOT NULL,
+  `sc_foto` varchar(256) NOT NULL,
+  `bidang_kompetensi` varchar(100) NOT NULL,
+  `create_on` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
-(1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg'),
-(46, 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg'),
-(48, 'coba@gmail.com', 'coba', '1', '$2y$08$Lt7VVxsYwGjVtJ0AtsYhUeUILx8iNhOd89UfEYxx18M/T6iq6rkYi', 1, 'default.jpg');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `active`, `image`, `no_ktp`, `nip`, `no_npwp`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_hp`, `profesi`, `nama_instansi`, `alamat_instansi`, `email_instansi`, `no_telp_instansi`, `sc_form_penulis`, `sc_ktp`, `sc_cv`, `sc_npwp`, `sc_foto`, `bidang_kompetensi`, `create_on`) VALUES
+(1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(46, 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(48, 'coba@gmail.com', 'coba', '1', '$2y$08$Lt7VVxsYwGjVtJ0AtsYhUeUILx8iNhOd89UfEYxx18M/T6iq6rkYi', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -347,6 +473,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
+-- Indexes for table `file_attach`
+--
+ALTER TABLE `file_attach`
+  ADD PRIMARY KEY (`id_file`);
+
+--
 -- Indexes for table `frontend_menu`
 --
 ALTER TABLE `frontend_menu`
@@ -357,6 +489,12 @@ ALTER TABLE `frontend_menu`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jenis_kti`
+--
+ALTER TABLE `jenis_kti`
+  ADD PRIMARY KEY (`id_kti`);
 
 --
 -- Indexes for table `menu`
@@ -371,9 +509,39 @@ ALTER TABLE `menu_type`
   ADD PRIMARY KEY (`id_menu_type`);
 
 --
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`id_bayar`);
+
+--
+-- Indexes for table `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id_produk`);
+
+--
+-- Indexes for table `riyawat`
+--
+ALTER TABLE `riyawat`
+  ADD PRIMARY KEY (`id_riwayat`);
+
+--
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `status_sunting`
+--
+ALTER TABLE `status_sunting`
+  ADD PRIMARY KEY (`id_status`);
+
+--
+-- Indexes for table `tim_penulis`
+--
+ALTER TABLE `tim_penulis`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -396,6 +564,12 @@ ALTER TABLE `users_groups`
 --
 
 --
+-- AUTO_INCREMENT for table `file_attach`
+--
+ALTER TABLE `file_attach`
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `frontend_menu`
 --
 ALTER TABLE `frontend_menu`
@@ -405,13 +579,19 @@ ALTER TABLE `frontend_menu`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `jenis_kti`
+--
+ALTER TABLE `jenis_kti`
+  MODIFY `id_kti` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -420,22 +600,52 @@ ALTER TABLE `menu_type`
   MODIFY `id_menu_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id_bayar` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `produk`
+--
+ALTER TABLE `produk`
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `riyawat`
+--
+ALTER TABLE `riyawat`
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `status_sunting`
+--
+ALTER TABLE `status_sunting`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tim_penulis`
+--
+ALTER TABLE `tim_penulis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
