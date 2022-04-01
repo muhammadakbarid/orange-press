@@ -83,9 +83,9 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 	$p_db = '';
 	$n_db = 'orange-press';
 } else {
-	$u_db = '';
-	$p_db = '';
-	$n_db = '';
+	$u_db = 'muhakbar_admin';
+	$p_db = 'nokiax202samsungj2';
+	$n_db = 'muhakbar_orange_press';
 }
 
 $db['default'] = array(
