@@ -1,23 +1,23 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cms extends CI_Controller {
+class Cms extends CI_Controller
+{
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->layout->auth();
+    public function __construct()
+    {
+        parent::__construct();
+        $this->layout->auth();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth_privilege($c_url);  
+        $this->layout->auth_privilege($c_url);
+    }
 
-	}
-	
-	public function index()
-	{
-		$this->load->view('template/header');
-	}
+    public function index()
+    {
+        $this->load->view('template/header');
+    }
 
-	/**
+    /**
      * Nestable drag & drop menu level & sort.
      *
      * @return HTML
@@ -39,18 +39,18 @@ class Cms extends CI_Controller {
         ];
 
         $template_data['page'] = 'menu/index';
-		$this->load->view('template/backend', $template_data);
+        $this->load->view('template/Backend', $template_data);
         //$this->layout->render('admin', $template_data);
     }
 
-     /**
+    /**
      * Get db menu nestable.
      *
      * @return string
      **/
     public function get_menu($type)
     {
-        $this->db->where('type = "'.$type.'"');
+        $this->db->where('type = "' . $type . '"');
         $this->db->join('menu_type', 'menu_type.id_menu_type = menu.id_menu_type', 'left');
         $this->db->order_by('sort', 'ASC');
         $menus = $this->db->get('menu')->result_array();
@@ -69,11 +69,11 @@ class Cms extends CI_Controller {
         foreach ($menus as $menu) {
             if ($parent_id == $menu['parent_id']) {
                 $type = urldecode(str_replace(' ', '-', strtolower($menu['type'])));
-                $list_menu .= '<li class="dd-item" data-id="'.$menu['id_menu'].'">
-                <div class="dd-handle bg-purple"><i class="fa fa-ellipsis-v"></i> <i class="fa fa-ellipsis-v"></i></div><p>'.$menu['label'].'
+                $list_menu .= '<li class="dd-item" data-id="' . $menu['id_menu'] . '">
+                <div class="dd-handle bg-purple"><i class="fa fa-ellipsis-v"></i> <i class="fa fa-ellipsis-v"></i></div><p>' . $menu['label'] . '
                 <span class="dd-action">
-                  <a href="'.site_url('menu/update/'.$menu['id_menu']).'" title="Edit" class="delete-confirm btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
-                  <a href="#" title="Delete" class="delete-confirm btn btn-xs btn-danger" onclick="return confirmdelete(\'cms/crud_menu/'.$type.'/delete/'.$menu['id_menu'].'\')")><i class="fa fa-trash"></i></a>
+                  <a href="' . site_url('menu/update/' . $menu['id_menu']) . '" title="Edit" class="delete-confirm btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                  <a href="#" title="Delete" class="delete-confirm btn btn-xs btn-danger" onclick="return confirmdelete(\'cms/crud_menu/' . $type . '/delete/' . $menu['id_menu'] . '\')")><i class="fa fa-trash"></i></a>
               </span></p>';
                 $list_menu .= $this->get_nestable_menu($menus, $menu['id_menu']);
                 $list_menu .= '</li>';
@@ -81,20 +81,20 @@ class Cms extends CI_Controller {
         }
 
         if ($list_menu != '') {
-            return '<ol class="dd-list">'.$list_menu.'</ol>';
+            return '<ol class="dd-list">' . $list_menu . '</ol>';
         } else {
             return;
         }
     }
 
-     /**
+    /**
      * Re order SORT menu DB.
      *
      * @return array
      **/
     public function menu_re_sort($id_menu_type)
     {
-        $this->db->where('id_menu_type = "'.$id_menu_type.'"');
+        $this->db->where('id_menu_type = "' . $id_menu_type . '"');
         $this->db->order_by('sort', 'ASC');
         $menus = $this->db->get('menu')->result_array();
 
@@ -138,7 +138,7 @@ class Cms extends CI_Controller {
 
         $this->decode_menu($decode);
         if ($return) {
-            redirect('cms/menu/'.$type);
+            redirect('cms/menu/' . $type);
         }
     }
 
@@ -176,7 +176,7 @@ class Cms extends CI_Controller {
         return $sort;
     }
 
-     /**
+    /**
      * Crud multy level menu.
      *
      * @return HTML
@@ -203,14 +203,14 @@ class Cms extends CI_Controller {
             $this->db->delete('menu');
 
             $this->sort_menu_callback(0, $id_menu);
-            redirect('cms/menu/'.$this->uri->segment(3));
+            redirect('cms/menu/' . $this->uri->segment(3));
         } else {
-           
+
             $type = urldecode(str_replace('-', ' ', $this->uri->segment(3)));
             echo $type;
         }
     }
-     /**
+    /**
      * List icon picker
      * @param  string   $value
      * @param  integer  $primary_key
