@@ -25,7 +25,7 @@ class Menu_type extends CI_Controller
         ];
 
         $data['page'] = 'menu_type/menu_type_list';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function json()
@@ -49,7 +49,7 @@ class Menu_type extends CI_Controller
             ];
 
             $data['page'] = 'menu_type/menu_type_read';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('menu_type'));
@@ -71,7 +71,7 @@ class Menu_type extends CI_Controller
         ];
 
         $data['page'] = 'menu_type/menu_type_form';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function create_action()
@@ -109,7 +109,7 @@ class Menu_type extends CI_Controller
             ];
 
             $data['page'] = 'menu_type/menu_type_form';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('menu_type'));

@@ -36,7 +36,7 @@ class Profile extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['page'] = 'profile';
-			$this->load->view('template/backend', $data);
+			$this->load->view('template/Backend', $data);
 		} else {
 			$first_name = $this->input->post('first_name');
 			$last_name = $this->input->post('last_name');

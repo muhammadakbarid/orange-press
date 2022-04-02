@@ -9,7 +9,7 @@ class Status_sunting extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Status_sunting_model');
         $this->load->library('form_validation');
@@ -19,7 +19,7 @@ class Status_sunting extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'status_sunting?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'status_sunting?q=' . urlencode($q);
@@ -50,39 +50,39 @@ class Status_sunting extends CI_Controller
         ];
 
         $data['page'] = 'status_sunting/status_sunting_list';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Status_sunting_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_status' => $row->id_status,
-		'nama_status' => $row->nama_status,
-	    );
-        $data['title'] = 'Status Sunting';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_status' => $row->id_status,
+                'nama_status' => $row->nama_status,
+            );
+            $data['title'] = 'Status Sunting';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'status_sunting/status_sunting_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'status_sunting/status_sunting_read';
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('status_sunting'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('status_sunting/create_action'),
-	    'id_status' => set_value('id_status'),
-	    'nama_status' => set_value('nama_status'),
-	);
+            'id_status' => set_value('id_status'),
+            'nama_status' => set_value('nama_status'),
+        );
         $data['title'] = 'Status Sunting';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -90,10 +90,10 @@ class Status_sunting extends CI_Controller
         ];
 
         $data['page'] = 'status_sunting/status_sunting_form';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -101,16 +101,16 @@ class Status_sunting extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_status' => $this->input->post('nama_status',TRUE),
-	    );
+                'nama_status' => $this->input->post('nama_status', TRUE),
+            );
 
             $this->Status_sunting_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('status_sunting'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Status_sunting_model->get_by_id($id);
 
@@ -118,24 +118,24 @@ class Status_sunting extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('status_sunting/update_action'),
-		'id_status' => set_value('id_status', $row->id_status),
-		'nama_status' => set_value('nama_status', $row->nama_status),
-	    );
+                'id_status' => set_value('id_status', $row->id_status),
+                'nama_status' => set_value('nama_status', $row->nama_status),
+            );
             $data['title'] = 'Status Sunting';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'status_sunting/status_sunting_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'status_sunting/status_sunting_form';
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('status_sunting'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -143,16 +143,16 @@ class Status_sunting extends CI_Controller
             $this->update($this->input->post('id_status', TRUE));
         } else {
             $data = array(
-		'nama_status' => $this->input->post('nama_status',TRUE),
-	    );
+                'nama_status' => $this->input->post('nama_status', TRUE),
+            );
 
             $this->Status_sunting_model->update($this->input->post('id_status', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('status_sunting'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Status_sunting_model->get_by_id($id);
 
@@ -166,24 +166,24 @@ class Status_sunting extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Status_sunting_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('nama_status', 'nama status', 'trim|required');
+        $this->form_validation->set_rules('nama_status', 'nama status', 'trim|required');
 
-	$this->form_validation->set_rules('id_status', 'id_status', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_status', 'id_status', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Status_sunting.php */

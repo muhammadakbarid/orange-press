@@ -9,7 +9,7 @@ class Jenis_kti extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Jenis_kti_model');
         $this->load->library('form_validation');
@@ -19,7 +19,7 @@ class Jenis_kti extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'jenis_kti?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'jenis_kti?q=' . urlencode($q);
@@ -50,43 +50,43 @@ class Jenis_kti extends CI_Controller
         ];
 
         $data['page'] = 'jenis_kti/jenis_kti_list';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Jenis_kti_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_kti' => $row->id_kti,
-		'nama_kti' => $row->nama_kti,
-		'harga_terbit' => $row->harga_terbit,
-		'nama_paket' => $row->nama_paket,
-	    );
-        $data['title'] = 'Jenis Kti';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_kti' => $row->id_kti,
+                'nama_kti' => $row->nama_kti,
+                'harga_terbit' => $row->harga_terbit,
+                'nama_paket' => $row->nama_paket,
+            );
+            $data['title'] = 'Jenis Kti';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'jenis_kti/jenis_kti_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'jenis_kti/jenis_kti_read';
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('jenis_kti'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('jenis_kti/create_action'),
-	    'id_kti' => set_value('id_kti'),
-	    'nama_kti' => set_value('nama_kti'),
-	    'harga_terbit' => set_value('harga_terbit'),
-	    'nama_paket' => set_value('nama_paket'),
-	);
+            'id_kti' => set_value('id_kti'),
+            'nama_kti' => set_value('nama_kti'),
+            'harga_terbit' => set_value('harga_terbit'),
+            'nama_paket' => set_value('nama_paket'),
+        );
         $data['title'] = 'Jenis Kti';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -94,10 +94,10 @@ class Jenis_kti extends CI_Controller
         ];
 
         $data['page'] = 'jenis_kti/jenis_kti_form';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -105,18 +105,18 @@ class Jenis_kti extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_kti' => $this->input->post('nama_kti',TRUE),
-		'harga_terbit' => $this->input->post('harga_terbit',TRUE),
-		'nama_paket' => $this->input->post('nama_paket',TRUE),
-	    );
+                'nama_kti' => $this->input->post('nama_kti', TRUE),
+                'harga_terbit' => $this->input->post('harga_terbit', TRUE),
+                'nama_paket' => $this->input->post('nama_paket', TRUE),
+            );
 
             $this->Jenis_kti_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('jenis_kti'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Jenis_kti_model->get_by_id($id);
 
@@ -124,26 +124,26 @@ class Jenis_kti extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('jenis_kti/update_action'),
-		'id_kti' => set_value('id_kti', $row->id_kti),
-		'nama_kti' => set_value('nama_kti', $row->nama_kti),
-		'harga_terbit' => set_value('harga_terbit', $row->harga_terbit),
-		'nama_paket' => set_value('nama_paket', $row->nama_paket),
-	    );
+                'id_kti' => set_value('id_kti', $row->id_kti),
+                'nama_kti' => set_value('nama_kti', $row->nama_kti),
+                'harga_terbit' => set_value('harga_terbit', $row->harga_terbit),
+                'nama_paket' => set_value('nama_paket', $row->nama_paket),
+            );
             $data['title'] = 'Jenis Kti';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'jenis_kti/jenis_kti_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'jenis_kti/jenis_kti_form';
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('jenis_kti'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -151,18 +151,18 @@ class Jenis_kti extends CI_Controller
             $this->update($this->input->post('id_kti', TRUE));
         } else {
             $data = array(
-		'nama_kti' => $this->input->post('nama_kti',TRUE),
-		'harga_terbit' => $this->input->post('harga_terbit',TRUE),
-		'nama_paket' => $this->input->post('nama_paket',TRUE),
-	    );
+                'nama_kti' => $this->input->post('nama_kti', TRUE),
+                'harga_terbit' => $this->input->post('harga_terbit', TRUE),
+                'nama_paket' => $this->input->post('nama_paket', TRUE),
+            );
 
             $this->Jenis_kti_model->update($this->input->post('id_kti', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('jenis_kti'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Jenis_kti_model->get_by_id($id);
 
@@ -176,26 +176,26 @@ class Jenis_kti extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Jenis_kti_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('nama_kti', 'nama kti', 'trim|required');
-	$this->form_validation->set_rules('harga_terbit', 'harga terbit', 'trim|required');
-	$this->form_validation->set_rules('nama_paket', 'nama paket', 'trim|required');
+        $this->form_validation->set_rules('nama_kti', 'nama kti', 'trim|required');
+        $this->form_validation->set_rules('harga_terbit', 'harga terbit', 'trim|required');
+        $this->form_validation->set_rules('nama_paket', 'nama paket', 'trim|required');
 
-	$this->form_validation->set_rules('id_kti', 'id_kti', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_kti', 'id_kti', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Jenis_kti.php */

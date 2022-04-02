@@ -28,7 +28,7 @@ class Setting extends CI_Controller
         $this->form_validation->set_rules('nilai', 'Alamat', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $nama = $this->input->post('nama');
             $nilai = $this->input->post('nilai');

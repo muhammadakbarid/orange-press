@@ -27,7 +27,7 @@ class Menu extends CI_Controller
         // echo $this->layout->auth_privilege($c_url); 
         // echo "tes";
         // $data['page'] = 'menu/menu_list';
-        // $this->load->view('template/backend', $data);
+        // $this->load->view('template/Backend', $data);
         redirect('dashboard', 'refresh');
     }
 
@@ -59,7 +59,7 @@ class Menu extends CI_Controller
             ];
 
             $data['page'] = 'menu/menu_read';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('menu'));
@@ -91,7 +91,7 @@ class Menu extends CI_Controller
         $data["groups"] = $this->db->query("select * from groups")->result();
         $data['parent'] = $this->db->query("select id_menu, label from menu")->result();;
         $data['page'] = 'menu/menu_form';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function create_action()
@@ -155,7 +155,7 @@ class Menu extends CI_Controller
             $data['page'] = 'menu/menu_form';
             $data['parent'] = $this->db->query("select id_menu, label from menu")->result();;
 
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('menu'));

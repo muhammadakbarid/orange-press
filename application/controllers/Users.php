@@ -38,7 +38,7 @@ class Users extends CI_Controller
         ];
 
         $data['page'] = 'users/list';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
 
@@ -51,7 +51,7 @@ class Users extends CI_Controller
         ];
 
         $data['page'] = 'users/users_list';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function json()
@@ -90,7 +90,7 @@ class Users extends CI_Controller
             ];
 
             $data['page'] = 'users/users_read';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('users'));
@@ -127,7 +127,7 @@ class Users extends CI_Controller
         ];
 
         $data['page'] = 'users/users_form';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function create_action()
@@ -195,7 +195,7 @@ class Users extends CI_Controller
             ];
 
             $data['page'] = 'users/users_form';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('users'));

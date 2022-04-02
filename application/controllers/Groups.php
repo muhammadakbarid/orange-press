@@ -23,7 +23,7 @@ class Groups extends CI_Controller
         ];
 
         $data['page'] = 'groups/groups_list';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function json()
@@ -48,7 +48,7 @@ class Groups extends CI_Controller
             ];
 
             $data['page'] = 'groups/groups_read';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('groups'));
@@ -71,7 +71,7 @@ class Groups extends CI_Controller
         ];
 
         $data['page'] = 'groups/groups_form';
-        $this->load->view('template/backend', $data);
+        $this->load->view('template/Backend', $data);
     }
 
     public function create_action()
@@ -111,7 +111,7 @@ class Groups extends CI_Controller
             ];
 
             $data['page'] = 'groups/groups_form';
-            $this->load->view('template/backend', $data);
+            $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('groups'));
