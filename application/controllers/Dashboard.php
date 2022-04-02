@@ -20,6 +20,6 @@ class Dashboard extends CI_Controller
 		];
 		//$this->layout->set_privilege(1);
 		$data['page'] = 'Dashboard/Index';
-		$this->load->view('template/backend', $data);
+		$this->load->view('template/Backend', $data);
 	}
 }
