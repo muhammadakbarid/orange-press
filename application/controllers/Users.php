@@ -66,22 +66,30 @@ class Users extends CI_Controller
         if ($row) {
             $data = array(
                 'id' => $row->id,
-                'ip_address' => $row->ip_address,
-                'username' => $row->username,
-                'password' => $row->password,
-                'salt' => $row->salt,
                 'email' => $row->email,
-                'activation_code' => $row->activation_code,
-                'forgotten_password_code' => $row->forgotten_password_code,
-                'forgotten_password_time' => $row->forgotten_password_time,
-                'remember_code' => $row->remember_code,
-                'created_on' => $row->created_on,
-                'last_login' => $row->last_login,
+                'name' => $row->first_name . ' ' . $row->last_name,
                 'active' => $row->active,
-                'first_name' => $row->first_name,
-                'last_name' => $row->last_name,
-                'company' => $row->company,
-                'phone' => $row->phone,
+                'image' => $row->image,
+                'no_ktp' => $row->no_ktp,
+                'nip' => $row->nip,
+                'no_npwp' => $row->no_npwp,
+                'jenis_kelamin' => $row->jenis_kelamin,
+                'tempat_lahir' => $row->tempat_lahir,
+                'tanggal_lahir' => $row->tanggal_lahir,
+                'alamat' => $row->alamat,
+                'no_hp' => $row->no_hp,
+                'profesi' => $row->profesi,
+                'nama_instansi' => $row->nama_instansi,
+                'alamat_instansi' => $row->alamat_instansi,
+                'email_instansi' => $row->email_instansi,
+                'no_telp_instansi' => $row->no_telp_instansi,
+                'sc_form_penulis' => $row->sc_form_penulis,
+                'sc_ktp' => $row->sc_ktp,
+                'sc_cv' => $row->sc_cv,
+                'sc_npwp' => $row->sc_npwp,
+                'sc_foto' => $row->sc_foto,
+                'bidang_kompetensi' => $row->bidang_kompetensi,
+                'create_on' => $row->create_on
             );
             $data['title'] = 'Users';
             $data['subtitle'] = '';
@@ -103,23 +111,33 @@ class Users extends CI_Controller
             'button' => 'Create',
             'action' => site_url('users/create_action'),
             'id' => set_value('id'),
-            'ip_address' => set_value('ip_address'),
-            'username' => set_value('username'),
-            'password' => set_value('password'),
-            'salt' => set_value('salt'),
             'email' => set_value('email'),
-            'activation_code' => set_value('activation_code'),
-            'forgotten_password_code' => set_value('forgotten_password_code'),
-            'forgotten_password_time' => set_value('forgotten_password_time'),
-            'remember_code' => set_value('remember_code'),
-            'created_on' => set_value('created_on'),
-            'last_login' => set_value('last_login'),
-            'active' => set_value('active'),
             'first_name' => set_value('first_name'),
             'last_name' => set_value('last_name'),
-            'company' => set_value('company'),
-            'phone' => set_value('phone'),
+            'active' => set_value('active'),
+            'image' => set_value('image'),
+            'no_ktp' => set_value('no_ktp'),
+            'nip' => set_value('nip'),
+            'no_npwp' => set_value('no_npwp'),
+            'jenis_kelamin' => set_value('jenis_kelamin'),
+            'tempat_lahir' => set_value('tempat_lahir'),
+            'tanggal_lahir' => set_value('tanggal_lahir'),
+            'alamat' => set_value('alamat'),
+            'no_hp' => set_value('no_hp'),
+            'profesi' => set_value('profesi'),
+            'nama_instansi' => set_value('nama_instansi'),
+            'alamat_instansi' => set_value('alamat_instansi'),
+            'email_instansi' => set_value('email_instansi'),
+            'no_telp_instansi' => set_value('no_telp_instansi'),
+            'sc_form_penulis' => set_value('sc_form_penulis'),
+            'sc_ktp' => set_value('sc_ktp'),
+            'sc_cv' => set_value('sc_cv'),
+            'sc_npwp' => set_value('sc_npwp'),
+            'sc_foto' => set_value('sc_foto'),
+            'bidang_kompetensi' => set_value('bidang_kompetensi'),
+            'create_on' => set_value('create_on')
         );
+
         $data['title'] = 'Users';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -138,22 +156,32 @@ class Users extends CI_Controller
             $this->create();
         } else {
             $data = array(
-                'ip_address' => $this->input->post('ip_address', TRUE),
-                'username' => $this->input->post('username', TRUE),
-                'password' => $this->input->post('password', TRUE),
-                'salt' => $this->input->post('salt', TRUE),
                 'email' => $this->input->post('email', TRUE),
-                'activation_code' => $this->input->post('activation_code', TRUE),
-                'forgotten_password_code' => $this->input->post('forgotten_password_code', TRUE),
-                'forgotten_password_time' => $this->input->post('forgotten_password_time', TRUE),
-                'remember_code' => $this->input->post('remember_code', TRUE),
-                'created_on' => $this->input->post('created_on', TRUE),
-                'last_login' => $this->input->post('last_login', TRUE),
-                'active' => $this->input->post('active', TRUE),
                 'first_name' => $this->input->post('first_name', TRUE),
                 'last_name' => $this->input->post('last_name', TRUE),
-                'company' => $this->input->post('company', TRUE),
-                'phone' => $this->input->post('phone', TRUE),
+                'active' => $this->input->post('active', TRUE),
+                'image' => $this->input->post('image', TRUE),
+                'no_ktp' => $this->input->post('no_ktp', TRUE),
+                'nip' => $this->input->post('nip', TRUE),
+                'no_npwp' => $this->input->post('no_npwp', TRUE),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin', TRUE),
+                'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir', TRUE),
+                'alamat' => $this->input->post('alamat', TRUE),
+                'no_hp' => $this->input->post('no_hp', TRUE),
+                'profesi' => $this->input->post('profesi', TRUE),
+                'nama_instansi' => $this->input->post('nama_instansi', TRUE),
+                'alamat_instansi' => $this->input->post('alamat_instansi', TRUE),
+                'email_instansi' => $this->input->post('email_instansi', TRUE),
+                'no_telp_instansi' => $this->input->post('no_telp_instansi', TRUE),
+                'sc_form_penulis' => $this->input->post('sc_form_penulis', TRUE),
+                'sc_ktp' => $this->input->post('sc_ktp', TRUE),
+                'sc_cv' => $this->input->post('sc_cv', TRUE),
+                'sc_npwp' => $this->input->post('sc_npwp', TRUE),
+                'sc_foto' => $this->input->post('sc_foto', TRUE),
+                'bidang_kompetensi' => $this->input->post('bidang_kompetensi', TRUE),
+                // current datetime
+                'create_on' => date('Y-m-d H:i:s')
             );
 
             $this->Users_model->insert($data);
@@ -171,23 +199,33 @@ class Users extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('users/update_action'),
                 'id' => set_value('id', $row->id),
-                'ip_address' => set_value('ip_address', $row->ip_address),
-                'username' => set_value('username', $row->username),
-                'password' => set_value('password', $row->password),
-                'salt' => set_value('salt', $row->salt),
                 'email' => set_value('email', $row->email),
-                'activation_code' => set_value('activation_code', $row->activation_code),
-                'forgotten_password_code' => set_value('forgotten_password_code', $row->forgotten_password_code),
-                'forgotten_password_time' => set_value('forgotten_password_time', $row->forgotten_password_time),
-                'remember_code' => set_value('remember_code', $row->remember_code),
-                'created_on' => set_value('created_on', $row->created_on),
-                'last_login' => set_value('last_login', $row->last_login),
-                'active' => set_value('active', $row->active),
                 'first_name' => set_value('first_name', $row->first_name),
                 'last_name' => set_value('last_name', $row->last_name),
-                'company' => set_value('company', $row->company),
-                'phone' => set_value('phone', $row->phone),
+                'active' => set_value('active', $row->active),
+                'image' => set_value('image', $row->image),
+                'no_ktp' => set_value('no_ktp', $row->no_ktp),
+                'nip' => set_value('nip', $row->nip),
+                'no_npwp' => set_value('no_npwp', $row->no_npwp),
+                'jenis_kelamin' => set_value('jenis_kelamin', $row->jenis_kelamin),
+                'tempat_lahir' => set_value('tempat_lahir', $row->tempat_lahir),
+                'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
+                'alamat' => set_value('alamat', $row->alamat),
+                'no_hp' => set_value('no_hp', $row->no_hp),
+                'profesi' => set_value('profesi', $row->profesi),
+                'nama_instansi' => set_value('nama_instansi', $row->nama_instansi),
+                'alamat_instansi' => set_value('alamat_instansi', $row->alamat_instansi),
+                'email_instansi' => set_value('email_instansi', $row->email_instansi),
+                'no_telp_instansi' => set_value('no_telp_instansi', $row->no_telp_instansi),
+                'sc_form_penulis' => set_value('sc_form_penulis', $row->sc_form_penulis),
+                'sc_ktp' => set_value('sc_ktp', $row->sc_ktp),
+                'sc_cv' => set_value('sc_cv', $row->sc_cv),
+                'sc_npwp' => set_value('sc_npwp', $row->sc_npwp),
+                'sc_foto' => set_value('sc_foto', $row->sc_foto),
+                'bidang_kompetensi' => set_value('bidang_kompetensi', $row->bidang_kompetensi),
+                'create_on' => set_value('create_on', $row->create_on),
             );
+
             $data['title'] = 'Users';
             $data['subtitle'] = '';
             $data['crumb'] = [
@@ -210,22 +248,32 @@ class Users extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-                'ip_address' => $this->input->post('ip_address', TRUE),
-                'username' => $this->input->post('username', TRUE),
-                'password' => $this->input->post('password', TRUE),
-                'salt' => $this->input->post('salt', TRUE),
                 'email' => $this->input->post('email', TRUE),
-                'activation_code' => $this->input->post('activation_code', TRUE),
-                'forgotten_password_code' => $this->input->post('forgotten_password_code', TRUE),
-                'forgotten_password_time' => $this->input->post('forgotten_password_time', TRUE),
-                'remember_code' => $this->input->post('remember_code', TRUE),
-                'created_on' => $this->input->post('created_on', TRUE),
-                'last_login' => $this->input->post('last_login', TRUE),
-                'active' => $this->input->post('active', TRUE),
                 'first_name' => $this->input->post('first_name', TRUE),
                 'last_name' => $this->input->post('last_name', TRUE),
-                'company' => $this->input->post('company', TRUE),
-                'phone' => $this->input->post('phone', TRUE),
+                'active' => $this->input->post('active', TRUE),
+                'image' => $this->input->post('image', TRUE),
+                'no_ktp' => $this->input->post('no_ktp', TRUE),
+                'nip' => $this->input->post('nip', TRUE),
+                'no_npwp' => $this->input->post('no_npwp', TRUE),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin', TRUE),
+                'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir', TRUE),
+                'alamat' => $this->input->post('alamat', TRUE),
+                'no_hp' => $this->input->post('no_hp', TRUE),
+                'profesi' => $this->input->post('profesi', TRUE),
+                'nama_instansi' => $this->input->post('nama_instansi', TRUE),
+                'alamat_instansi' => $this->input->post('alamat_instansi', TRUE),
+                'email_instansi' => $this->input->post('email_instansi', TRUE),
+                'no_telp_instansi' => $this->input->post('no_telp_instansi', TRUE),
+                'sc_form_penulis' => $this->input->post('sc_form_penulis', TRUE),
+                'sc_ktp' => $this->input->post('sc_ktp', TRUE),
+                'sc_cv' => $this->input->post('sc_cv', TRUE),
+                'sc_npwp' => $this->input->post('sc_npwp', TRUE),
+                'sc_foto' => $this->input->post('sc_foto', TRUE),
+                'bidang_kompetensi' => $this->input->post('bidang_kompetensi', TRUE),
+                // current datetime
+                'create_on' => $this->input->post('create_on', TRUE)
             );
 
             $this->Users_model->update($this->input->post('id', TRUE), $data);
@@ -268,22 +316,32 @@ class Users extends CI_Controller
     }
     public function _rules()
     {
-        $this->form_validation->set_rules('ip_address', 'ip address', 'trim|required');
-        $this->form_validation->set_rules('username', 'username', 'trim|required');
-        $this->form_validation->set_rules('password', 'password', 'trim|required');
-        $this->form_validation->set_rules('salt', 'salt', 'trim|required');
         $this->form_validation->set_rules('email', 'email', 'trim|required');
-        $this->form_validation->set_rules('activation_code', 'activation code', 'trim|required');
-        $this->form_validation->set_rules('forgotten_password_code', 'forgotten password code', 'trim|required');
-        $this->form_validation->set_rules('forgotten_password_time', 'forgotten password time', 'trim|required');
-        $this->form_validation->set_rules('remember_code', 'remember code', 'trim|required');
-        $this->form_validation->set_rules('created_on', 'created on', 'trim|required');
-        $this->form_validation->set_rules('last_login', 'last login', 'trim|required');
-        $this->form_validation->set_rules('active', 'active', 'trim|required');
         $this->form_validation->set_rules('first_name', 'first name', 'trim|required');
         $this->form_validation->set_rules('last_name', 'last name', 'trim|required');
-        $this->form_validation->set_rules('company', 'company', 'trim|required');
-        $this->form_validation->set_rules('phone', 'phone', 'trim|required');
+        $this->form_validation->set_rules('active', 'active', 'trim|required');
+        $this->form_validation->set_rules('image', 'image', 'trim|required');
+        $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required');
+        $this->form_validation->set_rules('nip', 'nip', 'trim|required');
+        $this->form_validation->set_rules('no_npwp', 'no npwp', 'trim|required');
+        $this->form_validation->set_rules('jenis_kelamin', 'jenis kelamin', 'trim|required');
+        $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'trim|required');
+        $this->form_validation->set_rules('tanggal_lahir', 'tanggal lahir', 'trim|required');
+        $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+        $this->form_validation->set_rules('no_hp', 'no hp', 'trim|required');
+        $this->form_validation->set_rules('profesi', 'profesi', 'trim|required');
+        $this->form_validation->set_rules('nama_instansi', 'nama instansi', 'trim|required');
+        $this->form_validation->set_rules('alamat_instansi', 'alamat instansi', 'trim|required');
+        $this->form_validation->set_rules('email_instansi', 'email instansi', 'trim|required');
+        $this->form_validation->set_rules('no_telp_instansi', 'no telp instansi', 'trim|required');
+        $this->form_validation->set_rules('sc_form_penulis', 'sc form penulis', 'trim|required');
+        $this->form_validation->set_rules('sc_ktp', 'sc ktp', 'trim|required');
+        $this->form_validation->set_rules('sc_cv', 'sc cv', 'trim|required');
+        $this->form_validation->set_rules('sc_npwp', 'sc npwp', 'trim|required');
+        $this->form_validation->set_rules('sc_foto', 'sc foto', 'trim|required');
+        $this->form_validation->set_rules('bidang_kompetensi', 'bidang kompetensi', 'trim|required');
+        // $this->form_validation->set_rules('create_on', 'create on', 'trim|required');
+
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

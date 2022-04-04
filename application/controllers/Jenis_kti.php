@@ -43,10 +43,10 @@ class Jenis_kti extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Jenis Kti';
+        $data['title'] = 'Jenis KTI';
         $data['subtitle'] = '';
         $data['crumb'] = [
-            'Jenis Kti' => '',
+            'Jenis KTI' => '',
         ];
 
         $data['page'] = 'jenis_kti/jenis_kti_list';
@@ -63,7 +63,7 @@ class Jenis_kti extends CI_Controller
                 'harga_terbit' => $row->harga_terbit,
                 'nama_paket' => $row->nama_paket,
             );
-            $data['title'] = 'Jenis Kti';
+            $data['title'] = 'Jenis KTI';
             $data['subtitle'] = '';
             $data['crumb'] = [
                 'Dashboard' => '',
@@ -87,7 +87,7 @@ class Jenis_kti extends CI_Controller
             'harga_terbit' => set_value('harga_terbit'),
             'nama_paket' => set_value('nama_paket'),
         );
-        $data['title'] = 'Jenis Kti';
+        $data['title'] = 'Jenis KTI';
         $data['subtitle'] = '';
         $data['crumb'] = [
             'Dashboard' => '',
@@ -129,7 +129,7 @@ class Jenis_kti extends CI_Controller
                 'harga_terbit' => set_value('harga_terbit', $row->harga_terbit),
                 'nama_paket' => set_value('nama_paket', $row->nama_paket),
             );
-            $data['title'] = 'Jenis Kti';
+            $data['title'] = 'Jenis KTI';
             $data['subtitle'] = '';
             $data['crumb'] = [
                 'Dashboard' => '',
