@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2022 at 12:44 PM
+-- Generation Time: Apr 05, 2022 at 10:19 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -78,7 +78,6 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User'),
 (33, 'editor', 'Editor'),
 (34, 'penulis', 'Penulis'),
 (35, 'proofreader', 'Proofreader'),
@@ -112,60 +111,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (1, 44),
 (1, 115),
 (1, 42),
-(1, 1),
-(2, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 1),
-(22, 1),
-(23, 1),
-(24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
-(1, 3),
-(2, 3),
-(5, 3),
-(6, 3),
-(7, 3),
-(8, 3),
-(9, 3),
-(10, 3),
-(11, 3),
-(12, 3),
-(13, 3),
-(14, 3),
-(15, 3),
-(16, 3),
-(17, 3),
-(18, 3),
-(19, 3),
-(20, 3),
-(21, 3),
-(22, 3),
-(23, 3),
-(24, 3),
-(25, 3),
-(26, 3),
-(27, 3),
-(28, 3),
-(29, 3),
 (1, 118),
 (5, 118),
 (6, 118),
@@ -232,7 +177,16 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (1, 127),
 (2, 127),
 (1, 114),
-(1, 115);
+(1, 115),
+(1, 1),
+(34, 1),
+(1, 92),
+(1, 3),
+(33, 3),
+(34, 3),
+(35, 3),
+(36, 3),
+(37, 3);
 
 -- --------------------------------------------------------
 
@@ -411,7 +365,7 @@ CREATE TABLE `users` (
   `no_npwp` varchar(15) NOT NULL COMMENT '15 digit',
   `jenis_kelamin` enum('Laki-Laki','Perempuan') NOT NULL COMMENT '- Laki-Laki\r\n- Perempuan',
   `tempat_lahir` varchar(50) NOT NULL,
-  `tanggal_lahir` date NOT NULL,
+  `tanggal_lahir` date DEFAULT NULL,
   `alamat` text NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `profesi` varchar(50) NOT NULL,
@@ -425,7 +379,7 @@ CREATE TABLE `users` (
   `sc_npwp` varchar(256) NOT NULL,
   `sc_foto` varchar(256) NOT NULL,
   `bidang_kompetensi` varchar(100) NOT NULL,
-  `create_on` datetime NOT NULL DEFAULT current_timestamp()
+  `create_on` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -435,7 +389,12 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `active`, `image`, `no_ktp`, `nip`, `no_npwp`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_hp`, `profesi`, `nama_instansi`, `alamat_instansi`, `email_instansi`, `no_telp_instansi`, `sc_form_penulis`, `sc_ktp`, `sc_cv`, `sc_npwp`, `sc_foto`, `bidang_kompetensi`, `create_on`) VALUES
 (1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
 (46, 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
-(48, 'coba@gmail.com', 'coba', '1', '$2y$08$Lt7VVxsYwGjVtJ0AtsYhUeUILx8iNhOd89UfEYxx18M/T6iq6rkYi', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00');
+(48, 'coba@gmail.com', 'coba', '1', '$2y$08$Lt7VVxsYwGjVtJ0AtsYhUeUILx8iNhOd89UfEYxx18M/T6iq6rkYi', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(50, 'admin@muhakbar.comss', 'Muhammad', 'Akbar', '$2y$08$MyWpUPB.g2JItBpxPH203uIFW1Srj1DyJKKF0QE9KOvIsMQoh3CC2', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(51, 'penulis1@gmail.com', 'penulis', '1', '$2y$08$t3AEH6.JmraK9cdTPdc7luHfXG36CXkeD1/KzS0HxglMJXDceGDM.', 1, 'IMG_20210902_135659_3071.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(52, 'penulis2@gmail.com', 'penulis', '2', '$2y$08$h7pRS2Jx.npSEPZZ0HgaBOdFMh7GtIotNaBy.Oa/sV8Xap4LjRpti', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '2022-04-05 13:32:42'),
+(53, 'penulis3@gmail.com', 'penulis', '3', '$2y$08$O.gd8AVuspVH5e9/.U1s3OUTZETSkPuf6bluCk8p.UHxMmoZhVeA2', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '2022-04-05 08:48:45'),
+(54, 'penulis10@gmail.com', 'penulis', '10', '$2y$08$ech695NYXRyH2Lqy95Fkwu2xcLxwXDxyhKeMO4hLZf4Y45/3arZSm', 1, 'default.jpg', '1234567891123456', '1234567891123456', '123456789112345', 'Laki-Laki', 'asd', '2022-04-06', 'asdasdasd', '0899999999', 'asdasd', 'asdasdasd', 'asdasdasd', 'asdasd@asdasd.com', '123456789112345', 'jbi,+04+N123+FINAL+195-202.pdf', 'jbi,+04+N123+FINAL+195-202.pdf', 'Undangan_(HMMI)_Media_Partner_Bramanty_211.pdf', 'Surat_Undangan_Debat_Terbuka_HMMI_(1).pdf', 'IMG_20210902_135659_307_(1).jpg', 'Logistik', '2022-04-05 13:51:39');
 
 -- --------------------------------------------------------
 
@@ -466,7 +425,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (90, 12, 2),
 (67, 12, 8),
 (123, 46, 2),
-(126, 48, 2);
+(126, 48, 2),
+(128, 50, 34),
+(129, 51, 34),
+(130, 52, 34),
+(131, 53, 34),
+(132, 54, 34);
 
 --
 -- Indexes for dumped tables
@@ -639,13 +603,13 @@ ALTER TABLE `tim_penulis`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
