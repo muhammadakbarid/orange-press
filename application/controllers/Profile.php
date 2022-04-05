@@ -37,6 +37,13 @@ class Profile extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['page'] = 'profile';
+			// if there are empty data on $data['user']
+			foreach ($data['user'] as $key => $value) {
+				if (empty($value)) {
+					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Masih ada data yang belum lengkap. Segera Lengkapi data anda!</div>');
+				}
+			}
+
 			$this->load->view('template/Backend', $data);
 		} else {
 			$first_name = $this->input->post('first_name');

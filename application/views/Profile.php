@@ -4,6 +4,8 @@
   <!--  box edit-->
   <div class="col-md-6 col-xs-12">
     <div class="box box-primary">
+      <!-- flashdata -->
+
       <div class="box-header with-border">
         <h3 class="box-title">Edit Profil</h3>
       </div>
@@ -11,6 +13,11 @@
       <!-- form start -->
       <?php echo form_open_multipart('profile'); ?>
       <div class="box-body">
+        <?php if ($this->session->flashdata('message')) : ?>
+          <div class="form-group">
+            <?= $this->session->flashdata('message'); ?>
+          </div>
+        <?php endif; ?>
         <div class="form-group">
           <div class="row">
             <div class="col-md-6">
