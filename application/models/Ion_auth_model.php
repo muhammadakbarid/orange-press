@@ -901,7 +901,8 @@ class Ion_auth_model extends CI_Model
 			// 'username' => $identity,
 			'password' => $password,
 			'email' => $identity,
-			// 'ip_address' => $ip_address,
+			// create_on current datetime
+			'create_on' => date('Y-m-d H:i:s'),
 			// 'created_on' => time(),
 			'active' => ($manual_activation === FALSE ? 1 : 0)
 		);

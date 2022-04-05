@@ -88,7 +88,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file', 'form', 'language', 'formatnumber');
+$autoload['helper'] = array('url', 'file', 'form', 'language', 'formatnumber', 'dateIna');
 
 /*
 | -------------------------------------------------------------------
@@ -102,7 +102,7 @@ $autoload['helper'] = array('url', 'file', 'form', 'language', 'formatnumber');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('tamaconfig');
+$autoload['config'] = array('akbrconfig');
 
 /*
 | -------------------------------------------------------------------

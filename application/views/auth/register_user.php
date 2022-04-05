@@ -84,11 +84,12 @@ $setting_aplikasi = $this->db->get('setting')->row();
 
                                     <!-- <p><?php echo form_submit('submit', lang('create_user_submit_btn'), 'class="btn bg-blue"'); ?></p> -->
                                     <div class="clearfix">
-                                          <button class="btn btn-primary float-right" type="submit">Daftar</button>
+                                          <a href="<?= base_url(); ?>" class="btn btn-warning float-left" type="submit">Back</a>
+                                          <button class="btn btn-warning float-right" type="submit">Register</button>
                                     </div>
                                     <?php echo form_close(); ?>
 
-                                    <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div>
+                                    <!-- <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div> -->
                               </div>
                         </div>
                   </div>

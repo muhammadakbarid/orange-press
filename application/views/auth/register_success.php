@@ -25,9 +25,9 @@ $setting_aplikasi = $this->db->get('setting')->row();
                                     <div class="text-center mb-5">
                                           <img src="<?= base_url('assets/uploads/image/logo/') . $setting_aplikasi->kode; ?>" height="48" class='mb-4'>
                                           <h3><?= "{$setting_aplikasi->nama}"; ?></h3>
-                                          <p>Perndaftaran Akun sukses, silahkan login untuk mulai menggunakan aplikasi <?= "{$setting_aplikasi->nama}"; ?>.</p>
+                                          <p>Pendaftaran Akun sukses, silahkan login untuk mulai menggunakan aplikasi <?= "{$setting_aplikasi->nama}"; ?>.</p>
                                           <div class="clearfix">
-                                                <a href="<?= base_url('login'); ?>" class="btn btn-primary float-center" type="submit">Login</a>
+                                                <a href="<?= base_url('login'); ?>" class="btn btn-warning float-center" type="submit">Login</a>
                                           </div>
                                     </div>
 

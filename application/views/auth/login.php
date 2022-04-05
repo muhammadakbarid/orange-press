@@ -54,11 +54,12 @@ $setting_aplikasi = $this->db->get('setting')->row();
               </div>
 
               <div class="clearfix mt-4">
+                <a href="<?= base_url('auth/register_user'); ?>" class="btn btn-warning float-left" type="submit">Register</a>
                 <button class="btn btn-warning float-right" type="submit">Login</button>
               </div>
               <?php echo form_close(); ?>
-              <!-- <div class="row"><a href="<?= base_url('auth/register_user'); ?>">Daftar Sekarang</a></div> -->
-              <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div>
+              <!-- <div class="row"><a href="<?= base_url('auth/register_user'); ?>">Daftar Sekarang</a></div>
+              <div class="row"><a href="<?= base_url(); ?>">Kembali</a></div> -->
               <!-- <div class="divider">
                 <div class="divider-text">OR</div>
               </div>

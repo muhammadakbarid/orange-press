@@ -27,7 +27,8 @@ class Profile extends CI_Controller
 		$user_id = $this->session->userdata('user_id');
 		$data['usergroups'] = $this->users_model->getUserGroups($user_id);
 
-
+		$data['jenis_kelamin'] = config_item('jenis_kelamin');
+		$data['bidang_kompetensi'] = config_item('bidang_kompetensi');
 		$data['title'] = 'Profile';
 
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
