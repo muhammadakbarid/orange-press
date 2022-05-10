@@ -476,34 +476,188 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('email'),
 				'class' => 'form-control'
 			);
-			// $this->data['company'] = array(
-			// 	'name' => 'company',
-			// 	'id' => 'company',
-			// 	'type' => 'text',
-			// 	'value' => $this->form_validation->set_value('company'),
-			// 	'class' => 'form-control'
-			// );
-			$this->data['phone'] = array(
-				'name' => 'phone',
-				'id' => 'phone',
+			$this->data['no_ktp'] = array(
+				'name' => 'no_ktp',
+				'id' => 'no_ktp',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone'),
+				'value' => $this->form_validation->set_value('no_ktp'),
 				'class' => 'form-control'
 			);
-			// $this->data['nik'] = array(
-			// 	'name' => 'nik',
-			// 	'id' => 'nik',
-			// 	'type' => 'text',
-			// 	'value' => $this->form_validation->set_value('nik'),
-			// 	'class' => 'form-control'
-			// );
-			// $this->data['jabatan'] = array(
-			// 	'name' => 'jabatan',
-			// 	'id' => '',
-			// 	'type' => 'text',
-			// 	'value' => $this->form_validation->set_value('jabatan'),
-			// 	'class' => 'form-control'
-			// );
+			$this->data['nip'] = array(
+				'name' => 'nip',
+				'id' => 'nip',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('nip'),
+				'class' => 'form-control'
+			);
+			$this->data['no_npwp'] = array(
+				'name' => 'no_npwp',
+				'id' => 'no_npwp',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('no_npwp'),
+				'class' => 'form-control'
+			);
+			$this->data['jenis_kelamin'] = array(
+				'name' => 'jenis_kelamin',
+				'id' => 'jenis_kelamin',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('jenis_kelamin'),
+				'class' => 'form-control'
+			);
+			$this->data['tanggal_lahir'] = array(
+				'name' => 'tanggal_lahir',
+				'id' => 'tanggal_lahir',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('tanggal_lahir'),
+				'class' => 'form-control'
+			);
+			$this->data['alamat'] = array(
+				'name' => 'alamat',
+				'id' => 'alamat',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('alamat'),
+				'class' => 'form-control'
+			);
+			$this->data['no_hp'] = array(
+				'name' => 'no_hp',
+				'id' => 'no_hp',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('no_hp'),
+				'class' => 'form-control'
+			);
+			$this->data['nip'] = array(
+				'name' => 'nip',
+				'id' => 'nip',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('nip'),
+				'class' => 'form-control'
+			);
+			$this->data['no_npwp'] = array(
+				'name' => 'no_npwp',
+				'id' => 'no_npwp',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('no_npwp'),
+				'class' => 'form-control'
+			);
+			$this->data['jenis_kelamin'] = array(
+				'name' => 'jenis_kelamin',
+				'id' => 'jenis_kelamin',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('jenis_kelamin'),
+				'class' => 'form-control'
+			);
+			$this->data['tempat_lahir'] = array(
+				'name' => 'tempat_lahir',
+				'id' => 'tempat_lahir',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('tempat_lahir'),
+				'class' => 'form-control'
+			);
+			$this->data['tanggal_lahir'] = array(
+				'name' => 'tanggal_lahir',
+				'id' => 'tanggal_lahir',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('tanggal_lahir'),
+				'class' => 'form-control'
+			);
+			$this->data['alamat'] = array(
+				'name' => 'alamat',
+				'id' => 'alamat',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('alamat'),
+				'class' => 'form-control'
+			);
+			$this->data['no_hp'] = array(
+				'name' => 'no_hp',
+				'id' => 'no_hp',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('no_hp'),
+				'class' => 'form-control'
+			);
+			$this->data['profesi'] = array(
+				'name' => 'profesi',
+				'id' => 'profesi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('profesi'),
+				'class' => 'form-control'
+			);
+			$this->data['nama_instansi'] = array(
+				'name' => 'nama_instansi',
+				'id' => 'nama_instansi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('nama_instansi'),
+				'class' => 'form-control'
+			);
+			$this->data['alamat_instansi'] = array(
+				'name' => 'alamat_instansi',
+				'id' => 'alamat_instansi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('alamat_instansi'),
+				'class' => 'form-control'
+			);
+			$this->data['email_instansi'] = array(
+				'name' => 'email_instansi',
+				'id' => 'email_instansi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('email_instansi'),
+				'class' => 'form-control'
+			);
+			$this->data['email_instansi'] = array(
+				'name' => 'email_instansi',
+				'id' => 'email_instansi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('email_instansi'),
+				'class' => 'form-control'
+			);
+			$this->data['no_telp_instansi'] = array(
+				'name' => 'no_telp_instansi',
+				'id' => 'no_telp_instansi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('no_telp_instansi'),
+				'class' => 'form-control'
+			);
+			$this->data['sc_form_penulis'] = array(
+				'name' => 'sc_form_penulis',
+				'id' => 'sc_form_penulis',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('sc_form_penulis'),
+				'class' => 'form-control'
+			);
+			$this->data['sc_ktp'] = array(
+				'name' => 'sc_ktp',
+				'id' => 'sc_ktp',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('sc_ktp'),
+				'class' => 'form-control'
+			);
+			$this->data['sc_cv'] = array(
+				'name' => 'sc_cv',
+				'id' => 'sc_cv',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('sc_cv'),
+				'class' => 'form-control'
+			);
+			$this->data['sc_npwp'] = array(
+				'name' => 'sc_npwp',
+				'id' => 'sc_npwp',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('sc_npwp'),
+				'class' => 'form-control'
+			);
+			$this->data['sc_foto'] = array(
+				'name' => 'sc_foto',
+				'id' => 'sc_foto',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('sc_foto'),
+				'class' => 'form-control'
+			);
+			$this->data['bidang_kompetensi'] = array(
+				'name' => 'bidang_kompetensi',
+				'id' => 'bidang_kompetensi',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('bidang_kompetensi'),
+				'class' => 'form-control'
+			);
 			$this->data['password'] = array(
 				'name' => 'password',
 				'id' => 'password',

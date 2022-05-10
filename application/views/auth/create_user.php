@@ -48,18 +48,86 @@
                               <?php echo form_input($email); ?>
                         </p>
 
+
                         <p>
-                              <?php echo lang('create_user_phone_label', 'phone'); ?> <br />
-                              <?php echo form_input($phone); ?>
+                              <label for="">Nomor KTP</label>
+                              <?php echo form_input($no_ktp); ?>
                         </p>
-                        <!-- <p>
-                    <?php echo lang('create_user_nik_label', 'nik'); ?> <br />
-                    <?php echo form_input($nik); ?>
-                  </p> -->
-                        <!-- <p>
-          <?php echo lang('create_user_jabatan_label', 'jabatan'); ?> <br />
-          <?php echo form_input($jabatan); ?>
-        </p> -->
+                        <p>
+                              <label for="">Nomor Induk Pekerja</label>
+                              <?php echo form_input($nip); ?>
+                        </p>
+                        <p>
+                              <label for="">Nomor NPWP</label>
+                              <?php echo form_input($no_npwp); ?>
+                        </p>
+                        <p>
+                              <label for="">Jenis Kelamin</label>
+                              <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                    <option value="Laki-Laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                              </select>
+                        </p>
+                        <p>
+                              <label for="">Tempat Lahir</label>
+                              <?php echo form_input($tempat_lahir); ?>
+                        </p>
+                        <p>
+                              <label for="">Tanggal Lahir</label>
+                              <?php echo form_input($tanggal_lahir); ?>
+                        </p>
+                        <p>
+                              <label for="">Alamat</label>
+                              <?php echo form_input($alamat); ?>
+                        </p>
+                        <p>
+                              <label for="">Nomor Telepon</label>
+                              <?php echo form_input($no_hp); ?>
+                        </p>
+                        <p>
+                              <label for="">Profesi</label>
+                              <?php echo form_input($profesi); ?>
+                        </p>
+                        <p>
+                              <label for="">Nama Instansi</label>
+                              <?php echo form_input($nama_instansi); ?>
+                        </p>
+                        <p>
+                              <label for="">Alamat Instansi</label>
+                              <?php echo form_input($alamat_instansi); ?>
+                        </p>
+                        <p>
+                              <label for="">Email Instansi</label>
+                              <?php echo form_input($email_instansi); ?>
+                        </p>
+                        <p>
+                              <label for="">Nomor Telepon Instansi</label>
+                              <?php echo form_input($no_telp_instansi); ?>
+                        </p>
+                        <p>
+                              <label for="">Scan Form Penulis</label>
+                              <?php echo form_input($sc_form_penulis); ?>
+                        </p>
+                        <p>
+                              <label for="">Scan KTP</label>
+                              <?php echo form_input($sc_ktp); ?>
+                        </p>
+                        <p>
+                              <label for="">Scan CV</label>
+                              <?php echo form_input($sc_cv); ?>
+                        </p>
+                        <p>
+                              <label for="">Scan NPWP</label>
+                              <?php echo form_input($sc_npwp); ?>
+                        </p>
+                        <p>
+                              <label for="">Scan Foto</label>
+                              <?php echo form_input($sc_foto); ?>
+                        </p>
+                        <p>
+                              <label for="">Bidang Kompetensi</label>
+                              <?php echo form_input($bidang_kompetensi); ?>
+                        </p>
 
                         <p>
                               <?php echo lang('create_user_password_label', 'password'); ?> <br />

@@ -26,10 +26,6 @@ $setting_aplikasi = $this->db->get('setting')->row();
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/AdminLTE.min.css">
 
-  <!-- CSS Datepicker -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap-datetimepicker.min.css">
-
   <!-- akbr custom -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/css/akbr_custom.css">
 
@@ -60,6 +56,10 @@ $setting_aplikasi = $this->db->get('setting')->row();
   <script src="<?= base_url(); ?>assets/bower_components/fastclick/lib/fastclick.js"></script>
   <script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
 
+  <!-- CSS Datepicker -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap-datetimepicker.min.css">
+
   <!-- Datepicker -->
   <script src="<?= base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script src="<?= base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
@@ -67,13 +67,33 @@ $setting_aplikasi = $this->db->get('setting')->row();
 
   <!-- AdminLTE App -->
   <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap.min.css">
+
   <script src="<?= base_url(); ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url(); ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <script src="<?= base_url(); ?>assets/bower_components/datatables/dataTables.checkboxes.js"></script>
+
   <script src="<?= base_url(); ?>assets/dist/js/adminlte.min.js"></script>
   <script src="<?= base_url(); ?>assets/plugins/jquery-nestable/jquery.nestable.js"></script>
   <script src="<?= base_url(); ?>assets/plugins/alertify/alertify.js"></script>
   <script src="<?= base_url(); ?>assets/plugins/bootstrap-show-password/bootstrap-show-password.min.js"></script>
+
+
+  <!-- datatables new -->
+  <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+  <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script> -->
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+
   <!-- Select2 -->
   <script src="<?= base_url(); ?>assets/bower_components/bootstrap-select/js/bootstrap-select.js"></script>
   <script src="<?= base_url(); ?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>

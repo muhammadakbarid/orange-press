@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2022 at 10:19 AM
+-- Generation Time: May 10, 2022 at 12:36 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `orange-press`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `distribusi`
+--
+
+CREATE TABLE `distribusi` (
+  `id` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `tujuan_distribusi` text NOT NULL,
+  `tanggal_distribusi` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -296,6 +309,7 @@ CREATE TABLE `produk` (
 CREATE TABLE `riyawat` (
   `id_riwayat` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL COMMENT 'id user editor',
   `tgl_plotting` date NOT NULL,
   `tgl_selesai` date NOT NULL,
   `status_kerjaan` int(11) NOT NULL
@@ -394,7 +408,8 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `acti
 (51, 'penulis1@gmail.com', 'penulis', '1', '$2y$08$t3AEH6.JmraK9cdTPdc7luHfXG36CXkeD1/KzS0HxglMJXDceGDM.', 1, 'IMG_20210902_135659_3071.jpg', '', '', '', 'Laki-Laki', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
 (52, 'penulis2@gmail.com', 'penulis', '2', '$2y$08$h7pRS2Jx.npSEPZZ0HgaBOdFMh7GtIotNaBy.Oa/sV8Xap4LjRpti', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '2022-04-05 13:32:42'),
 (53, 'penulis3@gmail.com', 'penulis', '3', '$2y$08$O.gd8AVuspVH5e9/.U1s3OUTZETSkPuf6bluCk8p.UHxMmoZhVeA2', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '2022-04-05 08:48:45'),
-(54, 'penulis10@gmail.com', 'penulis', '10', '$2y$08$ech695NYXRyH2Lqy95Fkwu2xcLxwXDxyhKeMO4hLZf4Y45/3arZSm', 1, 'default.jpg', '1234567891123456', '1234567891123456', '123456789112345', 'Laki-Laki', 'asd', '2022-04-06', 'asdasdasd', '0899999999', 'asdasd', 'asdasdasd', 'asdasdasd', 'asdasd@asdasd.com', '123456789112345', 'jbi,+04+N123+FINAL+195-202.pdf', 'jbi,+04+N123+FINAL+195-202.pdf', 'Undangan_(HMMI)_Media_Partner_Bramanty_211.pdf', 'Surat_Undangan_Debat_Terbuka_HMMI_(1).pdf', 'IMG_20210902_135659_307_(1).jpg', 'Logistik', '2022-04-05 13:51:39');
+(54, 'penulis10@gmail.com', 'penulis', '10', '$2y$08$ech695NYXRyH2Lqy95Fkwu2xcLxwXDxyhKeMO4hLZf4Y45/3arZSm', 1, 'default.jpg', '1234567891123456', '1234567891123456', '123456789112345', 'Laki-Laki', 'asd', '2022-04-06', 'asdasdasd', '0899999999', 'asdasd', 'asdasdasd', 'asdasdasd', 'asdasd@asdasd.com', '123456789112345', 'jbi,+04+N123+FINAL+195-202.pdf', 'jbi,+04+N123+FINAL+195-202.pdf', 'Undangan_(HMMI)_Media_Partner_Bramanty_211.pdf', 'Surat_Undangan_Debat_Terbuka_HMMI_(1).pdf', 'IMG_20210902_135659_307_(1).jpg', 'Logistik', '2022-04-05 13:51:39'),
+(55, 'penulistes@gmail.com', 'Penulis', 'Tes', '$2y$08$EtE3hw25uFUrsNpfc6sAXeLniJZ1ZEd.mDcKTkusup6iml8Y9YKnG', 1, 'default.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '2022-05-10 16:35:56');
 
 -- --------------------------------------------------------
 
@@ -430,11 +445,18 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (129, 51, 34),
 (130, 52, 34),
 (131, 53, 34),
-(132, 54, 34);
+(132, 54, 34),
+(133, 55, 34);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `distribusi`
+--
+ALTER TABLE `distribusi`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `file_attach`
@@ -528,6 +550,12 @@ ALTER TABLE `users_groups`
 --
 
 --
+-- AUTO_INCREMENT for table `distribusi`
+--
+ALTER TABLE `distribusi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `file_attach`
 --
 ALTER TABLE `file_attach`
@@ -603,13 +631,13 @@ ALTER TABLE `tim_penulis`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
