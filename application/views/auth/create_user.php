@@ -80,10 +80,10 @@
                               <label for="">Tempat Lahir</label>
                               <?php echo form_input($tempat_lahir); ?>
                         </p>
-                        <p>
-                              <label for="">Tanggal Lahir</label>
-                              <?php echo form_input($tanggal_lahir); ?>
-                        </p>
+                        <div class="form-group">
+                              <label for="date">Tanggal Lahir <?php echo form_error('tanggal_lahir') ?></label>
+                              <input type="text" class="form-control formdate" name="tanggal_lahir" id="tanggal_lahir" />
+                        </div>
                         <p>
                               <label for="">Alamat</label>
                               <?php echo form_input($alamat); ?>

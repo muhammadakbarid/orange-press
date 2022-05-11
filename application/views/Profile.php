@@ -13,11 +13,14 @@
       <!-- form start -->
       <?php echo form_open_multipart('profile'); ?>
       <div class="box-body">
-        <?php if ($this->session->flashdata('message')) : ?>
-          <div class="form-group">
-            <?= $this->session->flashdata('message'); ?>
-          </div>
-        <?php endif; ?>
+        <?php
+        if ($this->ion_auth->in_group("penulis")) { ?>
+          <?php if ($this->session->flashdata('message')) : ?>
+            <div class="form-group">
+              <?= $this->session->flashdata('message'); ?>
+            </div>
+          <?php endif; ?>
+        <?php } ?>
         <div class="form-group">
           <div class="row">
             <div class="col-md-6">
@@ -104,71 +107,74 @@
           <input type="text" class="form-control" id="profesi" value="<?= $user['profesi']; ?>" name="profesi">
           <?= form_error('profesi', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
-        <div class="form-group">
-          <label for="nama_instansi">nama_instansi</label>
-          <input type="text" class="form-control" id="nama_instansi" value="<?= $user['nama_instansi']; ?>" name="nama_instansi">
-          <?= form_error('nama_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <label for="alamat_instansi">Alamat Instansi</label>
-          <textarea type="text" class="form-control" id="alamat_instansi" value="<?= $user['alamat_instansi']; ?>" name="alamat_instansi"><?= $user['alamat_instansi']; ?></textarea>
-          <?= form_error('alamat_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <label for="email_instansi">email_instansi</label>
-          <input type="text" class="form-control" id="email_instansi" value="<?= $user['email_instansi']; ?>" name="email_instansi">
-          <?= form_error('email_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <label for="no_telp_instansi">no_telp_instansi</label>
-          <input type="text" class="form-control" id="no_telp_instansi" value="<?= $user['no_telp_instansi']; ?>" name="no_telp_instansi">
-          <?= form_error('no_telp_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <div class="custom-file">
-            <label for="sc_form_penulis" class="form-label">Scan Form Penulis</label>
-            <input type="file" class="custom-file-input form-control" id="sc_form_penulis" name="sc_form_penulis">
-            <label for="formFile" class="form-label">
-              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_form_penulis/'); ?><?php echo $user['sc_form_penulis']; ?>"><?php echo $user['sc_form_penulis']; ?></a>
-            </label>
+        <!-- jika penulis -->
+        <?php if ($this->ion_auth->in_group('penulis')) { ?>
+          <div class="form-group">
+            <label for="nama_instansi">nama_instansi</label>
+            <input type="text" class="form-control" id="nama_instansi" value="<?= $user['nama_instansi']; ?>" name="nama_instansi">
+            <?= form_error('nama_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-file">
-            <label for="sc_ktp" class="form-label">Scan KTP</label>
-            <input type="file" class="custom-file-input form-control" id="sc_ktp" name="sc_ktp">
-            <label for="formFile" class="form-label">
-              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_ktp/'); ?><?php echo $user['sc_ktp']; ?>"><?php echo $user['sc_ktp']; ?></a>
-            </label>
+          <div class="form-group">
+            <label for="alamat_instansi">Alamat Instansi</label>
+            <textarea type="text" class="form-control" id="alamat_instansi" value="<?= $user['alamat_instansi']; ?>" name="alamat_instansi"><?= $user['alamat_instansi']; ?></textarea>
+            <?= form_error('alamat_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-file">
-            <label for="sc_cv" class="form-label">Scan CV</label>
-            <input type="file" class="custom-file-input form-control" id="sc_cv" name="sc_cv">
-            <label for="formFile" class="form-label">
-              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_cv/'); ?><?php echo $user['sc_cv']; ?>"><?php echo $user['sc_cv']; ?></a>
-            </label>
+          <div class="form-group">
+            <label for="email_instansi">email_instansi</label>
+            <input type="text" class="form-control" id="email_instansi" value="<?= $user['email_instansi']; ?>" name="email_instansi">
+            <?= form_error('email_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-file">
-            <label for="sc_npwp" class="form-label">Scan NPWP</label>
-            <input type="file" class="custom-file-input form-control" id="sc_npwp" name="sc_npwp">
-            <label for="formFile" class="form-label">
-              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_npwp/'); ?><?php echo $user['sc_npwp']; ?>"><?php echo $user['sc_npwp']; ?></a>
-            </label>
+          <div class="form-group">
+            <label for="no_telp_instansi">no_telp_instansi</label>
+            <input type="text" class="form-control" id="no_telp_instansi" value="<?= $user['no_telp_instansi']; ?>" name="no_telp_instansi">
+            <?= form_error('no_telp_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="custom-file">
-            <label for="sc_foto" class="form-label">Scan Foto</label>
-            <input type="file" class="custom-file-input form-control" id="sc_foto" name="sc_foto">
-            <label for="formFile" class="form-label">
-              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_foto/'); ?><?php echo $user['sc_foto']; ?>"><?php echo $user['sc_foto']; ?></a>
-            </label>
+          <div class="form-group">
+            <div class="custom-file">
+              <label for="sc_form_penulis" class="form-label">Scan Form Penulis</label>
+              <input type="file" class="custom-file-input form-control" id="sc_form_penulis" name="sc_form_penulis">
+              <label for="formFile" class="form-label">
+                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_form_penulis/'); ?><?php echo $user['sc_form_penulis']; ?>"><?php echo $user['sc_form_penulis']; ?></a>
+              </label>
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <label for="sc_ktp" class="form-label">Scan KTP</label>
+              <input type="file" class="custom-file-input form-control" id="sc_ktp" name="sc_ktp">
+              <label for="formFile" class="form-label">
+                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_ktp/'); ?><?php echo $user['sc_ktp']; ?>"><?php echo $user['sc_ktp']; ?></a>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <label for="sc_cv" class="form-label">Scan CV</label>
+              <input type="file" class="custom-file-input form-control" id="sc_cv" name="sc_cv">
+              <label for="formFile" class="form-label">
+                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_cv/'); ?><?php echo $user['sc_cv']; ?>"><?php echo $user['sc_cv']; ?></a>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <label for="sc_npwp" class="form-label">Scan NPWP</label>
+              <input type="file" class="custom-file-input form-control" id="sc_npwp" name="sc_npwp">
+              <label for="formFile" class="form-label">
+                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_npwp/'); ?><?php echo $user['sc_npwp']; ?>"><?php echo $user['sc_npwp']; ?></a>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <label for="sc_foto" class="form-label">Scan Foto</label>
+              <input type="file" class="custom-file-input form-control" id="sc_foto" name="sc_foto">
+              <label for="formFile" class="form-label">
+                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_foto/'); ?><?php echo $user['sc_foto']; ?>"><?php echo $user['sc_foto']; ?></a>
+              </label>
+            </div>
+          </div>
+        <?php } ?>
         <div class="form-group">
           <label for="int">Bidang Kompetensi <?php echo form_error('bidang_kompetensi') ?></label>
           <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
