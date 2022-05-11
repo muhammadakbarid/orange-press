@@ -40,6 +40,7 @@ class Users_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+
     // get total rows
     function total_rows($q = NULL)
     {
@@ -118,6 +119,11 @@ class Users_model extends CI_Model
     ";
 
         return $this->db->query($query)->row_array();
+    }
+
+    function get_all_by_id_groups($id_group)
+    {
+        return $this->db->query("SELECT users.id, users.email, users.first_name,users.last_name,users.profesi,users.bidang_kompetensi FROM users JOIN users_groups  ON (users.id = users_groups.user_id)  JOIN groups  ON (users_groups.group_id = groups.id) WHERE groups.id = $id_group")->result();
     }
 }
 

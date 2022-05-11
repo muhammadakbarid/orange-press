@@ -660,11 +660,21 @@ class Auth extends CI_Controller
 
 				//cek jika ada gambar yang akan diupload
 				$upload_image = $_FILES['image']['name'];
-				$upload_sc_form_penulis = $_FILES['sc_form_penulis']['name'];
-				$upload_sc_ktp = $_FILES['sc_ktp']['name'];
-				$upload_sc_cv = $_FILES['sc_cv']['name'];
-				$upload_sc_npwp = $_FILES['sc_npwp']['name'];
-				$upload_sc_foto = $_FILES['sc_foto']['name'];
+				if (isset($_FILES['sc_form_penulis'])) {
+					$upload_sc_form_penulis = $_FILES['sc_form_penulis']['name'];
+				}
+				if (isset($_FILES['sc_ktp'])) {
+					$upload_sc_ktp = $_FILES['sc_ktp']['name'];
+				}
+				if (isset($_FILES['sc_cv'])) {
+					$upload_sc_cv = $_FILES['sc_cv']['name'];
+				}
+				if (isset($_FILES['sc_npwp'])) {
+					$upload_sc_npwp = $_FILES['sc_npwp']['name'];
+				}
+				if (isset($_FILES['sc_foto'])) {
+					$upload_sc_foto = $_FILES['sc_foto']['name'];
+				}
 
 				if ($upload_image) {
 
