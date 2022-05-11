@@ -402,6 +402,7 @@ class Auth extends CI_Controller
 
 		$tables = $this->config->item('tables', 'ion_auth');
 		$identity_column = $this->config->item('identity', 'ion_auth');
+		$groups = $this->ion_auth->groups()->result_array();
 		$this->data['identity_column'] = $identity_column;
 
 		// validate form input
@@ -414,7 +415,16 @@ class Auth extends CI_Controller
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
 		}
 
-		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
+		$this->form_validation->set_rules('no_hp', $this->lang->line('create_user_validation_no_hp_label'), 'trim');
+		$this->form_validation->set_rules('no_ktp', $this->lang->line('create_user_validation_no_ktp_label'), 'trim');
+		$this->form_validation->set_rules('nip', $this->lang->line('create_user_validation_nip_label'), 'trim');
+		$this->form_validation->set_rules('no_npwp', $this->lang->line('create_user_validation_no_npwp_label'), 'trim');
+		$this->form_validation->set_rules('jenis_kelamin', $this->lang->line('create_user_validation_jenis_kelamin_label'), 'trim');
+		$this->form_validation->set_rules('tempat_lahir', $this->lang->line('create_user_validation_tempat_lahir_label'), 'trim');
+		$this->form_validation->set_rules('tanggal_lahir', $this->lang->line('create_user_validation_tanggal_lahir_label'), 'trim');
+		$this->form_validation->set_rules('alamat', $this->lang->line('create_user_validation_alamat_label'), 'trim');
+		$this->form_validation->set_rules('profesi', $this->lang->line('create_user_validation_profesi_label'), 'trim');
+		$this->form_validation->set_rules('bidang_kompetensi', $this->lang->line('create_user_validation_bidang_kompetensi_label'), 'trim');
 
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
@@ -427,10 +437,21 @@ class Auth extends CI_Controller
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
-				'phone' => $this->input->post('phone'),
+				'phone' => $this->input->post('no_hp'),
+				'no_ktp' => $this->input->post('no_ktp'),
+				'nip' => $this->input->post('nip'),
+				'no_npwp' => $this->input->post('no_npwp'),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'tempat_lahir' => $this->input->post('tempat_lahir'),
+				'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+				'alamat' => $this->input->post('alamat'),
+				'profesi' => $this->input->post('profesi'),
+				'bidang_kompetensi' => $this->input->post('bidang_kompetensi')
+
 			);
+			$hak_akses = $this->input->post('groups[]');
 		}
-		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data)) {
+		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data, $hak_akses)) {
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('success', $this->ion_auth->messages());
@@ -440,6 +461,7 @@ class Auth extends CI_Controller
 			// display the create user form
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
 
 			$this->data['first_name'] = array(
 				'name' => 'first_name',
@@ -525,55 +547,6 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('no_hp'),
 				'class' => 'form-control'
 			);
-			$this->data['nip'] = array(
-				'name' => 'nip',
-				'id' => 'nip',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('nip'),
-				'class' => 'form-control'
-			);
-			$this->data['no_npwp'] = array(
-				'name' => 'no_npwp',
-				'id' => 'no_npwp',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('no_npwp'),
-				'class' => 'form-control'
-			);
-			$this->data['jenis_kelamin'] = array(
-				'name' => 'jenis_kelamin',
-				'id' => 'jenis_kelamin',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('jenis_kelamin'),
-				'class' => 'form-control'
-			);
-			$this->data['tempat_lahir'] = array(
-				'name' => 'tempat_lahir',
-				'id' => 'tempat_lahir',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('tempat_lahir'),
-				'class' => 'form-control'
-			);
-			$this->data['tanggal_lahir'] = array(
-				'name' => 'tanggal_lahir',
-				'id' => 'tanggal_lahir',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('tanggal_lahir'),
-				'class' => 'form-control'
-			);
-			$this->data['alamat'] = array(
-				'name' => 'alamat',
-				'id' => 'alamat',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('alamat'),
-				'class' => 'form-control'
-			);
-			$this->data['no_hp'] = array(
-				'name' => 'no_hp',
-				'id' => 'no_hp',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('no_hp'),
-				'class' => 'form-control'
-			);
 			$this->data['profesi'] = array(
 				'name' => 'profesi',
 				'id' => 'profesi',
@@ -581,76 +554,15 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('profesi'),
 				'class' => 'form-control'
 			);
-			$this->data['nama_instansi'] = array(
-				'name' => 'nama_instansi',
-				'id' => 'nama_instansi',
+
+			$this->data['tempat_lahir'] = array(
+				'name' => 'tempat_lahir',
+				'id' => 'tempat_lahir',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('nama_instansi'),
+				'value' => $this->form_validation->set_value('tempat_lahir'),
 				'class' => 'form-control'
 			);
-			$this->data['alamat_instansi'] = array(
-				'name' => 'alamat_instansi',
-				'id' => 'alamat_instansi',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('alamat_instansi'),
-				'class' => 'form-control'
-			);
-			$this->data['email_instansi'] = array(
-				'name' => 'email_instansi',
-				'id' => 'email_instansi',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('email_instansi'),
-				'class' => 'form-control'
-			);
-			$this->data['email_instansi'] = array(
-				'name' => 'email_instansi',
-				'id' => 'email_instansi',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('email_instansi'),
-				'class' => 'form-control'
-			);
-			$this->data['no_telp_instansi'] = array(
-				'name' => 'no_telp_instansi',
-				'id' => 'no_telp_instansi',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('no_telp_instansi'),
-				'class' => 'form-control'
-			);
-			$this->data['sc_form_penulis'] = array(
-				'name' => 'sc_form_penulis',
-				'id' => 'sc_form_penulis',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('sc_form_penulis'),
-				'class' => 'form-control'
-			);
-			$this->data['sc_ktp'] = array(
-				'name' => 'sc_ktp',
-				'id' => 'sc_ktp',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('sc_ktp'),
-				'class' => 'form-control'
-			);
-			$this->data['sc_cv'] = array(
-				'name' => 'sc_cv',
-				'id' => 'sc_cv',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('sc_cv'),
-				'class' => 'form-control'
-			);
-			$this->data['sc_npwp'] = array(
-				'name' => 'sc_npwp',
-				'id' => 'sc_npwp',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('sc_npwp'),
-				'class' => 'form-control'
-			);
-			$this->data['sc_foto'] = array(
-				'name' => 'sc_foto',
-				'id' => 'sc_foto',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('sc_foto'),
-				'class' => 'form-control'
-			);
+
 			$this->data['bidang_kompetensi'] = array(
 				'name' => 'bidang_kompetensi',
 				'id' => 'bidang_kompetensi',
@@ -677,6 +589,13 @@ class Auth extends CI_Controller
 			$this->data['crumb'] = [
 				'User' => '',
 			];
+
+			$this->data['groups'] = $groups;
+
+
+			$this->data['jenis_kelamin_opt'] = config_item('jenis_kelamin');
+			$this->data['bidang_kompetensi_opt'] = config_item('bidang_kompetensi');
+
 
 			$this->data['page'] = 'auth/create_user';
 			$this->load->view('template/backend', $this->data);

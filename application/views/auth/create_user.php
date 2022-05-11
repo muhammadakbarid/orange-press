@@ -44,7 +44,7 @@
                         ?>
 
                         <p>
-                              <?php echo lang('create_user_email_label', 'email'); ?> <br />
+                              <label for="">Email</label>
                               <?php echo form_input($email); ?>
                         </p>
 
@@ -62,10 +62,18 @@
                               <?php echo form_input($no_npwp); ?>
                         </p>
                         <p>
-                              <label for="">Jenis Kelamin</label>
-                              <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
-                                    <option value="Laki-Laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
+                              <label for="int">Jenis Kelamin <?php echo form_error('jenis_kelamin') ?></label>
+                              <select class="form-select form-control" name="jenis_kelamin" id="jenis_kelamin">
+                                    <option value="">-- Pilih Jenis Kelamin --</option>
+                                    <?php
+                                    foreach ($jenis_kelamin_opt as $value) {
+                                          echo "<option value='" . $value . "'";
+                                          if ($jenis_kelamin == $value) {
+                                                echo " selected";
+                                          }
+                                          echo ">" . $value . "</option>";
+                                    }
+                                    ?>
                               </select>
                         </p>
                         <p>
@@ -88,45 +96,21 @@
                               <label for="">Profesi</label>
                               <?php echo form_input($profesi); ?>
                         </p>
+
                         <p>
-                              <label for="">Nama Instansi</label>
-                              <?php echo form_input($nama_instansi); ?>
-                        </p>
-                        <p>
-                              <label for="">Alamat Instansi</label>
-                              <?php echo form_input($alamat_instansi); ?>
-                        </p>
-                        <p>
-                              <label for="">Email Instansi</label>
-                              <?php echo form_input($email_instansi); ?>
-                        </p>
-                        <p>
-                              <label for="">Nomor Telepon Instansi</label>
-                              <?php echo form_input($no_telp_instansi); ?>
-                        </p>
-                        <p>
-                              <label for="">Scan Form Penulis</label>
-                              <?php echo form_input($sc_form_penulis); ?>
-                        </p>
-                        <p>
-                              <label for="">Scan KTP</label>
-                              <?php echo form_input($sc_ktp); ?>
-                        </p>
-                        <p>
-                              <label for="">Scan CV</label>
-                              <?php echo form_input($sc_cv); ?>
-                        </p>
-                        <p>
-                              <label for="">Scan NPWP</label>
-                              <?php echo form_input($sc_npwp); ?>
-                        </p>
-                        <p>
-                              <label for="">Scan Foto</label>
-                              <?php echo form_input($sc_foto); ?>
-                        </p>
-                        <p>
-                              <label for="">Bidang Kompetensi</label>
-                              <?php echo form_input($bidang_kompetensi); ?>
+                              <label for="int">Bidang Kompetensi <?php echo form_error('bidang_kompetensi') ?></label>
+                              <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
+                                    <option value="">-- Pilih Bidang Kompetensi --</option>
+                                    <?php
+                                    foreach ($bidang_kompetensi_opt as $value) {
+                                          echo "<option value='" . $value . "'";
+                                          if ($bidang_kompetensi == $value) {
+                                                echo " selected";
+                                          }
+                                          echo ">" . $value . "</option>";
+                                    }
+                                    ?>
+                              </select>
                         </p>
 
                         <p>
@@ -138,11 +122,31 @@
                               <?php echo lang('create_user_password_confirm_label', 'password_confirm'); ?> <br />
                               <?php echo form_input($password_confirm); ?>
                         </p>
+                        <br>
+                        <p>
+                              <?php if ($this->ion_auth->is_admin()) : ?>
+                        <div class="form-group">
+                              <h3><?php echo lang('edit_user_groups_heading'); ?></h3>
+                              <?php foreach ($groups as $group) : ?>
+                                    <div class="checkbox">
+                                          <label class="col-md-3">
+                                                <?php
+                                                $gID = $group['id'];
+                                                $checked = null;
+                                                $item = null;
+                                                ?>
+                                                <input type="checkbox" name="groups[]" value="<?php echo $group['id']; ?>" <?php echo $checked; ?>>
+                                                <?php echo htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8'); ?>
+                                          </label>
+                                    </div>
+                              <?php endforeach ?>
+                        </div>
+                  <?php endif ?>
+                  </p>
+                  <p></p>
+                  <p style="margin-top:100px;"><?php echo form_submit('submit', lang('create_user_submit_btn'), 'class="btn bg-purple"'); ?></p>
 
-
-                        <p><?php echo form_submit('submit', lang('create_user_submit_btn'), 'class="btn bg-purple"'); ?></p>
-
-                        <?php echo form_close(); ?>
+                  <?php echo form_close(); ?>
 
                   </div>
             </div>
