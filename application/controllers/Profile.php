@@ -40,19 +40,19 @@ class Profile extends CI_Controller
 		}
 		$this->form_validation->set_rules('first_name', 'Nama Awal', 'required|trim');
 		$this->form_validation->set_rules('last_name', 'Nama Akhir', 'required|trim');
-		$this->form_validation->set_rules('no_ktp', 'Nomor KTP', 'required|trim|numeric|min_length[16]|max_length[16]');
-		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|numeric');
-		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required|trim');
-		$this->form_validation->set_rules('bidang_kompetensi', 'Bidang Kompetensi', 'required|trim');
-		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
-		$this->form_validation->set_rules('nip', 'nip', 'required|trim|numeric');
-		$this->form_validation->set_rules('no_npwp', 'no npwp', 'required|trim|numeric|min_length[15]|max_length[16]');
-		$this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'required|trim');
-		$this->form_validation->set_rules('profesi', 'profesi', 'required|trim');
-		$this->form_validation->set_rules('nama_instansi', 'nama_instansi', 'required|trim');
-		$this->form_validation->set_rules('alamat_instansi', 'alamat_instansi', 'required|trim');
-		$this->form_validation->set_rules('email_instansi', 'email_instansi', 'required|trim|valid_email');
-		$this->form_validation->set_rules('no_telp_instansi', 'no_telp_instansi', 'required|trim|numeric');
+		// $this->form_validation->set_rules('no_ktp', 'Nomor KTP', 'required|trim|numeric|min_length[16]|max_length[16]');
+		// $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim|numeric');
+		// $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required|trim');
+		// $this->form_validation->set_rules('bidang_kompetensi', 'Bidang Kompetensi', 'required|trim');
+		// $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+		// $this->form_validation->set_rules('nip', 'nip', 'required|trim|numeric');
+		// $this->form_validation->set_rules('no_npwp', 'no npwp', 'required|trim|numeric|min_length[15]|max_length[16]');
+		// $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'required|trim');
+		// $this->form_validation->set_rules('profesi', 'profesi', 'required|trim');
+		// $this->form_validation->set_rules('nama_instansi', 'nama_instansi', 'required|trim');
+		// $this->form_validation->set_rules('alamat_instansi', 'alamat_instansi', 'required|trim');
+		// $this->form_validation->set_rules('email_instansi', 'email_instansi', 'required|trim|valid_email');
+		// $this->form_validation->set_rules('no_telp_instansi', 'no_telp_instansi', 'required|trim|numeric');
 
 
 		if ($this->form_validation->run() == false) {
@@ -128,7 +128,7 @@ class Profile extends CI_Controller
 
 					$old_sc_form_penulis = $data['user']['sc_form_penulis'];
 					if ($old_sc_form_penulis != 'default.jpg') {
-						unlink(FCPATH . 'assets/uploads/sc_form_penulis/' . $old_sc_form_penulis);
+						unlink(FCPATH . 'assets/uploads/files/sc_form_penulis/' . $old_sc_form_penulis);
 					}
 
 					$new_sc_form_penulis = htmlspecialchars($this->upload->data('file_name'));
@@ -149,7 +149,7 @@ class Profile extends CI_Controller
 
 					$old_sc_ktp = $data['user']['sc_ktp'];
 					if ($old_sc_ktp != 'default.jpg') {
-						unlink(FCPATH . 'assets/uploads/sc_ktp/' . $old_sc_ktp);
+						unlink(FCPATH . 'assets/uploads/files/sc_ktp/' . $old_sc_ktp);
 					}
 
 					$new_sc_ktp = htmlspecialchars($this->upload->data('file_name'));
@@ -170,7 +170,7 @@ class Profile extends CI_Controller
 
 					$old_sc_cv = $data['user']['sc_cv'];
 					if ($old_sc_cv != 'default.jpg') {
-						unlink(FCPATH . 'assets/uploads/sc_cv/' . $old_sc_cv);
+						unlink(FCPATH . 'assets/uploads/files/sc_cv/' . $old_sc_cv);
 					}
 
 					$new_sc_cv = htmlspecialchars($this->upload->data('file_name'));
@@ -191,7 +191,7 @@ class Profile extends CI_Controller
 
 					$old_sc_npwp = $data['user']['sc_npwp'];
 					if ($old_sc_npwp != 'default.jpg') {
-						unlink(FCPATH . 'assets/uploads/sc_npwp/' . $old_sc_npwp);
+						unlink(FCPATH . 'assets/uploads/files/sc_npwp/' . $old_sc_npwp);
 					}
 
 					$new_sc_npwp = htmlspecialchars($this->upload->data('file_name'));
@@ -212,7 +212,7 @@ class Profile extends CI_Controller
 
 					$old_sc_foto = $data['user']['sc_foto'];
 					if ($old_sc_foto != 'default.jpg') {
-						unlink(FCPATH . 'assets/uploads/sc_foto/' . $old_sc_foto);
+						unlink(FCPATH . 'assets/uploads/files/sc_foto/' . $old_sc_foto);
 					}
 
 					$new_sc_foto = htmlspecialchars($this->upload->data('file_name'));

@@ -19,7 +19,7 @@
         if ($message != "") {
         ?>
           <div id="infoMessage" class="callout callout-danger"><?php echo $message; ?></div> <?php } ?>
-        <?php echo form_open(uri_string()); ?>
+        <?php echo form_open_multipart(uri_string()); ?>
 
         <div class="form-group">
           <?php echo lang('edit_user_fname_label', 'first_name'); ?> <br />
@@ -30,16 +30,153 @@
           <?php echo lang('edit_user_lname_label', 'last_name'); ?> <br />
           <?php echo form_input($last_name); ?>
         </div>
-
-        <!-- <div class="form-group">
-                          <?php echo lang('edit_user_company_label', 'company'); ?> <br />
-                          <?php echo form_input($company); ?>
-                    </div> -->
+        <div class="form-group">
+          <?php echo lang('edit_user_email_label', 'email'); ?> <br />
+          <?php echo form_input($email); ?>
+        </div>
 
         <div class="form-group">
-          <?php echo lang('edit_user_phone_label', 'phone'); ?> <br />
-          <?php echo form_input($phone); ?>
+          <div class="custom-file">
+            <label for="formFile" class="form-label">Photo</label>
+            <input type="file" class="custom-file-input form-control" id="image" name="image">
+            <label for="formFile" class="form-label">
+              File : <a class="text-light" href="<?= base_url('/assets/uploads/image/profile/'); ?><?php echo $image['value'] ?>"><?php echo $image['value']; ?></a>
+            </label>
+
+          </div>
         </div>
+
+        <div class="form-group">
+          <label for="">Nomor Kartu Tanda Penduduk (KTP)</label>
+          <?php echo form_input($no_ktp); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Nomor Induk Pekerja (NIP)</label>
+          <?php echo form_input($nip); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Nomor Pokok Wajib Pajak (NPWP)</label>
+          <?php echo form_input($no_npwp); ?>
+        </div>
+        <div class="form-group">
+          <label for="int">Jenis Kelamin <?php echo form_error('jenis_kelamin') ?></label>
+          <select class="form-select form-control" name="jenis_kelamin" id="jenis_kelamin">
+            <option value="">-- Pilih Jenis Kelamin --</option>
+            <?php
+            foreach ($jenis_kelamin_opt as $value) {
+              echo "<option value='" . $value . "'";
+              if ($jenis_kelamin['value'] == $value) {
+                echo " selected";
+              }
+              echo ">" . $value . "</option>";
+            }
+            ?>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="">Tempat Lahir</label>
+          <?php echo form_input($tempat_lahir); ?>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Tanggal Lahir <?php echo form_error('tanggal_lahir') ?></label>
+          <input type="text" class="form-control formdate" name="tanggal_lahir" id="tanggal_lahir" required="true" value="<?php echo $tanggal_lahir['value']; ?>" />
+        </div>
+        <div class="form-group">
+          <label for="">Alamat</label>
+          <?php echo form_input($alamat); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Nomor HP</label>
+          <?php echo form_input($no_hp); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Profesi</label>
+          <?php echo form_input($profesi); ?>
+        </div>
+
+        <div class="form-group">
+          <label for="">Nama Instansi</label>
+          <?php echo form_input($nama_instansi); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Alamat Instansi</label>
+          <?php echo form_input($alamat_instansi); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Email Instansi</label>
+          <?php echo form_input($email_instansi); ?>
+        </div>
+        <div class="form-group">
+          <label for="">Nomor Telepon Instansi</label>
+          <?php echo form_input($no_telp_instansi); ?>
+        </div>
+
+        <div class="form-group">
+          <div class="custom-file">
+            <label for="sc_form_penulis" class="form-label">Scan Form Penulis</label>
+            <input type="file" class="custom-file-input form-control" id="sc_form_penulis" name="sc_form_penulis">
+            <label for="formFile" class="form-label">
+              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_form_penulis/'); ?><?php echo $sc_form_penulis['value']; ?>"><?php echo $sc_form_penulis['value']; ?></a>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="custom-file">
+            <label for="sc_ktp" class="form-label">Scan KTP</label>
+            <input type="file" class="custom-file-input form-control" id="sc_ktp" name="sc_ktp">
+            <label for="formFile" class="form-label">
+              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_ktp/'); ?><?php echo $sc_ktp['value']; ?>"><?php echo $sc_ktp['value']; ?></a>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="custom-file">
+            <label for="sc_cv" class="form-label">Scan CV</label>
+            <input type="file" class="custom-file-input form-control" id="sc_cv" name="sc_cv">
+            <label for="formFile" class="form-label">
+              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_cv/'); ?><?php echo $sc_cv['value']; ?>"><?php echo $sc_cv['value']; ?></a>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="custom-file">
+            <label for="sc_npwp" class="form-label">Scan NPWP</label>
+            <input type="file" class="custom-file-input form-control" id="sc_npwp" name="sc_npwp">
+            <label for="formFile" class="form-label">
+              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_npwp/'); ?><?php echo $sc_npwp['value']; ?>"><?php echo $sc_npwp['value']; ?></a>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="custom-file">
+            <label for="sc_foto" class="form-label">Scan Foto</label>
+            <input type="file" class="custom-file-input form-control" id="sc_foto" name="sc_foto">
+            <label for="formFile" class="form-label">
+              File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_foto/'); ?><?php echo $sc_foto['value']; ?>"><?php echo $sc_foto['value']; ?></a>
+            </label>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="int">Bidang Kompetensi <?php echo form_error('bidang_kompetensi') ?></label>
+          <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
+            <option value="">-- Pilih Bidang Kompetensi --</option>
+            <?php
+            foreach ($bidang_kompetensi_opt as $value) {
+              echo "<option value='" . $value . "'";
+              if ($bidang_kompetensi['value'] == $value) {
+                echo " selected";
+              }
+              echo ">" . $value . "</option>";
+            }
+            ?>
+          </select>
+        </div>
+
+
 
         <div class="form-group">
           <?php echo lang('edit_user_password_label', 'password'); ?> <br />
