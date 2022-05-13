@@ -69,6 +69,8 @@ class Produk_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
+        // return true if success
+        return $this->db->affected_rows();
     }
 
     // delete data

@@ -13,6 +13,7 @@ class Submission extends CI_Controller
     $this->load->model('Users_model');
     $this->load->model('Produk_model');
     $this->load->model('Tim_penulis_model');
+    $this->load->model('Riwayat_model');
   }
 
   public function index()
@@ -102,6 +103,93 @@ class Submission extends CI_Controller
   {
     $file_path = 'assets/uploads/files/file_hakcipta/';
     get_file($file_path, $file_name);
+  }
+
+  public function plot_lead_editor($id_produk)
+  {
+    $this->form_validation->set_rules('lead_editor', 'Lead Editor', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $data['id_produk'] = $id_produk;
+      $data['produk'] = $this->Produk_model->get_by_id($id_produk);
+      $data['title'] = 'Plot Lead Editor';
+      $data['subtitle'] = '';
+      $data['action'] = 'Submission/plot_lead_editor/' . $id_produk;
+      $data['crumb'] = [
+        'Plot Lead Editor' => '',
+      ];
+      $data['list_editor'] = $this->Users_model->get_all_by_id_groups(33);
+
+      $data['page'] = 'Submission/plot_lead_editor';
+      $this->load->view('template/backend', $data);
+    } else {
+      $lead_editor = $this->input->post('lead_editor');
+      $tgl_plotting = date('Y-m-d');
+      $tgl_selesai = NULL;
+      $status_kerjaan = NULL;
+      $this->db->set('id_user', $lead_editor);
+      $this->db->set('id_produk', $id_produk);
+      $this->db->set('tgl_plotting', $tgl_plotting);
+      $this->db->set('tgl_selesai', $tgl_selesai);
+      $this->db->set('status_kerjaan', $status_kerjaan);
+
+      if ($this->db->insert('riwayat')) {
+        $status_produk = "Lead Editor Plotted";
+        $data_produk = [
+          'status' => $status_produk,
+        ];
+
+        if ($this->Produk_model->update($id_produk, $data_produk)) {
+          $this->session->set_flashdata('success', "Successfully plotted");
+          redirect('Submission/list');
+        } else {
+          $this->session->set_flashdata('success', "Failed to plot");
+          redirect('Submission/list');
+        }
+      } else {
+        $this->session->set_flashdata('success', "Failed to plot");
+        redirect('Submission/list');
+      }
+    }
+  }
+
+  public function change_lead_editor($id_produk)
+  {
+    // if form validation success
+    $this->form_validation->set_rules('lead_editor', 'Lead Editor', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $riwayat = $this->Riwayat_model->get_by_id_produk($id_produk);
+      $data['id_produk'] = $id_produk;
+      $data['id_lead_editor'] = $riwayat->id_user;
+      $data['id_riwayat'] = $riwayat->id_riwayat;
+      $data['produk'] = $this->Produk_model->get_by_id($id_produk);
+      $data['list_editor'] = $this->Users_model->get_all_by_id_groups(33);
+      $data['title'] = 'Change Lead Editor';
+      $data['subtitle'] = '';
+      $data['action'] = 'Submission/change_lead_editor/' . $id_produk;
+      $data['crumb'] = [
+        'Change Lead Editor' => '',
+      ];
+
+      $data['page'] = 'Submission/plot_lead_editor';
+      $this->load->view('template/backend', $data);
+    } else {
+      $lead_editor = $this->input->post('lead_editor');
+      $id_riwayat = $this->input->post('id_riwayat');
+      $data_riwayat = [
+        'id_user' => $lead_editor,
+      ];
+
+      // update riwayat where id_riwayat = $id_riwayat
+      if ($this->Riwayat_model->update($id_riwayat, $data_riwayat)) {
+        $this->session->set_flashdata('success', "Successfully changed");
+        redirect('Submission/list');
+      } else {
+        $this->session->set_flashdata('success', "Failed to change");
+        redirect('Submission/list');
+      }
+    }
   }
 }
 

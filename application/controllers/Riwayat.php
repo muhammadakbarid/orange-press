@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Riyawat extends CI_Controller
+class Riwayat extends CI_Controller
 {
     function __construct()
     {
@@ -11,7 +11,7 @@ class Riyawat extends CI_Controller
         $c_url = $this->router->fetch_class();
         $this->layout->auth();
         $this->layout->auth_privilege($c_url);
-        $this->load->model('Riyawat_model');
+        $this->load->model('Riwayat_model');
         $this->load->library('form_validation');
     }
 
@@ -21,41 +21,41 @@ class Riyawat extends CI_Controller
         $start = intval($this->input->get('start'));
 
         if ($q <> '') {
-            $config['base_url'] = base_url() . 'riyawat?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'riyawat?q=' . urlencode($q);
+            $config['base_url'] = base_url() . 'Riwayat?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'Riwayat?q=' . urlencode($q);
         } else {
-            $config['base_url'] = base_url() . 'riyawat';
-            $config['first_url'] = base_url() . 'riyawat';
+            $config['base_url'] = base_url() . 'Riwayat';
+            $config['first_url'] = base_url() . 'Riwayat';
         }
 
         $config['per_page'] = 10;
         $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Riyawat_model->total_rows($q);
-        $riyawat = $this->Riyawat_model->get_limit_data($config['per_page'], $start, $q);
+        $config['total_rows'] = $this->Riwayat_model->total_rows($q);
+        $Riwayat = $this->Riwayat_model->get_limit_data($config['per_page'], $start, $q);
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
 
         $data = array(
-            'riyawat_data' => $riyawat,
+            'Riwayat_data' => $Riwayat,
             'q' => $q,
             'pagination' => $this->pagination->create_links(),
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Riyawat';
+        $data['title'] = 'Riwayat';
         $data['subtitle'] = '';
         $data['crumb'] = [
-            'Riyawat' => '',
+            'Riwayat' => '',
         ];
 
-        $data['page'] = 'riyawat/riyawat_list';
+        $data['page'] = 'Riwayat/Riwayat_list';
         $this->load->view('template/Backend', $data);
     }
 
     public function read($id)
     {
-        $row = $this->Riyawat_model->get_by_id($id);
+        $row = $this->Riwayat_model->get_by_id($id);
         if ($row) {
             $data = array(
                 'id_riwayat' => $row->id_riwayat,
@@ -64,17 +64,17 @@ class Riyawat extends CI_Controller
                 'tgl_selesai' => $row->tgl_selesai,
                 'status_kerjaan' => $row->status_kerjaan,
             );
-            $data['title'] = 'Riyawat';
+            $data['title'] = 'Riwayat';
             $data['subtitle'] = '';
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
 
-            $data['page'] = 'riyawat/riyawat_read';
+            $data['page'] = 'Riwayat/Riwayat_read';
             $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('riyawat'));
+            redirect(site_url('Riwayat'));
         }
     }
 
@@ -82,20 +82,20 @@ class Riyawat extends CI_Controller
     {
         $data = array(
             'button' => 'Create',
-            'action' => site_url('riyawat/create_action'),
+            'action' => site_url('Riwayat/create_action'),
             'id_riwayat' => set_value('id_riwayat'),
             'id_produk' => set_value('id_produk'),
             'tgl_plotting' => set_value('tgl_plotting'),
             'tgl_selesai' => set_value('tgl_selesai'),
             'status_kerjaan' => set_value('status_kerjaan'),
         );
-        $data['title'] = 'Riyawat';
+        $data['title'] = 'Riwayat';
         $data['subtitle'] = '';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
 
-        $data['page'] = 'riyawat/riyawat_form';
+        $data['page'] = 'Riwayat/Riwayat_form';
         $this->load->view('template/Backend', $data);
     }
 
@@ -113,37 +113,37 @@ class Riyawat extends CI_Controller
                 'status_kerjaan' => $this->input->post('status_kerjaan', TRUE),
             );
 
-            $this->Riyawat_model->insert($data);
+            $this->Riwayat_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
-            redirect(site_url('riyawat'));
+            redirect(site_url('Riwayat'));
         }
     }
 
     public function update($id)
     {
-        $row = $this->Riyawat_model->get_by_id($id);
+        $row = $this->Riwayat_model->get_by_id($id);
 
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('riyawat/update_action'),
+                'action' => site_url('Riwayat/update_action'),
                 'id_riwayat' => set_value('id_riwayat', $row->id_riwayat),
                 'id_produk' => set_value('id_produk', $row->id_produk),
                 'tgl_plotting' => set_value('tgl_plotting', $row->tgl_plotting),
                 'tgl_selesai' => set_value('tgl_selesai', $row->tgl_selesai),
                 'status_kerjaan' => set_value('status_kerjaan', $row->status_kerjaan),
             );
-            $data['title'] = 'Riyawat';
+            $data['title'] = 'Riwayat';
             $data['subtitle'] = '';
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
 
-            $data['page'] = 'riyawat/riyawat_form';
+            $data['page'] = 'Riwayat/Riwayat_form';
             $this->load->view('template/Backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('riyawat'));
+            redirect(site_url('Riwayat'));
         }
     }
 
@@ -161,29 +161,29 @@ class Riyawat extends CI_Controller
                 'status_kerjaan' => $this->input->post('status_kerjaan', TRUE),
             );
 
-            $this->Riyawat_model->update($this->input->post('id_riwayat', TRUE), $data);
+            $this->Riwayat_model->update($this->input->post('id_riwayat', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
-            redirect(site_url('riyawat'));
+            redirect(site_url('Riwayat'));
         }
     }
 
     public function delete($id)
     {
-        $row = $this->Riyawat_model->get_by_id($id);
+        $row = $this->Riwayat_model->get_by_id($id);
 
         if ($row) {
-            $this->Riyawat_model->delete($id);
+            $this->Riwayat_model->delete($id);
             $this->session->set_flashdata('success', 'Delete Record Success');
-            redirect(site_url('riyawat'));
+            redirect(site_url('Riwayat'));
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('riyawat'));
+            redirect(site_url('Riwayat'));
         }
     }
 
     public function deletebulk()
     {
-        $delete = $this->Riyawat_model->deletebulk();
+        $delete = $this->Riwayat_model->deletebulk();
         if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
         } else {
@@ -204,8 +204,8 @@ class Riyawat extends CI_Controller
     }
 }
 
-/* End of file Riyawat.php */
-/* Location: ./application/controllers/Riyawat.php */
+/* End of file Riwayat.php */
+/* Location: ./application/controllers/Riwayat.php */
 /* Please DO NOT modify this information : */
 /* Generated by Harviacode Codeigniter CRUD Generator 2022-04-01 08:01:50 */
 /* http://harviacode.com */

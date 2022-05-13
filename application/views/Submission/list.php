@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">List Project</h3>
+        <h3 class="box-title">List Submission</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
@@ -40,15 +40,7 @@
                 <td><?php echo $value->no_isbn ?></td>
                 <td><a class="btn btn-xs btn-warning" href="<?= base_url('Submission/get_file_submission/' . $value->file_hakcipta); ?>">Download</a></td>
                 <td><?php echo status_color($value->status) ?></td>
-                <td class="text-center">
-                  <?php
-                  if ($value->status == 'Submitted') {
-                  ?>
-                    <a class="btn btn-xs btn-danger" href="<?= base_url('Submission/plot_lead_editor/' . $value->id_produk) ?>">Plot Lead Editor</a>
-                  <?php
-                  }
-                  ?>
-                </td>
+                <td><?php echo check_action_submission($value->status, $value->id_produk) ?></td>
               </tr>
             <?php } ?>
 

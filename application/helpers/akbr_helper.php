@@ -367,8 +367,23 @@ if (!function_exists('dateIna')) {
       case 'Submitted':
         return '<span class="badge badge-primary" style="background-color:#ffc107;color:#000;">Submitted</span>';
         break;
+      case 'Lead Editor Plotted':
+        return '<span class="badge badge-primary" style="background-color:#ffc107;color:#000;">Lead Editor Plotted</span>';
+        break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
+        break;
+    }
+  }
+
+  function check_action_submission($status, $id_produk)
+  {
+    switch ($status) {
+      case 'Submitted':
+        return "<a class='btn btn-xs btn-danger' href='" . base_url('Submission/plot_lead_editor/') . $id_produk . "'>Plot Lead Editor</a>";
+        break;
+      case 'Lead Editor Plotted':
+        return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/change_lead_editor/') . $id_produk . "'>Change Lead Editor</a>";
         break;
     }
   }
