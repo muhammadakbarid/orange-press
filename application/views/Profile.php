@@ -110,7 +110,7 @@
         <!-- jika penulis -->
         <?php if ($this->ion_auth->in_group('penulis')) { ?>
           <div class="form-group">
-            <label for="nama_instansi">nama_instansi</label>
+            <label for="nama_instansi">Nama Instansi</label>
             <input type="text" class="form-control" id="nama_instansi" value="<?= $user['nama_instansi']; ?>" name="nama_instansi">
             <?= form_error('nama_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
@@ -120,12 +120,12 @@
             <?= form_error('alamat_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
-            <label for="email_instansi">email_instansi</label>
+            <label for="email_instansi">Email Instansi</label>
             <input type="text" class="form-control" id="email_instansi" value="<?= $user['email_instansi']; ?>" name="email_instansi">
             <?= form_error('email_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
-            <label for="no_telp_instansi">no_telp_instansi</label>
+            <label for="no_telp_instansi">No Telp Instansi</label>
             <input type="text" class="form-control" id="no_telp_instansi" value="<?= $user['no_telp_instansi']; ?>" name="no_telp_instansi">
             <?= form_error('no_telp_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
@@ -221,6 +221,7 @@
             <b>Account Created</b> <a class="pull-right"><?= dateIna($user['create_on']); ?></a>
           </li>
         </ul>
+        <a href="<?= base_url(); ?>auth/change_password" class="btn bg-green btn-block"><b>Change Password</b></a>
         <a href="<?= base_url(); ?>auth/logout" class="btn bg-purple btn-block"><b>Sign Out</b></a>
       </div>
       <!-- /.box-body -->

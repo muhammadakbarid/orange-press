@@ -123,17 +123,20 @@ class Auth extends CI_Controller
 			$this->data['old_password'] = array(
 				'name' => 'old',
 				'id' => 'old',
+				'class' => 'form-control',
 				'type' => 'password',
 			);
 			$this->data['new_password'] = array(
 				'name' => 'new',
 				'id' => 'new',
+				'class' => 'form-control',
 				'type' => 'password',
 				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 			);
 			$this->data['new_password_confirm'] = array(
 				'name' => 'new_confirm',
 				'id' => 'new_confirm',
+				'class' => 'form-control',
 				'type' => 'password',
 				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 			);
@@ -141,11 +144,19 @@ class Auth extends CI_Controller
 				'name' => 'user_id',
 				'id' => 'user_id',
 				'type' => 'hidden',
+				'class' => 'form-control',
 				'value' => $user->id,
 			);
+			$this->data['title'] = 'Change Password';
+			$this->data['subtitle'] = '';
+			$this->data['crumb'] = [
+				'Change Password' => '',
+			];
 
 			// render
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'change_password', $this->data);
+			// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'change_password', $this->data);
+			$this->data['page'] = 'Auth/change_password';
+			$this->load->view('template/Backend', $this->data);
 		} else {
 			$identity = $this->session->userdata('identity');
 

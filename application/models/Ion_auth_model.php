@@ -636,7 +636,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('id, password, salt')
+		$query = $this->db->select('id, password')
 			->where($this->identity_column, $identity)
 			->limit(1)
 			->order_by('id', 'desc')
@@ -654,10 +654,10 @@ class Ion_auth_model extends CI_Model
 
 		if ($old_password_matches === TRUE) {
 			// store the new password and reset the remember code so all remembered instances have to re-login
-			$hashed_new_password  = $this->hash_password($new, $user->salt);
+			$hashed_new_password  = $this->hash_password($new);
 			$data = array(
 				'password' => $hashed_new_password,
-				'remember_code' => NULL,
+
 			);
 
 			$this->trigger_events('extra_where');
