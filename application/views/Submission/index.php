@@ -5,7 +5,7 @@
         <h3 class="box-title"><?= $title; ?></h3>
       </div>
 
-      <?php echo form_open_multipart('Submission/submit'); ?>
+      <?php echo form_open_multipart('Submission'); ?>
       <div class="box-body">
         <?php if ($this->session->flashdata('message')) : ?>
           <div class="form-group">
@@ -23,7 +23,7 @@
             <div class="col-md-6">
               <div class="custom-file">
                 <label for="formFile" class="form-label">File Hak Cipta</label>
-                <input type="file" class="custom-file-input form-control" id="file_hak_cipta" name="file_hak_cipta">
+                <input type="file" class="custom-file-input form-control" id="file_hakcipta" name="file_hakcipta">
               </div>
             </div>
             <div class="col-md-6">
@@ -32,10 +32,6 @@
               <?= form_error('edisi', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Nomor ISBN</label>
-          <input type="text" class="form-control" id="no_isbn" value="" name="no_isbn">
         </div>
         <div class="form-group">
           <label for="date">Tim Penulis</label>

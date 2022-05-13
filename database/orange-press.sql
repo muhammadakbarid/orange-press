@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2022 at 03:48 PM
+-- Generation Time: May 13, 2022 at 01:31 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -200,7 +200,7 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (35, 3),
 (36, 3),
 (37, 3),
-(1, 116),
+(1, 117),
 (34, 116);
 
 -- --------------------------------------------------------
@@ -265,7 +265,8 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (109, 8, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1),
 (114, 1, 2, 92, 'fas fa-edit', 'Status Sunting', 'Status_sunting', 'Status_sunting', 1),
 (115, 1, 2, 92, 'fas fa-book', 'Jenis KTI', 'Jenis_kti', 'Jenis_kti', 1),
-(116, 1, 2, 1, 'fas fa-check-square', 'Submission', 'Submission', '#', 1);
+(116, 1, 2, 1, 'fas fa-check-square', 'Submission', 'Submission', '#', 1),
+(117, 1, 2, 1, 'fas fa-check-double', 'List Submission', 'Submission/list', '#', 1);
 
 -- --------------------------------------------------------
 
@@ -311,9 +312,24 @@ CREATE TABLE `produk` (
   `judul` varchar(256) NOT NULL,
   `edisi` varchar(256) NOT NULL,
   `tgl_submit` date NOT NULL,
-  `no_isbn` varchar(50) NOT NULL,
-  `file_hakcipta` varchar(256) NOT NULL
+  `no_isbn` varchar(50) DEFAULT NULL,
+  `file_hakcipta` varchar(256) NOT NULL,
+  `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `id_kti`, `judul`, `edisi`, `tgl_submit`, `no_isbn`, `file_hakcipta`, `status`) VALUES
+(1, 4, 'Naruto Ninja Stroms', '213', '2022-05-13', NULL, 'logo_pssi1-169.jpg', NULL),
+(2, 4, 'Naruto Ninja Stroms', '213', '2022-05-13', NULL, 'logo_pssi1-1691.jpg', NULL),
+(3, 4, 'Naruto Ninja Stroms', '213', '2022-05-13', NULL, 'logo_pssi1-1692.jpg', NULL),
+(4, 4, 'Naruto Ninja Stroms', '213', '2022-05-13', NULL, 'logo_pssi1-1693.jpg', NULL),
+(5, 6, 'Naruto Ninja Stroms', '213', '2022-05-13', NULL, 'logo_pssi1-1694.jpg', NULL),
+(6, 5, 'Coba Submit', '01', '2022-05-13', NULL, 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-2022.pdf', NULL),
+(7, 5, 'Coba Submit', '01', '2022-05-13', NULL, 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-20221.pdf', NULL),
+(8, 4, 'Coba Sumbit 2', '213', '2022-05-13', NULL, 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-20222.pdf', 'Submitted');
 
 -- --------------------------------------------------------
 
@@ -361,6 +377,21 @@ CREATE TABLE `status_sunting` (
   `nama_status` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `status_sunting`
+--
+
+INSERT INTO `status_sunting` (`id_status`, `nama_status`) VALUES
+(1, 'Acceptance Submission'),
+(2, 'Rejected'),
+(3, 'Paid'),
+(4, 'Correction'),
+(5, 'Approved'),
+(6, 'Approved PR'),
+(7, 'Layout Processed'),
+(8, 'ISBN Processed'),
+(9, 'Completed');
+
 -- --------------------------------------------------------
 
 --
@@ -372,8 +403,23 @@ CREATE TABLE `tim_penulis` (
   `id_penulis` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
   `penulis_ke` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL
+  `status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tim_penulis`
+--
+
+INSERT INTO `tim_penulis` (`id`, `id_penulis`, `id_produk`, `penulis_ke`, `status`) VALUES
+(1, 57, 4, 1, NULL),
+(2, 51, 5, 1, NULL),
+(3, 57, 5, 2, NULL),
+(4, 51, 6, 1, 'Submitted'),
+(5, 57, 6, 2, 'Submitted'),
+(6, 51, 7, 1, 'Submitted'),
+(7, 57, 7, 2, 'Submitted'),
+(8, 51, 8, 1, NULL),
+(9, 57, 8, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -416,9 +462,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `active`, `image`, `no_ktp`, `nip`, `no_npwp`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_hp`, `profesi`, `nama_instansi`, `alamat_instansi`, `email_instansi`, `no_telp_instansi`, `sc_form_penulis`, `sc_ktp`, `sc_cv`, `sc_npwp`, `sc_foto`, `bidang_kompetensi`, `create_on`) VALUES
-(1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2y$08$xW6CqiKByp3QEXUKdkHIhu.N6gMFQz3KYh5CsbwgcMc39dxYP7TXi', 1, 'akbr_pp_2.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
 (51, 'penulis1@gmail.com', 'penulis', '1', '$2y$08$t3AEH6.JmraK9cdTPdc7luHfXG36CXkeD1/KzS0HxglMJXDceGDM.', 1, '13807-mochamad-iriawan.jpg', '123', '123', '123', 'Perempuan', 'asdasd', '1999-11-25', 'asdasdasd', '123213', 'asdasd', 'asdasd', 'asdasd', 'ins@gmail.com', '123213', 'vlcsnap-2022-01-23-12h20m45s850.png', 'vlcsnap-2021-12-21-23h25m07s5171.png', 'Picture1.png', 'Pengumuman_Pembayaran_UTS.pdf', 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-2022.pdf', 'Akuntansi', '0000-00-00 00:00:00'),
-(56, 'editor1@gmail.com', 'editor', '1', '$2y$08$b8T715OYXnOr/weBYWE.rOOKO1WJ28DJshEmH5v7rQ7jEtpZbFlDW', 1, '2laFt5jWUD.jpg', '123', '123', '123', 'Laki-Laki', 'PURWOREJO', '2022-01-01', 'asdasdasd', '1233', 'asdasd', '', '', '', '', '20210918_071215jpg-20210918101648.jpg', '', '', '', '', 'Informatika', '2022-05-11 13:18:10');
+(56, 'editor1@gmail.com', 'editor', '1', '$2y$08$b8T715OYXnOr/weBYWE.rOOKO1WJ28DJshEmH5v7rQ7jEtpZbFlDW', 1, '2laFt5jWUD.jpg', '123', '123', '123', 'Laki-Laki', 'PURWOREJO', '2022-01-01', 'asdasdasd', '1233', 'asdasd', '', '', '', '', '20210918_071215jpg-20210918101648.jpg', '', '', '', '', 'Informatika', '2022-05-11 13:18:10'),
+(57, 'penulis2@gmail.com', 'Penulis', '2', '$2y$08$Slhw7Ac/pceQlshCw9JW..g92SbFWtt/5PYdjHr0HOHoR8j6wdc5K', 1, 'default.jpg', '1234567891123456', '123', '123456789112345', 'Perempuan', 'PURWOREJO', '1999-02-23', 'Jalan Sarijadi Blok 02 No 118 Rt 06/02', '+6289646817762', 'Sekretariat', 'Poltekpos', 'Jalan sariasih', 'asep@poltekpos.ac.id', '123456789112345', 'dummy.jpg', 'dummy1.jpg', 'dummy2.jpg', 'dummy3.jpg', 'dummy4.jpg', 'Bahasa Inggris', '2022-05-13 09:03:39');
 
 -- --------------------------------------------------------
 
@@ -449,7 +496,8 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (90, 12, 2),
 (67, 12, 8),
 (175, 51, 34),
-(182, 56, 33);
+(182, 56, 33),
+(183, 57, 34);
 
 --
 -- Indexes for dumped tables
@@ -586,7 +634,7 @@ ALTER TABLE `jenis_kti`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -604,7 +652,7 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `riyawat`
@@ -622,25 +670,25 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `status_sunting`
 --
 ALTER TABLE `status_sunting`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tim_penulis`
 --
 ALTER TABLE `tim_penulis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
