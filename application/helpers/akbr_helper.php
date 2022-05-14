@@ -361,7 +361,7 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function status_color($color)
+  function submission_status_color($color)
   {
     switch ($color) {
       case 'Submitted':
@@ -376,7 +376,7 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function check_action_submission($status, $id_produk)
+  function submission_check_action($status, $id_produk)
   {
     switch ($status) {
       case 'Submitted':

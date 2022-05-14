@@ -39,8 +39,8 @@
                 <td><?php echo date_surat($value->tgl_submit) ?></td>
                 <td><?php echo $value->no_isbn ?></td>
                 <td><a class="btn btn-xs btn-warning" href="<?= base_url('Submission/get_file_submission/' . $value->file_hakcipta); ?>">Download</a></td>
-                <td><?php echo status_color($value->status) ?></td>
-                <td><?php echo check_action_submission($value->status, $value->id_produk) ?></td>
+                <td><?php echo submission_status_color($value->status) ?></td>
+                <td><?php echo submission_check_action($value->status, $value->id_produk) ?></td>
               </tr>
             <?php } ?>
 
