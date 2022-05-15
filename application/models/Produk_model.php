@@ -29,6 +29,13 @@ class Produk_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function get_bayar_produk_by_id($id_produk)
+    {
+        $this->db->join('jenis_kti', 'jenis_kti.id_kti = produk.id_kti');
+        $this->db->where('produk.id_produk', $id_produk);
+        return $this->db->get($this->table)->row();
+    }
+
     // get total rows
     function total_rows($q = NULL)
     {
@@ -92,6 +99,11 @@ class Produk_model extends CI_Model
     function get_list_submission()
     {
         return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti join status_sunting on produk.status=status_sunting.id_status ORDER BY id_produk DESC")->result();
+    }
+
+    function get_list_penulis_submission($id_penulis)
+    {
+        return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti join status_sunting on produk.status=status_sunting.id_status join tim_penulis on produk.id_produk=tim_penulis.id_produk where tim_penulis.id_penulis=$id_penulis ORDER BY produk.id_produk DESC")->result();
     }
 
     function get_list_editor_submission($id_user)

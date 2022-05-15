@@ -361,9 +361,9 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function submission_status_color($color)
+  function submission_status_color($id_status)
   {
-    switch ($color) {
+    switch ($id_status) {
       case '11':
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
         break;
@@ -376,15 +376,18 @@ if (!function_exists('dateIna')) {
       case '2':
         return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;">Rejected</span>';
         break;
+      case '3':
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Paid</span>';
+        break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
         break;
     }
   }
 
-  function submission_check_action($status, $id_produk)
+  function submission_check_action($id_status, $id_produk)
   {
-    switch ($status) {
+    switch ($id_status) {
       case '11':
         return "<a class='btn btn-xs btn-danger' href='" . base_url('Submission/plot_lead_editor/') . $id_produk . "'>Plot Lead Editor</a>";
         break;
@@ -397,12 +400,15 @@ if (!function_exists('dateIna')) {
       case '2':
         return "";
         break;
+      case '3':
+        return '';
+        break;
     }
   }
 
-  function submission_check_action_lead($status, $id_produk)
+  function submission_check_action_lead($id_status, $id_produk)
   {
-    switch ($status) {
+    switch ($id_status) {
       case '11':
         return "";
         break;
@@ -410,7 +416,28 @@ if (!function_exists('dateIna')) {
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
         break;
       case '1':
-        return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
+        return "";
+        break;
+      case '2':
+        return "";
+        break;
+      case '3':
+        return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
+        break;
+    }
+  }
+
+  function submission_check_action_penulis($id_status, $id_produk)
+  {
+    switch ($id_status) {
+      case '11':
+        return "";
+        break;
+      case '10':
+        return "";
+        break;
+      case '1':
+        return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
         break;
       case '2':
         return "";

@@ -1,69 +1,72 @@
 <div class="row">
-  <div class="col-md-6 col-xs-12">
-    <div class="box box-primary">
-      <div class="box-header with-border">
-        <h3 class="box-title"><?= $title; ?></h3>
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">List Submission</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fa fa-minus"></i></button>
+          <button type="button" class="btn btn-box-tool" onclick="location.reload()" title="Refresh">
+            <i class="fa fa-refresh"></i></button>
+        </div>
       </div>
 
-      <?php echo form_open_multipart('Submission'); ?>
       <div class="box-body">
-        <?php if ($this->session->flashdata('message')) : ?>
-          <div class="form-group">
-            <?= $this->session->flashdata('message'); ?>
-          </div>
-        <?php endif; ?>
-
-        <div class="form-group">
-          <label for="judul">Judul</label>
-          <input type="text" class="form-control" id="judul" value="" name="judul">
-          <?= form_error('judul', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="custom-file">
-                <label for="formFile" class="form-label">File Hak Cipta</label>
-                <input type="file" class="custom-file-input form-control" id="file_hakcipta" name="file_hakcipta">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="edisi">Edisi</label>
-              <input type="text" class="form-control" id="edisi" value="" name="edisi">
-              <?= form_error('edisi', '<small class="text-danger pl-3">', '</small>'); ?>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="date">Tim Penulis</label>
-          <select class="form-control select2" required="true" name="tim_penulis[]" multiple="multiple">
-            <?php if ($list_penulis) : ?>
-              <?php foreach ($list_penulis as $value) : ?>
-                <option value="<?php echo $value->id ?>"><?php echo $value->first_name ?> <?php echo $value->last_name ?> (<?php echo $value->email . " - " . $value->bidang_kompetensi ?>)</option>
-              <?php endforeach ?>
-            <?php endif ?>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="int">Jenis Karya Tulis Ilmiah <?php echo form_error('jenis_kti') ?></label>
-          <select class="form-select form-control" name="jenis_kti" id="jenis_kti">
-            <option value="">-- Pilih Karya Tulis Ilmiah --</option>
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Judul</th>
+              <th>Jenis</th>
+              <th>Edisi</th>
+              <th>Tanggal Submit</th>
+              <th>Nomor ISBN</th>
+              <th>File Hak Cipta</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
             <?php
-            foreach ($jenis_kti as $jenis_kti) {
-              echo "<option value='" . $jenis_kti->id_kti . "'";
-              echo ">" . $jenis_kti->nama_kti . "</option>";
-            }
+            $no = 1;
+            foreach ($submission as $value) {
             ?>
-          </select>
-        </div>
-      </div>
+              <tr>
+                <td class="text-center" style="width: 10px;"><?php echo $no++ ?></td>
+                <td><?php echo $value->judul ?></td>
+                <td><?php echo $value->nama_kti ?></td>
+                <td><?php echo $value->edisi ?></td>
+                <td><?php echo date_surat($value->tgl_submit) ?></td>
+                <td><?php echo $value->no_isbn ?></td>
+                <td><a class="btn btn-xs btn-warning" href="<?= base_url('Submission/get_file_submission/' . $value->file_hakcipta); ?>">Download</a></td>
+                <td><?php echo submission_status_color($value->id_status) ?></td>
+                <td><?php echo submission_check_action_penulis($value->id_status, $value->id_produk) ?></td>
+              </tr>
+            <?php } ?>
 
-      <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>No</th>
+              <th>Judul</th>
+              <th>Jenis</th>
+              <th>Edisi</th>
+              <th>Tanggal Submit</th>
+              <th>Nomor ISBN</th>
+              <th>File Hak Cipta</th>
+              <th>Status</th>
+              <th>Action</th>
+
+            </tr>
+          </tfoot>
+        </table>
+
       </div>
-      <?= form_close();; ?>
     </div>
   </div>
-  <div class="col-md-3"></div>
-
 </div>
+<script>
+  $(function() {
+    $(' #example1').DataTable()
+  });
+</script>

@@ -44,10 +44,10 @@ class Riwayat extends CI_Controller
     public function detail($id_produk)
     {
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
-        $data['title'] = 'Detail Riwayat';
-        $data['subtitle'] = '';
+        $data['title'] = 'Riwayat Sunting';
+        $data['subtitle'] = 'Detail Riwayat';
         $data['crumb'] = [
-            'Detail Riwayat' => '',
+            'Riwayat Sunting' => '',
         ];
 
         $data['page'] = 'Riwayat/detail';

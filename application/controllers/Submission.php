@@ -18,6 +18,62 @@ class Submission extends CI_Controller
 
   public function index()
   {
+    $id_penulis = $this->session->userdata('user_id');
+    $data['submission'] = $this->Produk_model->get_list_penulis_submission($id_penulis);
+    $data['title'] = 'Submission';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Submission' => '',
+    ];
+
+    $data['page'] = 'Submission/index';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function bayar($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_bayar_produk_by_id($id_produk);
+
+    $data['title'] = 'Pembayaran';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Pembayaran' => '',
+    ];
+
+    $data['page'] = 'Submission/bayar';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function bayar_action()
+  {
+    $this->load->model('Pembayaran_model');
+    $id_produk = $this->input->post('id_produk');
+    $jumlah_bayar = $this->input->post('jumlah_bayar');
+    $jenis_pembayaran = $this->input->post('jenis_pembayaran');
+    $status_produk = 3;
+    $data_produk = [
+      'status' => $status_produk,
+    ];
+    $data_pembayaran = [
+      'tanggal_bayar' => date('Y-m-d'),
+      'jumlah' => $jumlah_bayar,
+      'id_produk' => $id_produk,
+      'jenis' => $jenis_pembayaran,
+    ];
+
+    // $this->Pembayaran_model->insert($data_pembayaran);
+
+    if ($this->Produk_model->update($id_produk, $data_produk) && $this->Pembayaran_model->insert($data_pembayaran)) {
+      $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
+      redirect('Submission');
+    } else {
+      $this->session->set_flashdata('error', 'Pembayaran gagal dilakukan');
+      redirect('Submission');
+    }
+  }
+
+  public function submit()
+  {
     // if form validation run
     $this->form_validation->set_rules('judul', 'Judul', 'required');
     $this->form_validation->set_rules('edisi', 'Edisi', 'required');
@@ -38,7 +94,7 @@ class Submission extends CI_Controller
       $data['list_penulis'] = $this->Users_model->get_all_by_id_groups(34);
 
       // $data['list_user'] = $this->Users_model->get_all();
-      $data['page'] = 'Submission/Index';
+      $data['page'] = 'Submission/submit';
       $this->load->view('template/Backend', $data);
     } else {
       $file_hakcipta = $_FILES['file_hakcipta']['name'];
