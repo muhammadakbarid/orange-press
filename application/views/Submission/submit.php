@@ -5,7 +5,7 @@
         <h3 class="box-title"><?= $title; ?></h3>
       </div>
 
-      <?php echo form_open_multipart('Submission'); ?>
+      <?php echo form_open_multipart('Submission/submit'); ?>
       <div class="box-body">
         <?php if ($this->session->flashdata('message')) : ?>
           <div class="form-group">
@@ -61,7 +61,7 @@
       <div class="box-footer">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
-      <?= form_close();; ?>
+      <?= form_close(); ?>
     </div>
   </div>
   <div class="col-md-3"></div>

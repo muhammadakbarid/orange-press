@@ -32,7 +32,7 @@ class Submission extends CI_Controller
 
   public function bayar($id_produk)
   {
-    $data['produk'] = $this->Produk_model->get_bayar_produk_by_id($id_produk);
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
 
     $data['title'] = 'Pembayaran';
     $data['subtitle'] = '';
@@ -61,8 +61,6 @@ class Submission extends CI_Controller
       'jenis' => $jenis_pembayaran,
     ];
 
-    // $this->Pembayaran_model->insert($data_pembayaran);
-
     if ($this->Produk_model->update($id_produk, $data_produk) && $this->Pembayaran_model->insert($data_pembayaran)) {
       $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
       redirect('Submission');
@@ -72,15 +70,93 @@ class Submission extends CI_Controller
     }
   }
 
+  public function penyuntingan_naskah($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['title'] = 'Penyuntingan Naskah';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Penyuntingan Naskah' => '',
+    ];
+
+    $data['page'] = 'Submission/penyuntingan_naskah';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function penyuntingan_naskah_action()
+  {
+    $id_produk = $this->input->post('id_produk');
+    $keterangan = $this->input->post('keterangan');
+    $file_attach = $_FILES['file_attach']['name'];
+    $status = 4;
+    if ($file_attach) {
+      $config['upload_path'] = './assets/uploads/files/file_attach/';
+      $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+      $config['max_size']     = '2048';
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('file_attach')) {
+        $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+        $data_riwayat = [
+          'id_produk' => $id_produk,
+          'id_user' => $this->session->userdata('user_id'),
+          'tgl_plotting' => date('Y-m-d'),
+          'status_kerjaan' => $status,
+        ];
+
+        $this->Riwayat_model->insert($data_riwayat);
+        $id_riwayat = $this->db->insert_id();
+
+        $data_file_attach = [
+          'id_riwayat' => $id_riwayat,
+          'nama_file' => $new_file_attach,
+          'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          'keterangan' => $keterangan
+        ];
+        $this->Produk_model->insert_file_attach($data_file_attach);
+
+        $data_produk = [
+          'status' => $status,
+        ];
+        $this->Produk_model->update($id_produk, $data_produk);
+
+        $this->session->set_flashdata('success', 'Naskah berhasil disunting');
+        redirect('Submission/list_editors');
+      } else {
+        $this->session->set_flashdata('success', $this->upload->display_errors());
+        redirect('Submission/list_editors');
+      }
+    }
+  }
+
+  public function penyuntingan_naskah_approve()
+  {
+    $id_produk = $this->input->post('id_produk');
+    $status = 5;
+    $data_produk = [
+      'status' => $status,
+    ];
+    $this->Produk_model->update($id_produk, $data_produk);
+
+    $data_riwayat = [
+      'id_produk' => $id_produk,
+      'id_user' => $this->session->userdata('user_id'),
+      'tgl_plotting' => date('Y-m-d'),
+      'status_kerjaan' => $status,
+    ];
+
+    $this->Riwayat_model->insert($data_riwayat);
+  }
+
   public function submit()
   {
     // if form validation run
     $this->form_validation->set_rules('judul', 'Judul', 'required');
     $this->form_validation->set_rules('edisi', 'Edisi', 'required');
-    // $this->form_validation->set_rules('file_hakcipta', 'File Hak Cipta', 'required');
     $this->form_validation->set_rules('jenis_kti', 'Jenis KTI', 'required');
     $this->form_validation->set_rules('tim_penulis[]', 'Tim Penulis', 'required');
-
     if ($this->form_validation->run() == FALSE) {
 
       $data['title'] = 'Submission';
@@ -89,11 +165,9 @@ class Submission extends CI_Controller
         'Submission' => '',
       ];
       $data['jenis_kti'] = $this->Jenis_kti_model->get_all();
-      $user_groups = $this->ion_auth->get_users_groups($this->session->userdata('user_id'))->result();
       // ambil data penulis
       $data['list_penulis'] = $this->Users_model->get_all_by_id_groups(34);
 
-      // $data['list_user'] = $this->Users_model->get_all();
       $data['page'] = 'Submission/submit';
       $this->load->view('template/Backend', $data);
     } else {
@@ -102,6 +176,7 @@ class Submission extends CI_Controller
       $edisi = $this->input->post('edisi');
       $id_kti = $this->input->post('jenis_kti');
       $tim_penulis = $this->input->post('tim_penulis');
+      $status = 11;
 
       if ($file_hakcipta) {
         $config['upload_path'] = './assets/uploads/files/file_hakcipta/';
@@ -122,7 +197,7 @@ class Submission extends CI_Controller
       $this->db->set('judul', $judul);
       $this->db->set('edisi', $edisi);
       $this->db->set('id_kti', $id_kti);
-      $this->db->set('status', "Submitted");
+      $this->db->set('status', $status);
       $this->db->set('tgl_submit', date('Y-m-d'));
 
       $this->db->insert('produk');
@@ -169,6 +244,20 @@ class Submission extends CI_Controller
     $this->load->view('template/backend', $data);
   }
 
+  public function list_editors()
+  {
+    $id_user = $this->session->userdata('user_id');
+    $data['list_submission'] = $this->Produk_model->get_list_editors_submission($id_user);
+    $data['title'] = 'List Submission';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'List Submission' => '',
+    ];
+
+    $data['page'] = 'Submission/list_editors';
+    $this->load->view('template/backend', $data);
+  }
+
   public function get_file_submission($file_name)
   {
     $file_path = 'assets/uploads/files/file_hakcipta/';
@@ -183,6 +272,7 @@ class Submission extends CI_Controller
       $data['id_produk'] = $id_produk;
       $data['produk'] = $this->Produk_model->get_by_id($id_produk);
       $data['title'] = 'Plot Lead Editor';
+      $data['label'] = 'Lead Editor';
       $data['subtitle'] = '';
       $data['action'] = 'Submission/plot_lead_editor/' . $id_produk;
       $data['crumb'] = [
@@ -216,6 +306,57 @@ class Submission extends CI_Controller
           $this->session->set_flashdata('success', "Failed to plot");
           redirect('Submission/list');
         }
+      } else {
+        $this->session->set_flashdata('success', "Failed to plot");
+        redirect('Submission/list');
+      }
+    }
+  }
+
+  public function plot_editor($id_produk)
+  {
+    $this->form_validation->set_rules('editor[]', 'Editor', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $data['id_produk'] = $id_produk;
+      $data['produk'] = $this->Produk_model->get_by_id($id_produk);
+      $data['title'] = 'Plot Editor';
+      $data['label'] = 'Editor';
+      $data['subtitle'] = '';
+      $data['action'] = 'Submission/plot_editor/' . $id_produk;
+      $data['crumb'] = [
+        'Plot Editor' => '',
+      ];
+      $data['list_editor'] = $this->Users_model->get_all_by_id_groups(36);
+
+      $data['page'] = 'Submission/plot_editor';
+      $this->load->view('template/backend', $data);
+    } else {
+      $editor = $this->input->post('editor');
+      foreach ($editor as $editor) {
+        $id_editor = $editor;
+        $tgl_plotting = date('Y-m-d');
+        $tgl_selesai = NULL;
+        $status_kerjaan = 12;
+        $data_editor = [
+          'id_user' => $id_editor,
+          'id_produk' => $id_produk,
+          'tgl_plotting' => $tgl_plotting,
+          'tgl_selesai' => $tgl_selesai,
+          'status_kerjaan' => $status_kerjaan,
+        ];
+        $this->Riwayat_model->insert($data_editor);
+      }
+
+      $status_produk = 12;
+      $data_produk = [
+        'status' => $status_produk,
+      ];
+
+      if ($this->Produk_model->update($id_produk, $data_produk)) {
+
+        $this->session->set_flashdata('success', "Successfully plotted");
+        redirect('Submission/list');
       } else {
         $this->session->set_flashdata('success', "Failed to plot");
         redirect('Submission/list');

@@ -364,20 +364,26 @@ if (!function_exists('dateIna')) {
   function submission_status_color($id_status)
   {
     switch ($id_status) {
-      case '11':
+      case '11': // Submitted
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
         break;
-      case '10':
+      case '10': // Lead Editor PLotted
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Lead Editor Plotted</span>';
         break;
-      case '1':
+      case '1': // Acceptance Submission
         return '<span class="badge badge-primary" style="background-color:#41ead4;color:#000;">Acceptance Submission</span>';
         break;
-      case '2':
+      case '2': // Rejected
         return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;">Rejected</span>';
         break;
-      case '3':
+      case '3': // Paid
         return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Paid</span>';
+        break;
+      case '12': // Editor Plotted
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Editor Plotted</span>';
+        break;
+      case '4': // Correction
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction</span>';
         break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
@@ -388,19 +394,25 @@ if (!function_exists('dateIna')) {
   function submission_check_action($id_status, $id_produk)
   {
     switch ($id_status) {
-      case '11':
+      case '11': // Submitted
         return "<a class='btn btn-xs btn-danger' href='" . base_url('Submission/plot_lead_editor/') . $id_produk . "'>Plot Lead Editor</a>";
         break;
-      case '10':
+      case '10': // Lead Editor PLotted
         return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/change_lead_editor/') . $id_produk . "'>Change Lead Editor</a>";
         break;
-      case '1':
+      case '1': // Acceptance Submission
         return "";
         break;
-      case '2':
+      case '2': // Rejected
         return "";
         break;
-      case '3':
+      case '3': // Paid
+        return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
+        break;
+      case '12': // Editor Plotted
+        return "";
+        break;
+      default:
         return '';
         break;
     }
@@ -409,20 +421,14 @@ if (!function_exists('dateIna')) {
   function submission_check_action_lead($id_status, $id_produk)
   {
     switch ($id_status) {
-      case '11':
+      case '11': //submitted
         return "";
         break;
-      case '10':
+      case '10': //lead editor plotted
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
         break;
-      case '1':
-        return "";
-        break;
-      case '2':
-        return "";
-        break;
-      case '3':
-        return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
+      default:
+        return '';
         break;
     }
   }
@@ -430,17 +436,23 @@ if (!function_exists('dateIna')) {
   function submission_check_action_penulis($id_status, $id_produk)
   {
     switch ($id_status) {
-      case '11':
-        return "";
-        break;
-      case '10':
-        return "";
-        break;
       case '1':
         return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
         break;
-      case '2':
-        return "";
+      default:
+        return '';
+        break;
+    }
+  }
+
+  function submission_check_action_editor($id_status, $id_produk)
+  {
+    switch ($id_status) {
+      case '12':
+        return "<a href='" . base_url('Submission/penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Sunting Naskah</a><a id='sunting_naskah_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
+        break;
+      default:
+        return '';
         break;
     }
   }

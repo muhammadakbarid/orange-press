@@ -29,7 +29,7 @@ class Produk_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
-    function get_bayar_produk_by_id($id_produk)
+    function get_produk_by_id($id_produk)
     {
         $this->db->join('jenis_kti', 'jenis_kti.id_kti = produk.id_kti');
         $this->db->where('produk.id_produk', $id_produk);
@@ -109,5 +109,15 @@ class Produk_model extends CI_Model
     function get_list_editor_submission($id_user)
     {
         return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti JOIN v_lead_editor ON produk.id_produk=v_lead_editor.id_produk join status_sunting on produk.status=status_sunting.id_status WHERE v_lead_editor.id_user=$id_user ORDER BY v_lead_editor.id_produk DESC")->result();
+    }
+    function get_list_editors_submission($id_user)
+    {
+        return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti JOIN riwayat ON produk.id_produk=riwayat.id_produk join status_sunting on produk.status=status_sunting.id_status WHERE riwayat.id_user=$id_user group by riwayat.id_produk ORDER BY riwayat.id_produk DESC")->result();
+    }
+
+    function insert_file_attach($data_file_attach)
+    {
+        $this->db->insert('file_attach', $data_file_attach);
+        return $this->db->affected_rows();
     }
 }

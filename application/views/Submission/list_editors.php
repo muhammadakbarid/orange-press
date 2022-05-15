@@ -2,17 +2,15 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">List Submission</h3>
+        <h3 class="box-title">List Submission Editor</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
           <button type="button" class="btn btn-box-tool" onclick="location.reload()" title="Refresh">
             <i class="fa fa-refresh"></i></button>
         </div>
-        <div class="box-body">
-          <a class="btn btn-primary" href="<?= base_url('Submission/submit'); ?>">Add Submission</a>
-        </div>
       </div>
+
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
           <thead>
@@ -31,7 +29,7 @@
           <tbody>
             <?php
             $no = 1;
-            foreach ($submission as $value) {
+            foreach ($list_submission as $value) {
             ?>
               <tr>
                 <td class="text-center" style="width: 10px;"><?php echo $no++ ?></td>
@@ -41,8 +39,8 @@
                 <td><?php echo date_surat($value->tgl_submit) ?></td>
                 <td><?php echo $value->no_isbn ?></td>
                 <td><a class="btn btn-xs btn-warning" href="<?= base_url('Submission/get_file_submission/' . $value->file_hakcipta); ?>">Download</a></td>
-                <td><?php echo submission_status_color($value->id_status) ?></td>
-                <td><?php echo submission_check_action_penulis($value->id_status, $value->id_produk) ?></td>
+                <td><?php echo submission_status_color($value->status) ?></td>
+                <td><?php echo submission_check_action_editor($value->status, $value->id_produk) ?></td>
               </tr>
             <?php } ?>
 
@@ -70,5 +68,31 @@
 <script>
   $(function() {
     $(' #example1').DataTable()
+  });
+
+  // if approve is clicked
+  $(document).on('click', '#sunting_naskah_approve', function() {
+    Swal.fire({
+      title: 'Are you sure to approve?',
+      showCancelButton: true,
+      confirmButtonText: 'Approve',
+      confirmButtonColor: '#00a65a',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var id = $(this).data('id');
+        var url = "<?php echo base_url('Submission/penyuntingan_naskah_approve') ?>";
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            id: id,
+          },
+          success: function() {
+            location.reload();
+          }
+        });
+      }
+    })
   });
 </script>

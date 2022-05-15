@@ -91,6 +91,7 @@ class Riwayat_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+        $this->db->affected_rows();
     }
 
     // update data
