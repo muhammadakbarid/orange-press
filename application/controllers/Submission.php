@@ -74,8 +74,8 @@ class Submission extends CI_Controller
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
 
-    $data['title'] = 'Penyuntingan Naskah';
-    $data['subtitle'] = '';
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Penyuntingan Naskah';
     $data['crumb'] = [
       'Penyuntingan Naskah' => '',
     ];
@@ -133,8 +133,88 @@ class Submission extends CI_Controller
 
   public function penyuntingan_naskah_approve()
   {
-    $id_produk = $this->input->post('id_produk');
+    $id_produk = $this->input->post('id');
     $status = 5;
+    $data_produk = [
+      'status' => $status,
+    ];
+    $this->Produk_model->update($id_produk, $data_produk);
+
+    $data_riwayat = [
+      'id_produk' => $id_produk,
+      'id_user' => $this->session->userdata('user_id'),
+      'tgl_plotting' => date('Y-m-d'),
+      'status_kerjaan' => $status,
+    ];
+
+    $this->Riwayat_model->insert($data_riwayat);
+  }
+
+  public function proofreading($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Proofreading';
+    $data['crumb'] = [
+      'Proofreading' => '',
+    ];
+
+    $data['page'] = 'Submission/proofreading';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function proofreading_action()
+  {
+    $id_produk = $this->input->post('id_produk');
+    $keterangan = $this->input->post('keterangan');
+    $file_attach = $_FILES['file_attach']['name'];
+    $status = 13;
+    if ($file_attach) {
+      $config['upload_path'] = './assets/uploads/files/file_attach/';
+      $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+      $config['max_size']     = '2048';
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('file_attach')) {
+        $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+        $data_riwayat = [
+          'id_produk' => $id_produk,
+          'id_user' => $this->session->userdata('user_id'),
+          'tgl_plotting' => date('Y-m-d'),
+          'status_kerjaan' => $status,
+        ];
+
+        $this->Riwayat_model->insert($data_riwayat);
+        $id_riwayat = $this->db->insert_id();
+
+        $data_file_attach = [
+          'id_riwayat' => $id_riwayat,
+          'nama_file' => $new_file_attach,
+          'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          'keterangan' => $keterangan
+        ];
+        $this->Produk_model->insert_file_attach($data_file_attach);
+
+        $data_produk = [
+          'status' => $status,
+        ];
+        $this->Produk_model->update($id_produk, $data_produk);
+
+        $this->session->set_flashdata('success', 'Naskah berhasil disunting');
+        redirect('Submission/list_editors');
+      } else {
+        $this->session->set_flashdata('success', $this->upload->display_errors());
+        redirect('Submission/list_editors');
+      }
+    }
+  }
+
+  public function proofreading_approve()
+  {
+    $id_produk = $this->input->post('id');
+    $status = 6;
     $data_produk = [
       'status' => $status,
     ];

@@ -5,7 +5,7 @@
         <h3 class="box-title"><?= $title; ?></h3>
       </div>
 
-      <?php echo form_open_multipart('Submission/penyuntingan_naskah_action'); ?>
+      <?php echo form_open_multipart('Submission/proofreading_action'); ?>
       <div class="box-body">
         <?php if ($this->session->flashdata('message')) : ?>
           <div class="form-group">
@@ -51,7 +51,7 @@
         </div>
         <div class="form-group">
           <div class="custom-file">
-            <label for="formFile" class="form-label">File Penyuntingan Naskah</label>
+            <label for="formFile" class="form-label">File Proofreading</label>
             <input type="file" class="custom-file-input form-control" id="file_attach" name="file_attach">
           </div>
         </div>

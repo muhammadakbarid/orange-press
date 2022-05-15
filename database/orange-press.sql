@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2022 at 10:56 AM
+-- Generation Time: May 15, 2022 at 03:09 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -48,6 +48,16 @@ CREATE TABLE `file_attach` (
   `keterangan` varchar(256) NOT NULL,
   `create_on` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `file_attach`
+--
+
+INSERT INTO `file_attach` (`id_file`, `id_riwayat`, `nama_file`, `url_file`, `keterangan`, `create_on`) VALUES
+(1, 34, 'Dummy_PDF.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF.pdf', 'bab 2 revisi', '2022-05-15 18:34:21'),
+(2, 44, 'Dummy_PDF1.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF1.pdf', 'revisi', '2022-05-15 19:58:11'),
+(3, 54, 'Dummy_PDF2.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF2.pdf', 'revisi sunting naskah', '2022-05-15 20:06:08'),
+(4, 55, 'Dummy_PDF3.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF3.pdf', 'bab 2 revisi', '2022-05-15 20:07:25');
 
 -- --------------------------------------------------------
 
@@ -182,7 +192,8 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (36, 1),
 (37, 1),
 (1, 119),
-(1, 120);
+(1, 120),
+(36, 121);
 
 -- --------------------------------------------------------
 
@@ -250,7 +261,8 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (117, 3, 2, 1, 'fas fa-check-double', 'List Submission', 'Submission/list', '#', 1),
 (118, 4, 2, 1, 'fas fa-check-circle', 'List Submission', 'Submission/list_editor', '#', 1),
 (119, 6, 2, 1, 'fas fa-clipboard-list', 'Log Riwayat', 'Riwayat/log', '#', 1),
-(120, 5, 2, 1, 'fas fa-book', 'Riwayat Sunting', 'Riwayat/riwayat_sunting', '#', 1);
+(120, 5, 2, 1, 'fas fa-book', 'Riwayat Sunting', 'Riwayat/riwayat_sunting', '#', 1),
+(121, 1, 2, 1, 'fas fa-check-circle', 'Submission List', 'Submission/list_editors', '#', 1);
 
 -- --------------------------------------------------------
 
@@ -289,7 +301,10 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_bayar`, `id_produk`, `tanggal_bayar`, `jumlah`, `jenis`) VALUES
-(5, 10, '2022-05-15', 100000, 'Penerbitan');
+(5, 10, '2022-05-15', 100000, 'Penerbitan'),
+(6, 13, '2022-05-15', 1000000, 'Percetakan'),
+(7, 11, '2022-05-15', 1000000, 'Penerbitan'),
+(8, 12, '2022-05-15', 80000, 'Percetakan');
 
 -- --------------------------------------------------------
 
@@ -314,7 +329,10 @@ CREATE TABLE `produk` (
 
 INSERT INTO `produk` (`id_produk`, `id_kti`, `judul`, `edisi`, `tgl_submit`, `no_isbn`, `file_hakcipta`, `status`) VALUES
 (8, 4, 'Coba Sumbit 2', '213', '2022-05-13', NULL, 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-20222.pdf', 2),
-(10, 3, 'Penelitian Bandung Lautan Api', '123', '2022-05-13', NULL, 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-20224.pdf', 3);
+(10, 3, 'Penelitian Bandung Lautan Api', '123', '2022-05-13', NULL, 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-20224.pdf', 6),
+(11, 6, 'Penelitian Profitability Report', '1', '2022-05-15', NULL, 'Dummy_PDF.pdf', 6),
+(12, 4, 'Draft A', '1', '2022-05-15', NULL, 'Dummy_PDF1.pdf', 13),
+(13, 6, 'Penelitian Puskesmas Sukasari', '1', '2022-05-15', NULL, 'Dummy_PDF2.pdf', 13);
 
 -- --------------------------------------------------------
 
@@ -339,7 +357,32 @@ INSERT INTO `riwayat` (`id_riwayat`, `id_produk`, `id_user`, `tgl_plotting`, `tg
 (22, 10, 58, '2022-05-15', NULL, 10),
 (23, 10, 58, NULL, NULL, 1),
 (24, 8, 56, '2022-05-15', NULL, 10),
-(25, 8, 56, NULL, '2022-05-15', 2);
+(25, 8, 56, NULL, '2022-05-15', 2),
+(32, 10, 60, '2022-05-15', NULL, 12),
+(33, 10, 61, '2022-05-15', NULL, 12),
+(34, 10, 60, '2022-05-15', NULL, 4),
+(35, 13, 59, '2022-05-15', NULL, 10),
+(36, 11, 59, '2022-05-15', NULL, 10),
+(37, 13, 59, NULL, NULL, 1),
+(38, 11, 59, NULL, NULL, 1),
+(39, 13, 60, '2022-05-15', NULL, 12),
+(40, 13, 61, '2022-05-15', NULL, 12),
+(41, 13, 62, '2022-05-15', NULL, 12),
+(42, 13, 63, '2022-05-15', NULL, 12),
+(43, 13, 60, '2022-05-15', NULL, 5),
+(44, 13, 60, '2022-05-15', NULL, 13),
+(45, 11, 60, '2022-05-15', NULL, 12),
+(46, 11, 61, '2022-05-15', NULL, 12),
+(47, 11, 62, '2022-05-15', NULL, 12),
+(48, 11, 64, '2022-05-15', NULL, 12),
+(49, 11, 64, '2022-05-15', NULL, 5),
+(50, 11, 64, '2022-05-15', NULL, 6),
+(51, 12, 56, '2022-05-15', NULL, 10),
+(52, 12, 56, NULL, NULL, 1),
+(53, 12, 60, '2022-05-15', NULL, 12),
+(54, 12, 60, '2022-05-15', NULL, 4),
+(55, 12, 60, '2022-05-15', NULL, 13),
+(56, 10, 60, '2022-05-15', NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -387,7 +430,9 @@ INSERT INTO `status_sunting` (`id_status`, `nama_status`) VALUES
 (8, 'ISBN Processed'),
 (9, 'Completed'),
 (10, 'Lead Editor Plotted'),
-(11, 'Submitted');
+(11, 'Submitted'),
+(12, 'Editor Plotted'),
+(13, 'Correction PR');
 
 -- --------------------------------------------------------
 
@@ -418,7 +463,10 @@ INSERT INTO `tim_penulis` (`id`, `id_penulis`, `id_produk`, `penulis_ke`, `statu
 (8, 51, 8, 1, NULL),
 (9, 57, 8, 2, NULL),
 (10, 57, 9, 1, NULL),
-(11, 51, 10, 1, NULL);
+(11, 51, 10, 1, NULL),
+(12, 57, 11, 1, NULL),
+(13, 51, 12, 1, NULL),
+(14, 51, 13, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -647,7 +695,7 @@ ALTER TABLE `distribusi`
 -- AUTO_INCREMENT for table `file_attach`
 --
 ALTER TABLE `file_attach`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -671,7 +719,7 @@ ALTER TABLE `jenis_kti`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -683,19 +731,19 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_bayar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_bayar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -707,13 +755,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `status_sunting`
 --
 ALTER TABLE `status_sunting`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tim_penulis`
 --
 ALTER TABLE `tim_penulis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`

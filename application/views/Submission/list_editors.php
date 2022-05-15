@@ -95,4 +95,29 @@
       }
     })
   });
+
+  $(document).on('click', '#proofreading_approve', function() {
+    Swal.fire({
+      title: 'Are you sure to approve?',
+      showCancelButton: true,
+      confirmButtonText: 'Approve',
+      confirmButtonColor: '#00a65a',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var id = $(this).data('id');
+        var url = "<?php echo base_url('Submission/proofreading_approve') ?>";
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            id: id,
+          },
+          success: function() {
+            location.reload();
+          }
+        });
+      }
+    })
+  });
 </script>

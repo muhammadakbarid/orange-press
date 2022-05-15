@@ -385,6 +385,15 @@ if (!function_exists('dateIna')) {
       case '4': // Correction
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction</span>';
         break;
+      case '5': // Approved
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Approved</span>';
+        break;
+      case '6': // Approved PR
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Approved Proofreading</span>';
+        break;
+      case '13': // Correction PR
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction Proofreading</span>';
+        break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
         break;
@@ -448,8 +457,14 @@ if (!function_exists('dateIna')) {
   function submission_check_action_editor($id_status, $id_produk)
   {
     switch ($id_status) {
-      case '12':
+      case '12': // Editor Plotted
         return "<a href='" . base_url('Submission/penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Sunting Naskah</a><a id='sunting_naskah_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
+        break;
+      case '4': //Correction
+        return "<a href='" . base_url('Submission/proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Proofreading</a><a id='proofreading_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
+        break;
+      case '5': //Approved
+        return "<a href='" . base_url('Submission/proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Proofreading</a><a id='proofreading_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
         break;
       default:
         return '';

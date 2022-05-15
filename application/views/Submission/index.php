@@ -9,9 +9,9 @@
           <button type="button" class="btn btn-box-tool" onclick="location.reload()" title="Refresh">
             <i class="fa fa-refresh"></i></button>
         </div>
-        <div class="box-body">
-          <a class="btn btn-primary" href="<?= base_url('Submission/submit'); ?>">Add Submission</a>
-        </div>
+      </div>
+      <div class="box-body">
+        <a class="btn btn-primary" href="<?= base_url('Submission/submit'); ?>">Add Submission</a>
       </div>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped">
