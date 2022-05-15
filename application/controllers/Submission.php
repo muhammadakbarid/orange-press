@@ -99,6 +99,20 @@ class Submission extends CI_Controller
     $this->load->view('template/backend', $data);
   }
 
+  public function list_editor()
+  {
+    $id_user = $this->session->userdata('user_id');
+    $data['list_submission'] = $this->Produk_model->get_list_editor_submission($id_user);
+    $data['title'] = 'List Submission';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'List Submission' => '',
+    ];
+
+    $data['page'] = 'Submission/list_editor';
+    $this->load->view('template/backend', $data);
+  }
+
   public function get_file_submission($file_name)
   {
     $file_path = 'assets/uploads/files/file_hakcipta/';
@@ -126,7 +140,7 @@ class Submission extends CI_Controller
       $lead_editor = $this->input->post('lead_editor');
       $tgl_plotting = date('Y-m-d');
       $tgl_selesai = NULL;
-      $status_kerjaan = NULL;
+      $status_kerjaan = 10;
       $this->db->set('id_user', $lead_editor);
       $this->db->set('id_produk', $id_produk);
       $this->db->set('tgl_plotting', $tgl_plotting);
@@ -134,7 +148,7 @@ class Submission extends CI_Controller
       $this->db->set('status_kerjaan', $status_kerjaan);
 
       if ($this->db->insert('riwayat')) {
-        $status_produk = "Lead Editor Plotted";
+        $status_produk = 10;
         $data_produk = [
           'status' => $status_produk,
         ];
@@ -191,6 +205,49 @@ class Submission extends CI_Controller
       }
     }
   }
-}
 
-/* End of file Submission.php */
+  public function approve_submission()
+  {
+    $id_produk = $this->input->post('id');
+    $status_produk = 1;
+    $data_produk = [
+      'status' => $status_produk,
+    ];
+    $data_riwayat = [
+      'id_user' => $this->session->userdata('user_id'),
+      'id_produk' => $id_produk,
+      'status_kerjaan' => $status_produk,
+    ];
+
+    if ($this->Produk_model->update($id_produk, $data_produk) and $this->Riwayat_model->insert($data_riwayat)) {
+      $this->session->set_flashdata('success', "Successfully approved");
+      redirect('Submission/list_editor');
+    } else {
+      $this->session->set_flashdata('success', "Failed to approve");
+      redirect('Submission/list_editor');
+    }
+  }
+
+  public function reject_submission()
+  {
+    $id_produk = $this->input->post('id');
+    $status_produk = 2;
+    $data_produk = [
+      'status' => $status_produk,
+    ];
+    $data_riwayat = [
+      'id_user' => $this->session->userdata('user_id'),
+      'id_produk' => $id_produk,
+      'status_kerjaan' => $status_produk,
+      'tgl_selesai' => date('Y-m-d'),
+    ];
+
+    if ($this->Produk_model->update($id_produk, $data_produk) and $this->Riwayat_model->insert($data_riwayat)) {
+      $this->session->set_flashdata('success', "Successfully approved");
+      redirect('Submission/list_editor');
+    } else {
+      $this->session->set_flashdata('success', "Failed to approve");
+      redirect('Submission/list_editor');
+    }
+  }
+}

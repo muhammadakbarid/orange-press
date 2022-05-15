@@ -364,11 +364,17 @@ if (!function_exists('dateIna')) {
   function submission_status_color($color)
   {
     switch ($color) {
-      case 'Submitted':
-        return '<span class="badge badge-primary" style="background-color:#ffc107;color:#000;">Submitted</span>';
+      case '11':
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
         break;
-      case 'Lead Editor Plotted':
-        return '<span class="badge badge-primary" style="background-color:#ffc107;color:#000;">Lead Editor Plotted</span>';
+      case '10':
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Lead Editor Plotted</span>';
+        break;
+      case '1':
+        return '<span class="badge badge-primary" style="background-color:#41ead4;color:#000;">Acceptance Submission</span>';
+        break;
+      case '2':
+        return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;">Rejected</span>';
         break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
@@ -379,11 +385,35 @@ if (!function_exists('dateIna')) {
   function submission_check_action($status, $id_produk)
   {
     switch ($status) {
-      case 'Submitted':
+      case '11':
         return "<a class='btn btn-xs btn-danger' href='" . base_url('Submission/plot_lead_editor/') . $id_produk . "'>Plot Lead Editor</a>";
         break;
-      case 'Lead Editor Plotted':
+      case '10':
         return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/change_lead_editor/') . $id_produk . "'>Change Lead Editor</a>";
+        break;
+      case '1':
+        return "";
+        break;
+      case '2':
+        return "";
+        break;
+    }
+  }
+
+  function submission_check_action_lead($status, $id_produk)
+  {
+    switch ($status) {
+      case '11':
+        return "";
+        break;
+      case '10':
+        return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
+        break;
+      case '1':
+        return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
+        break;
+      case '2':
+        return "";
         break;
     }
   }

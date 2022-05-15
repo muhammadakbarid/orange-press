@@ -22,6 +22,39 @@ class Riwayat_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_log()
+    {
+        $this->db->select('riwayat.id_riwayat, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status');
+
+        $this->db->join('users', 'Users.id = Riwayat.id_user');
+        $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
+        $this->db->join('status_sunting', 'status_sunting.id_status = riwayat.status_kerjaan');
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
+    function get_riwayat()
+    {
+        $this->db->select('produk.id_produk,produk.judul,produk.status,produk.no_isbn');
+        $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
+        $this->db->order_by($this->id, $this->order);
+        $this->db->group_by('riwayat.id_produk');
+        return $this->db->get($this->table)->result();
+    }
+
+    function get_detail($id_produk)
+    {
+        $this->db->select('riwayat.id_riwayat, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status');
+
+        $this->db->join('users', 'Users.id = Riwayat.id_user');
+        $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
+        $this->db->join('status_sunting', 'status_sunting.id_status = riwayat.status_kerjaan');
+        $this->db->where('riwayat.id_produk', $id_produk);
+
+        $this->db->order_by($this->id, 'ASC');
+        return $this->db->get($this->table)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {

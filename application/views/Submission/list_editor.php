@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">List Submission</h3>
+        <h3 class="box-title">List Submission Editor</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
@@ -39,8 +39,8 @@
                 <td><?php echo date_surat($value->tgl_submit) ?></td>
                 <td><?php echo $value->no_isbn ?></td>
                 <td><a class="btn btn-xs btn-warning" href="<?= base_url('Submission/get_file_submission/' . $value->file_hakcipta); ?>">Download</a></td>
-                <td><?php echo submission_status_color($value->id_status) ?></td>
-                <td><?php echo submission_check_action($value->id_status, $value->id_produk) ?></td>
+                <td><?php echo submission_status_color($value->status) ?></td>
+                <td><?php echo submission_check_action_lead($value->status, $value->id_produk) ?></td>
               </tr>
             <?php } ?>
 
@@ -68,5 +68,57 @@
 <script>
   $(function() {
     $(' #example1').DataTable()
+  });
+
+  // if approve is clicked
+  $(document).on('click', '#approve', function() {
+    Swal.fire({
+      title: 'Are you sure to approve?',
+      showCancelButton: true,
+      confirmButtonText: 'Approve',
+      confirmButtonColor: '#00a65a',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var id = $(this).data('id');
+        var url = "<?php echo base_url('Submission/approve_submission/') ?>";
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            id: id,
+          },
+          success: function() {
+            location.reload();
+          }
+        });
+      }
+    })
+  });
+
+  // if reject is clicked
+  $(document).on('click', '#reject', function() {
+    Swal.fire({
+      title: 'Are you sure to reject?',
+      showCancelButton: true,
+      confirmButtonText: 'Reject',
+      confirmButtonColor: '#d33',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var id = $(this).data('id');
+        var url = "<?php echo base_url('Submission/reject_submission/') ?>";
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            id: id,
+          },
+          success: function() {
+            location.reload();
+          }
+        });
+      }
+    })
   });
 </script>

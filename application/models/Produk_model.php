@@ -91,6 +91,11 @@ class Produk_model extends CI_Model
 
     function get_list_submission()
     {
-        return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti ORDER BY id_produk DESC")->result();
+        return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti join status_sunting on produk.status=status_sunting.id_status ORDER BY id_produk DESC")->result();
+    }
+
+    function get_list_editor_submission($id_user)
+    {
+        return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti JOIN v_lead_editor ON produk.id_produk=v_lead_editor.id_produk join status_sunting on produk.status=status_sunting.id_status WHERE v_lead_editor.id_user=$id_user ORDER BY v_lead_editor.id_produk DESC")->result();
     }
 }
