@@ -394,6 +394,9 @@ if (!function_exists('dateIna')) {
       case '13': // Correction PR
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction Proofreading</span>';
         break;
+      case '7': // Layout Processed
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Layout Processed</span>';
+        break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
         break;
@@ -465,6 +468,12 @@ if (!function_exists('dateIna')) {
         break;
       case '5': //Approved
         return "<a href='" . base_url('Submission/proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Proofreading</a><a id='proofreading_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
+        break;
+      case '6': // Approved PR
+        return "<a href='" . base_url('Submission/layout_cover/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Add Layout Cover</a>";
+        break;
+      case '13': // Correction PR
+        return "<a href='" . base_url('Submission/layout_cover/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Add Layout Cover</a>";
         break;
       default:
         return '';

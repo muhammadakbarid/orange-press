@@ -230,6 +230,67 @@ class Submission extends CI_Controller
     $this->Riwayat_model->insert($data_riwayat);
   }
 
+  public function layout_cover($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Layout Cover';
+    $data['crumb'] = [
+      'Layout Cover' => '',
+    ];
+
+    $data['page'] = 'Submission/layout_cover';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function layout_cover_action()
+  {
+    $id_produk = $this->input->post('id_produk');
+    $keterangan = $this->input->post('keterangan');
+    $file_attach = $_FILES['file_attach']['name'];
+    $status = 7;
+    if ($file_attach) {
+      $config['upload_path'] = './assets/uploads/files/file_attach/';
+      $config['allowed_types'] = 'pdf|jpg|png|jpeg';
+      $config['max_size']     = '2048';
+
+      $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('file_attach')) {
+        $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+        $data_riwayat = [
+          'id_produk' => $id_produk,
+          'id_user' => $this->session->userdata('user_id'),
+          'tgl_plotting' => date('Y-m-d'),
+          'status_kerjaan' => $status,
+        ];
+
+        $this->Riwayat_model->insert($data_riwayat);
+        $id_riwayat = $this->db->insert_id();
+
+        $data_file_attach = [
+          'id_riwayat' => $id_riwayat,
+          'nama_file' => $new_file_attach,
+          'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          'keterangan' => $keterangan
+        ];
+        $this->Produk_model->insert_file_attach($data_file_attach);
+
+        $data_produk = [
+          'status' => $status,
+        ];
+        $this->Produk_model->update($id_produk, $data_produk);
+
+        $this->session->set_flashdata('success', 'Layout Cover berhasil ditambahkan');
+        redirect('Submission/list_editors');
+      } else {
+        $this->session->set_flashdata('success', $this->upload->display_errors());
+        redirect('Submission/list_editors');
+      }
+    }
+  }
+
   public function submit()
   {
     // if form validation run
