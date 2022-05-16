@@ -18,6 +18,9 @@ class Dashboard extends CI_Controller
 		$data['crumb'] = [
 			'Dashboard' => '',
 		];
+
+		$setting_aplikasi = $this->db->get('setting')->row();
+		$data['setting_aplikasi'] = $setting_aplikasi;
 		//$this->layout->set_privilege(1);
 		$data['page'] = 'Dashboard/Index';
 		$this->load->view('template/Backend', $data);
