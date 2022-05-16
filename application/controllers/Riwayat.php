@@ -43,6 +43,9 @@ class Riwayat extends CI_Controller
 
     public function detail($id_produk)
     {
+        $this->load->model('Produk_model');
+
+        $data['produk'] = $this->Produk_model->get_by_id($id_produk);
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
         $data['title'] = 'Riwayat Sunting';
         $data['subtitle'] = 'Detail Riwayat';

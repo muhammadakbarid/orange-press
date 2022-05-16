@@ -371,10 +371,10 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Lead Editor Plotted</span>';
         break;
       case '1': // Acceptance Submission
-        return '<span class="badge badge-primary" style="background-color:#41ead4;color:#000;">Acceptance Submission</span>';
+        return '<span class="badge badge-primary" style="background-color:#41ead4;color:#000;"><i class="fa fa-check-circle"></i> &nbsp;Acceptance Submission</span>';
         break;
       case '2': // Rejected
-        return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;">Rejected</span>';
+        return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;"><i class="fa fa-times"></i> &nbsp;Rejected</span>';
         break;
       case '3': // Paid
         return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Paid</span>';
@@ -386,16 +386,19 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction</span>';
         break;
       case '5': // Approved
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Approved</span>';
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp;   Approved</span>';
         break;
       case '6': // Approved PR
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Approved Proofreading</span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Processed </span>';
         break;
       case '13': // Correction PR
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction Proofreading</span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Processed </span>';
         break;
       case '7': // Layout Processed
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Layout Processed</span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">ISBN Processed</span>';
+        break;
+      case '8': // ISBN Processed
+        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed </span>';
         break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
@@ -438,6 +441,9 @@ if (!function_exists('dateIna')) {
         break;
       case '10': //lead editor plotted
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
+        break;
+      case '7': //layout processed
+        return "<a href='" . base_url('Submission/add_isbn/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Input ISBN</a>";
         break;
       default:
         return '';

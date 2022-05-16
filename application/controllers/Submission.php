@@ -291,6 +291,39 @@ class Submission extends CI_Controller
     }
   }
 
+  public function add_isbn($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Add ISBN';
+    $data['crumb'] = [
+      'Add ISBN' => '',
+    ];
+
+    $data['page'] = 'Submission/add_isbn';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function add_isbn_action()
+  {
+    $id_produk = $this->input->post('id_produk');
+    $no_isbn = $this->input->post('no_isbn');
+    $status = 8;
+
+    $data_produk = [
+      'status' => $status,
+      'no_isbn' => $no_isbn,
+    ];
+    if ($this->Produk_model->update($id_produk, $data_produk)) {
+      $this->session->set_flashdata('success', 'No ISBN berhasil ditambahkan');
+      redirect('Submission/list_editors');
+    } else {
+      $this->session->set_flashdata('success', 'No ISBN gagal ditambahkan');
+      redirect('Submission/list_editors');
+    }
+  }
+
   public function submit()
   {
     // if form validation run

@@ -44,7 +44,7 @@ class Riwayat_model extends CI_Model
 
     function get_detail($id_produk)
     {
-        $this->db->select('riwayat.id_riwayat, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status');
+        $this->db->select('riwayat.id_riwayat, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status,users.id as user_id,riwayat.status_kerjaan');
 
         $this->db->join('users', 'Users.id = Riwayat.id_user');
         $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
