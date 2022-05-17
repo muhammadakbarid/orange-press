@@ -32,6 +32,15 @@ class Produk_model extends CI_Model
     function get_produk_by_id($id_produk)
     {
         $this->db->join('jenis_kti', 'jenis_kti.id_kti = produk.id_kti');
+        // $this->db->where('jenis_kti.nama_paket', 'Penerbitan');
+        $this->db->where('produk.id_produk', $id_produk);
+        return $this->db->get($this->table)->row();
+    }
+
+    function get_produk_by_id_cetak($id_produk)
+    {
+        $this->db->join('jenis_kti', 'jenis_kti.id_kti = produk.id_kti');
+        // $this->db->where('jenis_kti.nama_paket', 'Percetakan');
         $this->db->where('produk.id_produk', $id_produk);
         return $this->db->get($this->table)->row();
     }
@@ -119,5 +128,11 @@ class Produk_model extends CI_Model
     {
         $this->db->insert('file_attach', $data_file_attach);
         return $this->db->affected_rows();
+    }
+
+    function get_produk_distribusi()
+    {
+        $this->db->where('status', '16');
+        return $this->db->get($this->table)->result();
     }
 }

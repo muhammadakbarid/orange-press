@@ -400,6 +400,15 @@ if (!function_exists('dateIna')) {
       case '8': // ISBN Processed
         return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed </span>';
         break;
+      case '14': // Proses Mencetak
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Proses Mencetak Buku Dummy</span>';
+        break;
+      case '15': // Selesai Mencetak
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Selesai Mencetak, Menunggu Approval Penulis</span>';
+        break;
+      case '16': // Approve Cetak
+        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
+        break;
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
         break;
@@ -445,6 +454,9 @@ if (!function_exists('dateIna')) {
       case '7': //layout processed
         return "<a href='" . base_url('Submission/add_isbn/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Input ISBN</a>";
         break;
+      case '14': // Proses Mencetak
+        return "<a data-id='" . $id_produk . "' id='selesai_mencetak' style='margin-right: 5px;' class='btn btn-xs btn-success'>Selesai Mencetak</a>";
+        break;
       default:
         return '';
         break;
@@ -459,6 +471,9 @@ if (!function_exists('dateIna')) {
         break;
       case '8':
         return "<a href='" . base_url('Submission/bayar_cetak/') . $id_produk . "' class='btn btn-xs btn-warning'>Cetak (Oposional)</a>";
+        break;
+      case '15': // Approve Cetak
+        return "<a data-id='" . $id_produk . "' id='approve_cetak' class='btn btn-xs btn-success'>Approve Cetakan</a>";
         break;
       default:
         return '';

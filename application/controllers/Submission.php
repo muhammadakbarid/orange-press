@@ -44,20 +44,6 @@ class Submission extends CI_Controller
     $this->load->view('template/backend', $data);
   }
 
-  public function bayar_cetak($id_produk)
-  {
-    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
-
-    $data['title'] = 'Pembayaran';
-    $data['subtitle'] = '';
-    $data['crumb'] = [
-      'Pembayaran' => '',
-    ];
-
-    $data['page'] = 'Submission/bayar_cetak';
-    $this->load->view('template/backend', $data);
-  }
-
   public function bayar_action()
   {
     $this->load->model('Pembayaran_model');
@@ -84,13 +70,29 @@ class Submission extends CI_Controller
     }
   }
 
+  public function bayar_cetak($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id_cetak($id_produk);
+
+    $data['title'] = 'Pembayaran';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Pembayaran' => '',
+    ];
+
+    $data['page'] = 'Submission/bayar_cetak';
+    $this->load->view('template/backend', $data);
+  }
+
+
+
   public function bayar_cetak_action()
   {
     $this->load->model('Pembayaran_model');
     $id_produk = $this->input->post('id_produk');
     $jumlah_bayar = $this->input->post('jumlah_bayar');
     $jenis_pembayaran = $this->input->post('jenis_pembayaran');
-    $status_produk = 3;
+    $status_produk = 14;
     $data_produk = [
       'status' => $status_produk,
     ];
@@ -255,6 +257,45 @@ class Submission extends CI_Controller
   {
     $id_produk = $this->input->post('id');
     $status = 6;
+    $data_produk = [
+      'status' => $status,
+    ];
+    $this->Produk_model->update($id_produk, $data_produk);
+
+    $data_riwayat = [
+      'id_produk' => $id_produk,
+      'id_user' => $this->session->userdata('user_id'),
+      'tgl_plotting' => date('Y-m-d'),
+      'status_kerjaan' => $status,
+    ];
+
+    $this->Riwayat_model->insert($data_riwayat);
+  }
+
+  public function approve_cetak()
+  {
+    $id_produk = $this->input->post('id');
+    $status = 16;
+    $data_produk = [
+      'status' => $status,
+    ];
+    $this->Produk_model->update($id_produk, $data_produk);
+
+    $data_riwayat = [
+      'id_produk' => $id_produk,
+      'id_user' => $this->session->userdata('user_id'),
+      'tgl_plotting' => date('Y-m-d'),
+      'status_kerjaan' => $status,
+    ];
+
+    $this->Riwayat_model->insert($data_riwayat);
+  }
+
+
+  public function selesai_mencetak()
+  {
+    $id_produk = $this->input->post('id');
+    $status = 15;
     $data_produk = [
       'status' => $status,
     ];

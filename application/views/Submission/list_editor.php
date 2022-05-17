@@ -70,6 +70,32 @@
     $(' #example1').DataTable()
   });
 
+  // if selesai mencetak is clicked
+  $(document).on('click', '#selesai_mencetak', function() {
+    Swal.fire({
+      title: 'Yakin sudah selesai mencetak?',
+      showCancelButton: true,
+      confirmButtonText: 'Selesai',
+      confirmButtonColor: '#00a65a',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var id = $(this).data('id');
+        var url = "<?php echo base_url('Submission/selesai_mencetak/') ?>";
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            id: id,
+          },
+          success: function() {
+            location.reload();
+          }
+        });
+      }
+    })
+  });
+
   // if approve is clicked
   $(document).on('click', '#approve', function() {
     Swal.fire({
