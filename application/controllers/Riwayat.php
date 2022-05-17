@@ -44,9 +44,15 @@ class Riwayat extends CI_Controller
     public function detail($id_produk)
     {
         $this->load->model('Produk_model');
+        $lead_editor = $this->Riwayat_model->get_lead_editor($id_produk);
+        $lead_editor =  $lead_editor->id_user;
+        $lead_editor = $this->ion_auth->user($lead_editor)->row();
+        $data['lead_editor'] = $lead_editor->first_name . ' ' . $lead_editor->last_name;
+        $data['id_lead_editor'] = $lead_editor->id;
 
         $data['produk'] = $this->Produk_model->get_by_id($id_produk);
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
+        $data['editors'] = $this->Riwayat_model->get_editors($id_produk);
         $data['title'] = 'Riwayat Sunting';
         $data['subtitle'] = 'Detail Riwayat';
         $data['crumb'] = [

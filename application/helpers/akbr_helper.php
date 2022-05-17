@@ -389,12 +389,12 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp;   Approved</span>';
         break;
       case '6': // Approved PR
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Processed </span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Cover Processed </span>';
         break;
       case '13': // Correction PR
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Processed </span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Cover Processed </span>';
         break;
-      case '7': // Layout Processed
+      case '7': // Layout Cover Processed
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">ISBN Processed</span>';
         break;
       case '8': // ISBN Processed
@@ -456,6 +456,9 @@ if (!function_exists('dateIna')) {
     switch ($id_status) {
       case '1':
         return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
+        break;
+      case '8':
+        return "<a href='" . base_url('Submission/bayar_cetak/') . $id_produk . "' class='btn btn-xs btn-warning'>Cetak (Oposional)</a>";
         break;
       default:
         return '';

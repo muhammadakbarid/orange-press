@@ -5,7 +5,7 @@
         <h3 class="box-title"><?= $title; ?></h3>
       </div>
 
-      <form action="<?php echo base_url('Submission/bayar_action') ?>" method="POST">
+      <form action="<?php echo base_url('Submission/bayar_cetak_action') ?>" method="POST">
         <div class="box-body">
           <?php if ($this->session->flashdata('message')) : ?>
             <div class="form-group">
@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="">Harga Terbit</label>
+                <label for="">Harga Cetak</label>
                 <p class="text-bold bg-warning" style="padding: 10px;"><?= rupiah($produk->harga_terbit); ?></p>
               </div>
             </div>
@@ -52,8 +52,8 @@
           <div class="form-group">
             <label for="">Jenis Pembayaran</label>
             <select class="form-control" name="jenis_pembayaran" id="">
-              <option value="Penerbitan" selected>Penerbitan</option>
-              <!-- <option value="Percetakan">Percetakan</option> -->
+              <!-- <option value="Penerbitan" >Penerbitan</option> -->
+              <option value="Percetakan" selected>Percetakan</option>
             </select>
           </div>
           <input type="hidden" name="jumlah_bayar" value="<?= $produk->harga_terbit; ?>">

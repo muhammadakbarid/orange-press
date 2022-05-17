@@ -44,7 +44,47 @@ class Submission extends CI_Controller
     $this->load->view('template/backend', $data);
   }
 
+  public function bayar_cetak($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['title'] = 'Pembayaran';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Pembayaran' => '',
+    ];
+
+    $data['page'] = 'Submission/bayar_cetak';
+    $this->load->view('template/backend', $data);
+  }
+
   public function bayar_action()
+  {
+    $this->load->model('Pembayaran_model');
+    $id_produk = $this->input->post('id_produk');
+    $jumlah_bayar = $this->input->post('jumlah_bayar');
+    $jenis_pembayaran = $this->input->post('jenis_pembayaran');
+    $status_produk = 3;
+    $data_produk = [
+      'status' => $status_produk,
+    ];
+    $data_pembayaran = [
+      'tanggal_bayar' => date('Y-m-d'),
+      'jumlah' => $jumlah_bayar,
+      'id_produk' => $id_produk,
+      'jenis' => $jenis_pembayaran,
+    ];
+
+    if ($this->Produk_model->update($id_produk, $data_produk) && $this->Pembayaran_model->insert($data_pembayaran)) {
+      $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
+      redirect('Submission');
+    } else {
+      $this->session->set_flashdata('error', 'Pembayaran gagal dilakukan');
+      redirect('Submission');
+    }
+  }
+
+  public function bayar_cetak_action()
   {
     $this->load->model('Pembayaran_model');
     $id_produk = $this->input->post('id_produk');

@@ -12,7 +12,7 @@
         Lead Editor
       </div>
       <div class="col-md-2">
-        : Akbar
+        : <?= ucfirst($lead_editor); ?>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -22,7 +22,15 @@
         Editor Sunting
       </div>
       <div class="col-md-2">
-        : Akbar, Akbar2, Akbar3
+        <?php
+        // foreach editor sunting where not $lead_editor
+        foreach ($editors as $editor_sunting) {
+          if ($editor_sunting->user_id != $id_lead_editor) {
+            echo ucfirst($editor_sunting->first_name) . ' ' . ucfirst($editor_sunting->last_name) . ', ';
+          }
+        }
+
+        ?>
       </div>
       <div class="col-md-4"></div>
     </div>

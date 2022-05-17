@@ -7,6 +7,12 @@ $config['jenis_kelamin'] = array(
   2 => "Perempuan",
 );
 
+// jenis pembayaran
+$config['jenis_pembayaran'] = array(
+  1 => "Penerbitan",
+  2 => "Percetakan",
+);
+
 // bidang kompetensi
 $config['bidang_kompetensi'] = array(
   1 => "Informatika",

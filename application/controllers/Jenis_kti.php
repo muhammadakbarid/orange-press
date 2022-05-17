@@ -87,6 +87,7 @@ class Jenis_kti extends CI_Controller
             'harga_terbit' => set_value('harga_terbit'),
             'nama_paket' => set_value('nama_paket'),
         );
+        $data['jenis_pembayaran'] = config_item('jenis_pembayaran');
         $data['title'] = 'Jenis KTI';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -129,6 +130,7 @@ class Jenis_kti extends CI_Controller
                 'harga_terbit' => set_value('harga_terbit', $row->harga_terbit),
                 'nama_paket' => set_value('nama_paket', $row->nama_paket),
             );
+            $data['jenis_pembayaran'] = config_item('jenis_pembayaran');
             $data['title'] = 'Jenis KTI';
             $data['subtitle'] = '';
             $data['crumb'] = [
