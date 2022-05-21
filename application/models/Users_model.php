@@ -33,6 +33,21 @@ class Users_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function check_is_empty($user_id)
+    {
+        $fields = $this->db->list_fields($this->table);
+
+        foreach ($fields as $field) {
+            $this->db->where($field, '');
+            $this->db->where('id', $user_id);
+            $query = $this->db->get($this->table);
+            if ($query->num_rows() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // get data by id
     function get_by_id($id)
     {

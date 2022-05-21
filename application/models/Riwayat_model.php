@@ -15,6 +15,17 @@ class Riwayat_model extends CI_Model
         parent::__construct();
     }
 
+
+    function get_last_riwayat_by_id_produk()
+    {
+        $this->db->select('*');
+        $this->db->from('Riwayat');
+        $this->db->join('file_attach', 'riwayat.id_riwayat = file_attach.id_riwayat');
+        $this->db->where('id_produk', $this->uri->segment(3));
+        $this->db->order_by('file_attach.id_riwayat', 'DESC');
+        $this->db->limit(1);
+        return $this->db->get()->row();
+    }
     // get all
     function get_all()
     {

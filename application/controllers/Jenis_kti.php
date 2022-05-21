@@ -60,8 +60,6 @@ class Jenis_kti extends CI_Controller
             $data = array(
                 'id_kti' => $row->id_kti,
                 'nama_kti' => $row->nama_kti,
-                'harga_terbit' => $row->harga_terbit,
-                'nama_paket' => $row->nama_paket,
             );
             $data['title'] = 'Jenis KTI';
             $data['subtitle'] = '';
@@ -84,8 +82,6 @@ class Jenis_kti extends CI_Controller
             'action' => site_url('jenis_kti/create_action'),
             'id_kti' => set_value('id_kti'),
             'nama_kti' => set_value('nama_kti'),
-            'harga_terbit' => set_value('harga_terbit'),
-            'nama_paket' => set_value('nama_paket'),
         );
         $data['jenis_pembayaran'] = config_item('jenis_pembayaran');
         $data['title'] = 'Jenis KTI';
@@ -107,8 +103,6 @@ class Jenis_kti extends CI_Controller
         } else {
             $data = array(
                 'nama_kti' => $this->input->post('nama_kti', TRUE),
-                'harga_terbit' => $this->input->post('harga_terbit', TRUE),
-                'nama_paket' => $this->input->post('nama_paket', TRUE),
             );
 
             $this->Jenis_kti_model->insert($data);
@@ -127,8 +121,6 @@ class Jenis_kti extends CI_Controller
                 'action' => site_url('jenis_kti/update_action'),
                 'id_kti' => set_value('id_kti', $row->id_kti),
                 'nama_kti' => set_value('nama_kti', $row->nama_kti),
-                'harga_terbit' => set_value('harga_terbit', $row->harga_terbit),
-                'nama_paket' => set_value('nama_paket', $row->nama_paket),
             );
             $data['jenis_pembayaran'] = config_item('jenis_pembayaran');
             $data['title'] = 'Jenis KTI';
@@ -154,8 +146,6 @@ class Jenis_kti extends CI_Controller
         } else {
             $data = array(
                 'nama_kti' => $this->input->post('nama_kti', TRUE),
-                'harga_terbit' => $this->input->post('harga_terbit', TRUE),
-                'nama_paket' => $this->input->post('nama_paket', TRUE),
             );
 
             $this->Jenis_kti_model->update($this->input->post('id_kti', TRUE), $data);
@@ -192,8 +182,6 @@ class Jenis_kti extends CI_Controller
     public function _rules()
     {
         $this->form_validation->set_rules('nama_kti', 'nama kti', 'trim|required');
-        $this->form_validation->set_rules('harga_terbit', 'harga terbit', 'trim|required');
-        $this->form_validation->set_rules('nama_paket', 'nama paket', 'trim|required');
 
         $this->form_validation->set_rules('id_kti', 'id_kti', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

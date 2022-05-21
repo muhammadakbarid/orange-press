@@ -4,21 +4,23 @@
             <div class="box-header">
                 <h3 class="box-title">Jenis Kti Detail</h3>
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                    title="Collapse">
-                    <i class="fa fa-minus"></i></button>
-                     <button type="button" class="btn btn-box-tool" onclick="location.reload()" title="Collapse">
-              <i class="fa fa-refresh"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" onclick="location.reload()" title="Collapse">
+                        <i class="fa fa-refresh"></i></button>
                 </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-        <table class="table">
-	    <tr><td>Nama Kti</td><td><?php echo $nama_kti; ?></td></tr>
-	    <tr><td>Harga Terbit</td><td><?php echo $harga_terbit; ?></td></tr>
-	    <tr><td>Nama Paket</td><td><?php echo $nama_paket; ?></td></tr>
-	    <tr><td><a href="<?php echo site_url('jenis_kti') ?>" class="btn bg-purple">Cancel</a></td></tr>
-	</table>
+                <table class="table">
+                    <tr>
+                        <td>Nama Kti</td>
+                        <td><?php echo $nama_kti; ?></td>
+                    </tr>
+                    <tr>
+                        <td><a href="<?php echo site_url('jenis_kti') ?>" class="btn bg-purple">Cancel</a></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

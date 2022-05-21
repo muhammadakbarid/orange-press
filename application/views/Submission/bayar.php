@@ -32,31 +32,30 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="">File</label>
-            <input type="text" class="form-control" value="<?= $produk->file_hakcipta; ?>" disabled>
+            <label for="">Jenis Karya Tulis Ilmiah</label>
+            <input type="text" class="form-control" value="<?= $produk->nama_kti; ?>" disabled>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="">Jenis Karya Tulis Ilmiah</label>
-                <input type="text" class="form-control" value="<?= $produk->nama_kti; ?>" disabled>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="">Harga Terbit</label>
-                <p class="text-bold bg-warning" style="padding: 10px;"><?= rupiah($produk->harga_terbit); ?></p>
-              </div>
+          <div class="form-group">
+            <label for="int">Pilih Paket <?php echo form_error('paket') ?></label>
+            <select class="form-select form-control" name="paket" id="paket">
+              <option value="NULL">-- Pilih Paket --</option>
+              <?php foreach ($paket as $p) : ?>
+                <option value="<?= $p->id_paket; ?>"><?= $p->nama_paket . " (" . rupiah($p->harga_paket) . ")"; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div id="pesan_paket" class="form-group">
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <label for="formFile" class="form-label">Bukti Bayar (Oposional)</label>
+              <input type="file" class="custom-file-input form-control" id="file_attach" name="file_attach">
             </div>
           </div>
           <div class="form-group">
-            <label for="">Jenis Pembayaran</label>
-            <select class="form-control" name="jenis_pembayaran" id="">
-              <option value="Penerbitan" selected>Penerbitan</option>
-              <!-- <option value="Percetakan">Percetakan</option> -->
-            </select>
+            <label for="decimal" class="form-label">Jumlah yang dibayar</label>
+            <input type="text" name="jumlah_bayar" id="jumlah_bayar" class="form-control rupiah" placeholder="Masukan nominal yang telah dibayarkan.." value="">
           </div>
-          <input type="hidden" name="jumlah_bayar" value="<?= $produk->harga_terbit; ?>">
           <input type="hidden" name="id_produk" value="<?= $produk->id_produk; ?>">
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Bayar</button>
@@ -67,3 +66,27 @@
   <div class="col-md-3"></div>
 
 </div>
+
+<script>
+  // saat #paket diubah maka tampilkan harga_paket pada #pesan_paket
+  $('#paket').change(function() {
+    var id_paket = $('#paket').val();
+    // if id_paket not null
+    if (id_paket != 'NULL') {
+      $.ajax({
+        url: "<?php echo base_url('Submission/get_harga_paket') ?>",
+        type: "POST",
+        data: {
+          id_paket: id_paket
+        },
+        success: function(data) {
+          $('#pesan_paket').html(
+            '<div class="bg-warning" style="padding:10px;">' + 'Silahkan bayar sebesar <b>' + data + '</b></div>'
+          );
+        }
+      });
+    } else {
+      $('#pesan_paket').html('');
+    }
+  });
+</script>

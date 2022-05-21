@@ -21,7 +21,7 @@
               <th>Edisi</th>
               <th>Tanggal Submit</th>
               <th>Nomor ISBN</th>
-              <th>File Hak Cipta</th>
+              <th>Draft Buku</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -34,13 +34,13 @@
               <tr>
                 <td class="text-center" style="width: 10px;"><?php echo $no++ ?></td>
                 <td><?php echo $value->judul ?></td>
-                <td><?php echo $value->nama_kti ?></td>
+                <td><?php echo check_kti($value->id_kti) ?></td>
                 <td><?php echo $value->edisi ?></td>
                 <td><?php echo date_surat($value->tgl_submit) ?></td>
                 <td><?php echo $value->no_isbn ?></td>
-                <td><a class="btn btn-xs btn-warning" href="<?= base_url('Submission/get_file_submission/' . $value->file_hakcipta); ?>">Download</a></td>
-                <td><?php echo submission_status_color($value->id_status) ?></td>
-                <td><?php echo submission_check_action($value->id_status, $value->id_produk) ?></td>
+                <td><?= tombol_download($value->id_produk); ?></td>
+                <td><?php echo submission_status_color($value->id_produk) ?></td>
+                <td><?php echo submission_check_action($value->id_produk) ?></td>
               </tr>
             <?php } ?>
 
@@ -53,7 +53,7 @@
               <th>Edisi</th>
               <th>Tanggal Submit</th>
               <th>Nomor ISBN</th>
-              <th>File Hak Cipta</th>
+              <th>Draft Buku</th>
               <th>Status</th>
               <th>Action</th>
 

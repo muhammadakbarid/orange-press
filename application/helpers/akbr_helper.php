@@ -361,8 +361,26 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function submission_status_color($id_status)
+  function tombol_download($id_produk)
   {
+    return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/get_file_submission/') . $id_produk . "'><i class='fa fa-download'></i>&nbsp; Download</a>";
+  }
+
+  function get_last_produk_status($id_produk)
+  {
+    $ci = get_instance();
+    $ci->db->select('*');
+    $ci->db->from('riwayat');
+    $ci->db->where('id_produk', $id_produk);
+    $ci->db->order_by('id_riwayat', 'desc');
+    $ci->db->limit(1);
+    $query = $ci->db->get()->row();
+    return $query->status_kerjaan;
+  }
+
+  function submission_status_color($id_produk)
+  {
+    $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '11': // Submitted
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
@@ -415,8 +433,9 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function submission_check_action($id_status, $id_produk)
+  function submission_check_action($id_produk)
   {
+    $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '11': // Submitted
         return "<a class='btn btn-xs btn-danger' href='" . base_url('Submission/plot_lead_editor/') . $id_produk . "'>Plot Lead Editor</a>";
@@ -442,8 +461,9 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function submission_check_action_lead($id_status, $id_produk)
+  function submission_check_action_lead($id_produk)
   {
+    $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '11': //submitted
         return "";
@@ -463,8 +483,9 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function submission_check_action_penulis($id_status, $id_produk)
+  function submission_check_action_penulis($id_produk)
   {
+    $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '1':
         return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
@@ -481,8 +502,11 @@ if (!function_exists('dateIna')) {
     }
   }
 
-  function submission_check_action_editor($id_status, $id_produk)
+
+
+  function submission_check_action_editor($id_produk)
   {
+    $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '12': // Editor Plotted
         return "<a href='" . base_url('Submission/penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Sunting Naskah</a><a id='sunting_naskah_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
@@ -502,6 +526,32 @@ if (!function_exists('dateIna')) {
       default:
         return '';
         break;
+    }
+  }
+
+  function check_is_empty($user_id)
+  {
+    $ci = get_instance();
+    $ci->load->model('Users_model');
+    $ci->Users_model->check_is_empty($user_id);
+
+    if ($ci->Users_model->check_is_empty($user_id) == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function check_kti($id_kti)
+  {
+    $ci = get_instance();
+    $ci->load->model('Jenis_kti_model');
+    $jenis_kti = $ci->Jenis_kti_model->get_by_id($id_kti);
+
+    if ($id_kti) {
+      return $jenis_kti->nama_kti;
+    } else {
+      return "";
     }
   }
 }
