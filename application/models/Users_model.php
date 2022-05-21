@@ -37,6 +37,7 @@ class Users_model extends CI_Model
     {
         $fields = $this->db->list_fields($this->table);
 
+        // jika kososng
         foreach ($fields as $field) {
             $this->db->where($field, '');
             $this->db->where('id', $user_id);
@@ -45,6 +46,7 @@ class Users_model extends CI_Model
                 return true;
             }
         }
+        // jika lengkap
         return false;
     }
 

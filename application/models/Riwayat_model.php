@@ -145,9 +145,10 @@ class Riwayat_model extends CI_Model
     }
 
     // get by id produk
-    function get_by_id_produk($id)
+    function get_lead_by_id_produk($id)
     {
         $this->db->where('id_produk', $id);
+        $this->db->where('status_kerjaan', 10);
         $this->db->order_by('id_riwayat', 'ASC');
         return $this->db->get($this->table)->row();
     }

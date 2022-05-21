@@ -22,9 +22,12 @@ class Submission extends CI_Controller
     $user_id = $this->session->userdata('user_id');
     $kelengkapan_penulis = $this->Users_model->check_is_empty($user_id);
 
+    // jika lengkap
     if ($kelengkapan_penulis == 0) {
-      $id_penulis = $this->session->userdata('user_id');
+      $id_penulis = $user_id;
+
       $data['submission'] = $this->Produk_model->get_list_penulis_submission($id_penulis);
+
       $data['title'] = 'Submission';
       $data['subtitle'] = '';
       $data['crumb'] = [
@@ -644,6 +647,7 @@ class Submission extends CI_Controller
   {
     $id_user = $this->session->userdata('user_id');
     $data['list_submission'] = $this->Produk_model->get_list_editor_submission($id_user);
+
     $data['title'] = 'List Submission';
     $data['subtitle'] = '';
     $data['crumb'] = [
@@ -704,7 +708,7 @@ class Submission extends CI_Controller
 
   public function plot_lead_editor($id_produk)
   {
-    $this->form_validation->set_rules('lead_editor', 'Lead Editor', 'required');
+    $this->form_validation->set_rules('editor', 'Lead Editor', 'required');
 
     if ($this->form_validation->run() == FALSE) {
       $data['id_produk'] = $id_produk;
@@ -718,10 +722,10 @@ class Submission extends CI_Controller
       ];
       $data['list_editor'] = $this->Users_model->get_all_by_id_groups(33);
 
-      $data['page'] = 'Submission/plot_lead_editor';
+      $data['page'] = 'Submission/plot_editor';
       $this->load->view('template/backend', $data);
     } else {
-      $lead_editor = $this->input->post('lead_editor');
+      $lead_editor = $this->input->post('editor');
       $tgl_plotting = date('Y-m-d');
       $tgl_selesai = NULL;
       $status = 10; // Status : Lead Editor Plotted
@@ -743,13 +747,13 @@ class Submission extends CI_Controller
 
   public function plot_editor($id_produk)
   {
-    $this->form_validation->set_rules('editor[]', 'Editor', 'required');
+    $this->form_validation->set_rules('editor', 'Editor', 'required');
 
     if ($this->form_validation->run() == FALSE) {
       $data['id_produk'] = $id_produk;
       $data['produk'] = $this->Produk_model->get_by_id($id_produk);
-      $data['title'] = 'Plot Editor';
-      $data['label'] = 'Editor';
+      $data['title'] = 'Plot Editor Sunting';
+      $data['label'] = 'Editor Sunting';
       $data['subtitle'] = '';
       $data['action'] = 'Submission/plot_editor/' . $id_produk;
       $data['crumb'] = [
@@ -761,28 +765,17 @@ class Submission extends CI_Controller
       $this->load->view('template/backend', $data);
     } else {
       $editor = $this->input->post('editor');
-      foreach ($editor as $editor) {
-        $id_editor = $editor;
-        $tgl_plotting = date('Y-m-d');
-        $tgl_selesai = NULL;
-        $status_kerjaan = 12;
-        $data_editor = [
-          'id_user' => $id_editor,
-          'id_produk' => $id_produk,
-          'tgl_plotting' => $tgl_plotting,
-          'tgl_selesai' => $tgl_selesai,
-          'status_kerjaan' => $status_kerjaan,
-        ];
-        $this->Riwayat_model->insert($data_editor);
-      }
-
-      $status_produk = 12;
-      $data_produk = [
-        'status' => $status_produk,
+      $id_editor = $editor;
+      $tgl_plotting = date('Y-m-d');
+      $status = 12; // editor plotted
+      $data_riwayat = [
+        'id_user' => $id_editor,
+        'id_produk' => $id_produk,
+        'tgl_plotting' => $tgl_plotting,
+        'status_kerjaan' => $status,
       ];
 
-      if ($this->Produk_model->update($id_produk, $data_produk)) {
-
+      if ($this->Riwayat_model->insert($data_riwayat)) {
         $this->session->set_flashdata('success', "Successfully plotted");
         redirect('Submission/list');
       } else {
@@ -795,10 +788,10 @@ class Submission extends CI_Controller
   public function change_lead_editor($id_produk)
   {
     // if form validation success
-    $this->form_validation->set_rules('lead_editor', 'Lead Editor', 'required');
+    $this->form_validation->set_rules('editor', 'Lead Editor', 'required');
 
     if ($this->form_validation->run() == FALSE) {
-      $riwayat = $this->Riwayat_model->get_by_id_produk($id_produk);
+      $riwayat = $this->Riwayat_model->get_lead_by_id_produk($id_produk);
       $data['id_produk'] = $id_produk;
       $data['id_lead_editor'] = $riwayat->id_user;
       $data['id_riwayat'] = $riwayat->id_riwayat;
@@ -806,15 +799,16 @@ class Submission extends CI_Controller
       $data['list_editor'] = $this->Users_model->get_all_by_id_groups(33);
       $data['title'] = 'Change Lead Editor';
       $data['subtitle'] = '';
+      $data['label'] = 'Lead Editor';
       $data['action'] = 'Submission/change_lead_editor/' . $id_produk;
       $data['crumb'] = [
         'Change Lead Editor' => '',
       ];
 
-      $data['page'] = 'Submission/plot_lead_editor';
+      $data['page'] = 'Submission/plot_editor';
       $this->load->view('template/backend', $data);
     } else {
-      $lead_editor = $this->input->post('lead_editor');
+      $lead_editor = $this->input->post('editor');
       $id_riwayat = $this->input->post('id_riwayat');
       $data_riwayat = [
         'id_user' => $lead_editor,

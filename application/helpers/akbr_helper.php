@@ -452,9 +452,6 @@ if (!function_exists('dateIna')) {
       case '2': // Rejected
         return "";
         break;
-        // case '3': // Paid
-        //   return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
-        //   break;
       case '12': // Editor Plotted
         return "";
         break;
@@ -482,6 +479,9 @@ if (!function_exists('dateIna')) {
         break;
       case '17': // Menunggu verifikasi pembayaran
         return "<a href='" . base_url('Submission/verify_payment/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Verifikasi Pembayaran</a>";
+        break;
+      case '3': // Paid
+        return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor Sunting</a>";
         break;
       default:
         return '';

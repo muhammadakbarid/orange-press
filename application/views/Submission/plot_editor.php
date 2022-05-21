@@ -17,13 +17,13 @@
           <h3 class="text-center"><b><?= $produk->judul; ?></b></h3>
         </div>
         <div class="form-group">
-          <label for="editor"><?= $label; ?></label>
-          <select class="form-control select2" required="true" name="editor[]" multiple>
+          <label for="lead_editor"><?= $label; ?></label>
+          <select class="form-control select2" required="true" name="editor">
             <?php
             foreach ($list_editor as $value) {
               echo "<option value='" . $value->id . "'";
-              if (isset($id_editor)) {
-                if ($id_editor == $value->id) {
+              if (isset($id_lead_editor)) {
+                if ($id_lead_editor == $value->id) {
                   echo " selected";
                 }
               }

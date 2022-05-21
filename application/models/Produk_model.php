@@ -112,7 +112,7 @@ class Produk_model extends CI_Model
 
     function get_list_penulis_submission($id_penulis)
     {
-        return $this->db->query("SELECT * FROM produk join  tim_penulis on produk.id_produk=tim_penulis.id_produk where tim_penulis.id_penulis=$id_penulis ORDER BY produk.id_produk DESC")->result();
+        return $this->db->query("SELECT * FROM produk join riwayat on produk.id_produk=riwayat.id_produk where riwayat.id_user=$id_penulis and riwayat.status_kerjaan = 11 ORDER BY produk.id_produk DESC")->result();
     }
 
     function get_list_editor_submission($id_user)
