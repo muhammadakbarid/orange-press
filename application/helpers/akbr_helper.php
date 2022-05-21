@@ -394,8 +394,11 @@ if (!function_exists('dateIna')) {
       case '2': // Rejected
         return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;"><i class="fa fa-times"></i> &nbsp;Rejected</span>';
         break;
+      case '17': // Menunggu verifikasi pembayaran
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Waiting for Payment Verification</span>';
+        break;
       case '3': // Paid
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;">Paid</span>';
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-usd"></i> &nbsp;Paid</span>';
         break;
       case '12': // Editor Plotted
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Editor Plotted</span>';
@@ -449,9 +452,9 @@ if (!function_exists('dateIna')) {
       case '2': // Rejected
         return "";
         break;
-      case '3': // Paid
-        return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
-        break;
+        // case '3': // Paid
+        //   return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor</a>";
+        //   break;
       case '12': // Editor Plotted
         return "";
         break;
@@ -476,6 +479,9 @@ if (!function_exists('dateIna')) {
         break;
       case '14': // Proses Mencetak
         return "<a data-id='" . $id_produk . "' id='selesai_mencetak' style='margin-right: 5px;' class='btn btn-xs btn-success'>Selesai Mencetak</a>";
+        break;
+      case '17': // Menunggu verifikasi pembayaran
+        return "<a href='" . base_url('Submission/verify_payment/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Verifikasi Pembayaran</a>";
         break;
       default:
         return '';

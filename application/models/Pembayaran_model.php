@@ -29,6 +29,15 @@ class Pembayaran_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function get_by_id_produk($id_produk)
+    {
+        $this->db->where('id_produk', $id_produk);
+        $this->db->where('status', 0);
+        $this->db->order_by('id_produk', 'desc');
+
+        return $this->db->get($this->table)->row();
+    }
+
     // get total rows
     function total_rows($q = NULL)
     {

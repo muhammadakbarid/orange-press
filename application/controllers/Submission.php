@@ -184,7 +184,7 @@ class Submission extends CI_Controller
       $jumlah_bayar = $this->input->post('jumlah_bayar');
       $jumlah_bayar = str_replace('.', '', $jumlah_bayar);
       $paket = $this->input->post('paket');
-      $status = 3; // Paid
+      $status = 17; // Waiting for Payment Verification
 
       // bukti bayar
       if ($_FILES['file_attach']['name'] != "") {
@@ -232,6 +232,61 @@ class Submission extends CI_Controller
 
       $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
       redirect('Submission');
+    }
+  }
+
+  public function verify_payment($id_produk)
+  {
+    $this->load->model('Paket_model');
+    $this->load->model('Pembayaran_model');
+
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+    $data['pembayaran'] = $this->Pembayaran_model->get_by_id_produk($id_produk);
+
+    $data['paket'] = $this->Paket_model->get_by_id($data['pembayaran']->jenis);
+
+    $data['title'] = 'Verifikasi Pembayaran';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Verifikasi Pembayaran' => '',
+    ];
+
+    $data['page'] = 'Submission/verify_payment';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function verify_payment_action()
+  {
+
+    $this->form_validation->set_rules('id_produk', 'Id Produk', 'required');
+    $this->form_validation->set_rules('id_pembayaran', 'Id Pembayaran', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Verifikasi gagal dilakukan');
+      redirect('Submission/list_editor');
+    } else {
+      $this->load->model('Pembayaran_model');
+
+      $id_produk = $this->input->post('id_produk');
+      $id_pembayaran = $this->input->post('id_pembayaran');
+
+      $status = 3; // Paid
+      $data_riwayat = [
+        'id_produk' => $id_produk,
+        'id_user' => $this->session->userdata('user_id'),
+        'keterangan' => 'Pembayaran telah diverifikasi',
+        'status_kerjaan' => $status,
+      ];
+
+      $data_pembayaran = [
+        'status' => 1, // 1 = lunas
+      ];
+
+      $this->Riwayat_model->insert($data_riwayat);
+      $this->Pembayaran_model->update($id_pembayaran, $data_pembayaran);
+
+      $this->session->set_flashdata('success', 'Pembayaran berhasil diverifikasi');
+      redirect('Submission/list_editor');
     }
   }
 
@@ -638,6 +693,12 @@ class Submission extends CI_Controller
     $file_name = $file->nama_file;
 
     $file_path = 'assets/uploads/files/file_attach/';
+    get_file($file_path, $file_name);
+  }
+
+  public function get_bukti_bayar($file_name)
+  {
+    $file_path = 'assets/uploads/files/bukti_bayar/';
     get_file($file_path, $file_name);
   }
 
