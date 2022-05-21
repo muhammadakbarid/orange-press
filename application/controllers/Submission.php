@@ -170,26 +170,67 @@ class Submission extends CI_Controller
 
   public function bayar_action()
   {
-    $this->load->model('Pembayaran_model');
-    $id_produk = $this->input->post('id_produk');
-    $jumlah_bayar = $this->input->post('jumlah_bayar');
-    $jenis_pembayaran = $this->input->post('jenis_pembayaran');
-    $status_produk = 3;
-    $data_produk = [
-      'status' => $status_produk,
-    ];
-    $data_pembayaran = [
-      'tanggal_bayar' => date('Y-m-d'),
-      'jumlah' => $jumlah_bayar,
-      'id_produk' => $id_produk,
-      'jenis' => $jenis_pembayaran,
-    ];
+    // rules
+    $this->form_validation->set_rules('paket', 'Paket', 'required');
+    $this->form_validation->set_rules('jumlah_bayar', 'Jumlah bayar', 'required|trim');
 
-    if ($this->Produk_model->update($id_produk, $data_produk) && $this->Pembayaran_model->insert($data_pembayaran)) {
-      $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Pembayaran gagal dilakukan');
       redirect('Submission');
     } else {
-      $this->session->set_flashdata('error', 'Pembayaran gagal dilakukan');
+      $this->load->model('Pembayaran_model');
+      $id_produk = $this->input->post('id_produk');
+      $jumlah_bayar = $this->input->post('jumlah_bayar');
+      $jumlah_bayar = str_replace('.', '', $jumlah_bayar);
+      $paket = $this->input->post('paket');
+      $status = 3; // Paid
+
+      // bukti bayar
+      if ($_FILES['file_attach']['name'] != "") {
+        $file_attach = $_FILES['file_attach']['name'];
+      } else {
+        $file_attach = false;
+      }
+      // cek apakah ada file yang diupload
+      if ($file_attach) {
+        $config['upload_path'] = './assets/uploads/files/bukti_bayar/';
+        $config['allowed_types'] = 'pdf|png|jpg|jpeg';
+        $config['max_size']     = '2048';
+
+        $this->load->library('upload', $config);
+
+        // upload file ke repository
+        if ($this->upload->do_upload('file_attach')) {
+          $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+        } else {
+          $this->session->set_flashdata('error', $this->upload->display_errors());
+          redirect('Submission/bayar/' . $id_produk);
+        }
+      } else {
+        $new_file_attach = NULL;
+      }
+
+      $data_pembayaran = [
+        'id_produk' => $id_produk,
+        'tanggal_bayar' => date('Y-m-d'),
+        'status' => 0, // 0 = belum lunas
+        'bukti_bayar' => $new_file_attach,
+        'jumlah' => $jumlah_bayar,
+        'jenis' => $paket,
+      ];
+
+      $data_riwayat = [
+        'id_produk' => $id_produk,
+        'id_user' => $this->session->userdata('user_id'),
+        'keterangan' => 'Penulis melakukan pembayaran',
+        'status_kerjaan' => $status,
+      ];
+
+      $this->Riwayat_model->insert($data_riwayat);
+      $this->Pembayaran_model->insert($data_pembayaran);
+
+      $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
       redirect('Submission');
     }
   }
