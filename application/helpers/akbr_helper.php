@@ -39,49 +39,49 @@ function send_email($to, $subject, $name)
 
   $html_content = '
     <html lang="en">
-  <head>
-    <style>
-      .container {
-        max-width: 500px;
-        margin: 0 auto;
-        border: rgb(182, 182, 182) solid 1px;
-        border-radius: 20px;
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        overflow: hidden;
-      }
-      .header {
-        background-color: #5b99e7;
-        color: #fafafa;
-        text-align: center;
-        margin-top: 0;
-        padding: 20px;
-        font-size: 20px;
-      }
-      .content {
-        padding: 20px;
-        margin-top: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-    <div class="header">
-    GPP System : ' . $subject . '
-    </div>
-      <div class="content">
-        <p>Hi, ' . $name . '</p>
-        Your logtime is less than 35 hours.<br>
-        Please check your logtime. <br>
-        Thank
-        You.<br><br>
-        <hr>
-        <center>
-          <img src="' . $logo . '" width="50px" alt="logo gpp system"/>
-        </center>
-      </div>
-    </div>
-  </body>
-</html>';
+      <head>
+        <style>
+          .container {
+            max-width: 500px;
+            margin: 0 auto;
+            border: rgb(182, 182, 182) solid 1px;
+            border-radius: 20px;
+            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+            overflow: hidden;
+          }
+          .header {
+            background-color: #5b99e7;
+            color: #fafafa;
+            text-align: center;
+            margin-top: 0;
+            padding: 20px;
+            font-size: 20px;
+          }
+          .content {
+            padding: 20px;
+            margin-top: 0;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+        <div class="header">
+        GPP System : ' . $subject . '
+        </div>
+          <div class="content">
+            <p>Hi, ' . $name . '</p>
+            Your logtime is less than 35 hours.<br>
+            Please check your logtime. <br>
+            Thank
+            You.<br><br>
+            <hr>
+            <center>
+              <img src="' . $logo . '" width="50px" alt="logo gpp system"/>
+            </center>
+          </div>
+        </div>
+      </body>
+    </html>';
 
   $ci = get_instance();
   //  codeigniter 3 send email controller
@@ -401,10 +401,13 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-usd"></i> &nbsp;Paid</span>';
         break;
       case '12': // Editor Plotted
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Editor Plotted</span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Editor Sunting Plotted</span>';
         break;
       case '4': // Correction
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction</span>';
+        break;
+      case '18': // Correction : Resubmit
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Correction : Resubmit</span>';
         break;
       case '5': // Approved
         return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp;   Approved</span>';
@@ -416,7 +419,7 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Layout Cover Processed </span>';
         break;
       case '7': // Layout Cover Processed
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">ISBN Processed</span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;ISBN Processed</span>';
         break;
       case '8': // ISBN Processed
         return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed </span>';
@@ -430,6 +433,10 @@ if (!function_exists('dateIna')) {
       case '16': // Approve Cetak
         return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
         break;
+      case '19': // Proofreader Plotted
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Proofreader Plotted</span>';
+        break;
+
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
         break;
@@ -446,15 +453,6 @@ if (!function_exists('dateIna')) {
       case '10': // Lead Editor PLotted
         return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/change_lead_editor/') . $id_produk . "'>Change Lead Editor</a>";
         break;
-      case '1': // Acceptance Submission
-        return "";
-        break;
-      case '2': // Rejected
-        return "";
-        break;
-      case '12': // Editor Plotted
-        return "";
-        break;
       default:
         return '';
         break;
@@ -465,9 +463,6 @@ if (!function_exists('dateIna')) {
   {
     $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
-      case '11': //submitted
-        return "";
-        break;
       case '10': //lead editor plotted
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
         break;
@@ -482,6 +477,9 @@ if (!function_exists('dateIna')) {
         break;
       case '3': // Paid
         return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor Sunting</a>";
+        break;
+      case '5': // Approved : Sunting Naskah
+        return "<a href='" . base_url('Submission/plot_editor_proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor Sunting</a>";
         break;
       default:
         return '';
@@ -502,6 +500,9 @@ if (!function_exists('dateIna')) {
       case '15': // Approve Cetak
         return "<a data-id='" . $id_produk . "' id='approve_cetak' class='btn btn-xs btn-success'>Approve Cetakan</a>";
         break;
+      case '4': //Correction
+        return "<a href='" . base_url('Submission/resubmit_penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Re-submit Draft</a>";
+        break;
       default:
         return '';
         break;
@@ -510,30 +511,28 @@ if (!function_exists('dateIna')) {
 
 
 
-  function submission_check_action_editor($id_produk)
+  function submission_check_action_editor($id_produk) // editor sunting
   {
     $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '12': // Editor Plotted
-        return "<a href='" . base_url('Submission/penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Sunting Naskah</a><a id='sunting_naskah_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
+      case '18': // Correction : Resubmit
+        return "<a href='" . base_url('Submission/penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Sunting Naskah</a><a id='approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
         break;
-      case '4': //Correction
-        return "<a href='" . base_url('Submission/proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Proofreading</a><a id='proofreading_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
-        break;
-      case '5': //Approved
-        return "<a href='" . base_url('Submission/proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Proofreading</a><a id='proofreading_approve' data-id='" . $id_produk . "' class='btn btn-xs btn-success'>Approve</a>";
-        break;
-      case '6': // Approved PR
-        return "<a href='" . base_url('Submission/layout_cover/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Add Layout Cover</a>";
-        break;
-      case '13': // Correction PR
-        return "<a href='" . base_url('Submission/layout_cover/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Add Layout Cover</a>";
-        break;
+
       default:
         return '';
         break;
     }
   }
+
+
+  // case '6': // Approved PR
+  //   return "<a href='" . base_url('Submission/layout_cover/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Add Layout Cover</a>";
+  //   break;
+  // case '13': // Correction PR
+  //   return "<a href='" . base_url('Submission/layout_cover/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Add Layout Cover</a>";
+  //   break;
 
   function check_is_empty($user_id)
   {

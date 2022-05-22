@@ -70,48 +70,31 @@
     $(' #example1').DataTable()
   });
 
-  // if approve is clicked
-  $(document).on('click', '#sunting_naskah_approve', function() {
+  $(document).on('click', '#approve', function() {
     Swal.fire({
       title: 'Are you sure to approve?',
       showCancelButton: true,
+      input: 'textarea',
+      inputLabel: 'Masukan Keterangan',
+      inputPlaceholder: 'Tulis keterangan disini...',
+      inputAttributes: {
+        'aria-label': 'Tulis keterangan disini'
+      },
       confirmButtonText: 'Approve',
       confirmButtonColor: '#00a65a',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         var id = $(this).data('id');
-        var url = "<?php echo base_url('Submission/penyuntingan_naskah_approve') ?>";
-        $.ajax({
-          url: url,
-          type: "POST",
-          data: {
-            id: id,
-          },
-          success: function() {
-            location.reload();
-          }
-        });
-      }
-    })
-  });
+        var keterangan = result.value;
 
-  $(document).on('click', '#proofreading_approve', function() {
-    Swal.fire({
-      title: 'Are you sure to approve?',
-      showCancelButton: true,
-      confirmButtonText: 'Approve',
-      confirmButtonColor: '#00a65a',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        var id = $(this).data('id');
-        var url = "<?php echo base_url('Submission/proofreading_approve') ?>";
+        var url = "<?php echo base_url('Submission/penyuntingan_naskah_approve/') ?>";
         $.ajax({
           url: url,
           type: "POST",
           data: {
             id: id,
+            keterangan: keterangan
           },
           success: function() {
             location.reload();

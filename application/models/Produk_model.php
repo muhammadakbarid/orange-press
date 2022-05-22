@@ -115,13 +115,14 @@ class Produk_model extends CI_Model
         return $this->db->query("SELECT * FROM produk join riwayat on produk.id_produk=riwayat.id_produk where riwayat.id_user=$id_penulis and riwayat.status_kerjaan = 11 ORDER BY produk.id_produk DESC")->result();
     }
 
-    function get_list_editor_submission($id_user)
+    function get_list_editor_submission($id_lead_editor)
     {
-        return $this->db->query("SELECT * FROM produk JOIN riwayat ON produk.id_produk=riwayat.id_produk WHERE riwayat.id_user=$id_user AND riwayat.status_kerjaan=10 ORDER BY riwayat.id_produk DESC")->result();
+        return $this->db->query("SELECT * FROM produk JOIN riwayat ON produk.id_produk=riwayat.id_produk WHERE riwayat.id_user=$id_lead_editor AND riwayat.status_kerjaan=10 ORDER BY riwayat.id_produk DESC")->result();
     }
-    function get_list_editors_submission($id_user)
+
+    function get_list_editors_submission($id_editor_sunting)
     {
-        return $this->db->query("SELECT * FROM produk JOIN jenis_kti ON produk.id_kti = jenis_kti.id_kti JOIN riwayat ON produk.id_produk=riwayat.id_produk join status_sunting on produk.status=status_sunting.id_status WHERE riwayat.id_user=$id_user group by riwayat.id_produk ORDER BY riwayat.id_produk DESC")->result();
+        return $this->db->query("SELECT * FROM produk JOIN riwayat ON produk.id_produk=riwayat.id_produk WHERE riwayat.id_user=$id_editor_sunting AND riwayat.status_kerjaan=12 ORDER BY riwayat.id_produk DESC")->result();
     }
 
     function insert_file_attach($data_file_attach)
