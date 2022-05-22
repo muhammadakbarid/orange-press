@@ -52,3 +52,7 @@
 #example1.table-bordered > tbody > tr > td {
 	padding: 10px;
 }
+
+#riwayat_sunting.table > tbody > tr > td {
+	padding: 10px;
+}

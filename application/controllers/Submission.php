@@ -17,30 +17,6 @@ class Submission extends CI_Controller
     $this->load->model('File_attach_model');
   }
 
-  public function index() // list submission penulis
-  {
-    $user_id = $this->session->userdata('user_id');
-    $kelengkapan_penulis = $this->Users_model->check_is_empty($user_id);
-
-    // jika lengkap
-    if ($kelengkapan_penulis == 0) {
-      $id_penulis = $user_id;
-
-      $data['submission'] = $this->Produk_model->get_list_penulis_submission($id_penulis);
-
-      $data['title'] = 'Submission';
-      $data['subtitle'] = '';
-      $data['crumb'] = [
-        'Submission' => '',
-      ];
-
-      $data['page'] = 'Submission/index';
-      $this->load->view('template/backend', $data);
-    } else {
-      redirect('profile');
-    }
-  }
-
   public function submit() // Penulis submit draft buku
   {
     // cek validasi form
@@ -169,10 +145,12 @@ class Submission extends CI_Controller
       $tgl_plotting = date('Y-m-d');
       $tgl_selesai = NULL;
       $status = 10; // Status : Lead Editor Plotted
+      $keterangan = 'Lead Editor Plotted';
       $this->db->set('id_user', $lead_editor);
       $this->db->set('id_produk', $id_produk);
       $this->db->set('tgl_plotting', $tgl_plotting);
       $this->db->set('tgl_selesai', $tgl_selesai);
+      $this->db->set('keterangan', $keterangan);
       $this->db->set('status_kerjaan', $status);
 
       if ($this->db->insert('riwayat')) {
@@ -956,7 +934,7 @@ class Submission extends CI_Controller
     }
   }
 
-  public function add_isbn($id_produk)
+  public function add_isbn($id_produk) // Input ISBN
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
 
@@ -970,7 +948,7 @@ class Submission extends CI_Controller
     $this->load->view('template/backend', $data);
   }
 
-  public function add_isbn_action()
+  public function add_isbn_action() // Action Input ISBN
   {
     $id_produk = $this->input->post('id_produk');
     $no_isbn = $this->input->post('no_isbn');
@@ -999,6 +977,7 @@ class Submission extends CI_Controller
   }
 
 
+  // CETAK OPOSIONAL //
   public function bayar_cetak($id_produk)
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id_cetak($id_produk);
@@ -1039,10 +1018,6 @@ class Submission extends CI_Controller
     }
   }
 
-
-
-
-
   public function approve_cetak()
   {
     $id_produk = $this->input->post('id');
@@ -1062,7 +1037,6 @@ class Submission extends CI_Controller
     $this->Riwayat_model->insert($data_riwayat);
   }
 
-
   public function selesai_mencetak()
   {
     $id_produk = $this->input->post('id');
@@ -1081,9 +1055,35 @@ class Submission extends CI_Controller
 
     $this->Riwayat_model->insert($data_riwayat);
   }
+  // END CETAK OPOSIONAL //
 
 
 
+
+  // LIST LIST LIST LIST LIST LIST LIST LIST //
+  public function index() // list submission penulis
+  {
+    $user_id = $this->session->userdata('user_id');
+    $kelengkapan_penulis = $this->Users_model->check_is_empty($user_id);
+
+    // jika lengkap
+    if ($kelengkapan_penulis == 0) {
+      $id_penulis = $user_id;
+
+      $data['submission'] = $this->Produk_model->get_list_penulis_submission($id_penulis);
+
+      $data['title'] = 'Submission';
+      $data['subtitle'] = '';
+      $data['crumb'] = [
+        'Submission' => '',
+      ];
+
+      $data['page'] = 'Submission/index';
+      $this->load->view('template/backend', $data);
+    } else {
+      redirect('profile');
+    }
+  }
 
   public function list() // List Submission Penulis
   {
@@ -1152,7 +1152,13 @@ class Submission extends CI_Controller
     $data['page'] = 'Submission/list_editors';
     $this->load->view('template/backend', $data);
   }
+  // ENDLIST ENDLIST ENDLIST ENDLIST ENDLIST //
 
+
+
+
+
+  // OTHER OTHER OTHER OTHER OTHER OTHER OTHER //
   public function get_last_riwayat($id_produk)
   {
     // get last riwayat where id_produk = $id_produk
@@ -1195,4 +1201,5 @@ class Submission extends CI_Controller
     $harga_paket = rupiah($harga_paket);
     echo json_encode($harga_paket);
   }
+  // ENDOTHER ENDOTHER ENDOTHER ENDOTHER ENDOTHER //
 }

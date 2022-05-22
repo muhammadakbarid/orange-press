@@ -46,7 +46,7 @@ class Riwayat_model extends CI_Model
 
     function get_riwayat()
     {
-        $this->db->select('produk.id_produk,produk.judul,produk.status,produk.no_isbn');
+        $this->db->select('produk.id_produk,produk.judul,produk.no_isbn');
         $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
         $this->db->order_by($this->id, $this->order);
         $this->db->group_by('riwayat.id_produk');
@@ -55,7 +55,7 @@ class Riwayat_model extends CI_Model
 
     function get_detail($id_produk)
     {
-        $this->db->select('riwayat.id_riwayat, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status,users.id as user_id,riwayat.status_kerjaan');
+        $this->db->select('riwayat.id_riwayat,riwayat.keterangan, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status,users.id as user_id,riwayat.status_kerjaan');
 
         $this->db->join('users', 'Users.id = Riwayat.id_user');
         $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
@@ -155,7 +155,10 @@ class Riwayat_model extends CI_Model
 
     function get_lead_editor($id_produk)
     {
-        return $this->db->query("SELECT * from v_lead_editor where id_produk = '$id_produk'")->row();
+        $this->db->where('status_kerjaan', 10);
+        $this->db->where('id_produk', $id_produk);
+        $this->db->order_by('id_riwayat', 'DESC');
+        return $this->db->get($this->table)->row();
     }
 }
 

@@ -31,7 +31,7 @@
                 <td class="text-center" style="width: 10px;"><?php echo $no++ ?></td>
                 <td><?php echo $value->judul ?></td>
                 <td><?php echo $value->no_isbn ?></td>
-                <td><?php echo submission_status_color($value->status); ?></td>
+                <td><?php echo submission_status_color($value->id_produk); ?></td>
                 <td><a href="<?= base_url('Riwayat/detail/' . $value->id_produk); ?>" class="btn btn-primary">Detail Riwayat Sunting</a></td>
               </tr>
             <?php } ?>

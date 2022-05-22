@@ -4,7 +4,7 @@
   <div class="box-header with-border">
     <h3 class="box-title">Riwayat Sunting</h3>
     <h3 class="text-center text-bold"><?= $produk->judul; ?><br>
-      <span><?= submission_status_color($produk->status); ?></span>
+      <span><?= submission_status_color($produk->id_produk); ?></span>
     </h3>
     <div class="row">
       <div class=" col-md-4"></div>
@@ -13,24 +13,6 @@
       </div>
       <div class="col-md-2">
         : <?= ucfirst($lead_editor); ?>
-      </div>
-      <div class="col-md-4"></div>
-    </div>
-    <div class="row">
-      <div class=" col-md-4"></div>
-      <div class="col-md-2 text-right">
-        Editor Sunting
-      </div>
-      <div class="col-md-2">
-        <?php
-        // foreach editor sunting where not $lead_editor
-        foreach ($editors as $editor_sunting) {
-          if ($editor_sunting->user_id != $id_lead_editor) {
-            echo ucfirst($editor_sunting->first_name) . ' ' . ucfirst($editor_sunting->last_name) . ', ';
-          }
-        }
-
-        ?>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -50,7 +32,7 @@
         <h3 class="timeline-header"><a href="#"><?= $value->nama_status; ?></a></h3>
 
         <div class="timeline-body">
-          <table class="table">
+          <table id="riwayat_sunting" class="table table-responsive">
             <tr>
               <td><?php $user_group = $this->ion_auth->get_users_groups($value->user_id)->row();
                   echo ucfirst($user_group->name);
@@ -75,7 +57,12 @@
             <tr>
               <td>Status Produk</td>
               <td>:</td>
-              <td><?= submission_status_color($value->status_kerjaan); ?></td>
+              <td><?= riwayat_status($value->status_kerjaan); ?></td>
+            </tr>
+            <tr>
+              <td>Keterangan</td>
+              <td>:</td>
+              <td><?= $value->keterangan; ?></td>
             </tr>
           </table>
         </div>

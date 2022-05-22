@@ -52,6 +52,8 @@ class Riwayat extends CI_Controller
 
         $data['produk'] = $this->Produk_model->get_by_id($id_produk);
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
+        // print_r($data['detail']);
+        // die;
         $data['editors'] = $this->Riwayat_model->get_editors($id_produk);
         $data['title'] = 'Riwayat Sunting';
         $data['subtitle'] = 'Detail Riwayat';

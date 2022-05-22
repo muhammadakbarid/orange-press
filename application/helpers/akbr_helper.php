@@ -378,9 +378,8 @@ if (!function_exists('dateIna')) {
     return $query->status_kerjaan;
   }
 
-  function submission_status_color($id_produk)
+  function riwayat_status($id_status)
   {
-    $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '11': // Submitted
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
@@ -455,6 +454,12 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
         break;
     }
+  }
+
+  function submission_status_color($id_produk)
+  {
+    $id_status = get_last_produk_status($id_produk);
+    return riwayat_status($id_status);
   }
 
   function submission_check_action($id_produk)
