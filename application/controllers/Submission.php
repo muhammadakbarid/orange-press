@@ -354,7 +354,6 @@ class Submission extends CI_Controller
     }
   }
 
-
   public function verify_payment($id_produk) // Verifikasi Pembayaran oleh Lead Editor
   {
     $this->load->model('Paket_model');
@@ -648,6 +647,358 @@ class Submission extends CI_Controller
     }
   }
 
+  public function proofreading($id_produk) // Proofreading Form
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['action'] = 'Submission/proofreading_action/' . $id_produk;
+    $data['label'] = 'File Proofreading';
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Proofreading';
+    $data['crumb'] = [
+      'Proofreading' => '',
+    ];
+
+    $data['page'] = 'Submission/submission_form';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function proofreading_action() // Proofreading Form
+  {
+    // rules
+    $this->form_validation->set_rules('id_produk', 'Id Produk', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keteragan', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Penyuntingan gagal dilakukan');
+      redirect('Submission/proofreading/' . $this->input->post('id_produk'));
+    } else {
+      $id_produk = $this->input->post('id_produk');
+      $keterangan = $this->input->post('keterangan');
+      $file_attach = $_FILES['file_attach']['name'];
+      $status = 13; // corection proofreading
+      if ($file_attach) {
+        $config['upload_path'] = './assets/uploads/files/file_attach/';
+        $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pdf';
+        $config['max_size']     = '2048';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file_attach')) {
+          $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+          $data_riwayat = [
+            'id_produk' => $id_produk,
+            'id_user' => $this->session->userdata('user_id'),
+            'tgl_plotting' => date('Y-m-d'),
+            'status_kerjaan' => $status,
+            'keterangan' => $keterangan
+          ];
+
+          $this->Riwayat_model->insert($data_riwayat);
+          $id_riwayat = $this->db->insert_id();
+
+          $data_file_attach = [
+            'id_riwayat' => $id_riwayat,
+            'nama_file' => $new_file_attach,
+            'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          ];
+          $this->Produk_model->insert_file_attach($data_file_attach);
+
+          $this->session->set_flashdata('success', 'Naskah berhasil disunting');
+          redirect('Submission/list_editor_proofreader');
+        } else {
+          $this->session->set_flashdata('error', 'Naskah gagal disunting');
+          redirect('Submission/list_editor_proofreader');
+        }
+      }
+    }
+  }
+
+  public function resubmit_proofreading($id_produk) // Resubmit Proofreading oleh Penulis
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+    $data['action'] = 'Submission/resubmit_proofreading_action';
+    $data['title'] = 'Submission';
+    $data['label'] = 'File Naskah';
+    $data['subtitle'] = 'Resubmit Proofreading Naskah';
+    $data['crumb'] = [
+      'Resubmit Proofreading Naskah' => '',
+    ];
+
+    $data['page'] = 'Submission/submission_form';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function resubmit_proofreading_action() // Action Resubmit Proofreading oleh Penulis
+  {
+    // rules
+    $this->form_validation->set_rules('id_produk', 'Id Produk', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keteragan', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Penyuntingan gagal dilakukan');
+      redirect('Submission/proofreading/' . $this->input->post('id_produk'));
+    } else {
+      $id_produk = $this->input->post('id_produk');
+      $keterangan = $this->input->post('keterangan');
+      $file_attach = $_FILES['file_attach']['name'];
+      $status = 20; // Proofreading : Resubmit
+      if ($file_attach) {
+        $config['upload_path'] = './assets/uploads/files/file_attach/';
+        $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pdf';
+        $config['max_size']     = '2048';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file_attach')) {
+          $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+          $data_riwayat = [
+            'id_produk' => $id_produk,
+            'id_user' => $this->session->userdata('user_id'),
+            'tgl_plotting' => date('Y-m-d'),
+            'status_kerjaan' => $status,
+            'keterangan' => $keterangan
+          ];
+
+          $this->Riwayat_model->insert($data_riwayat);
+          $id_riwayat = $this->db->insert_id();
+
+          $data_file_attach = [
+            'id_riwayat' => $id_riwayat,
+            'nama_file' => $new_file_attach,
+            'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          ];
+          $this->Produk_model->insert_file_attach($data_file_attach);
+
+          $this->session->set_flashdata('success', 'Naskah berhasil disubmit ulang');
+          redirect('Submission/list');
+        } else {
+          $this->session->set_flashdata('error', 'Naskah gagal disubmit ulang');
+          redirect('Submission/list');
+        }
+      }
+    }
+  }
+
+  public function proofreading_approve() // Approve Proofreading oleh Proofreader
+  {
+    $id_produk = $this->input->post('id');
+    $keterangan = $this->input->post('keterangan');
+    $status = 6; // Proofreading Approve
+
+    $data_riwayat = [
+      'id_produk' => $id_produk,
+      'id_user' => $this->session->userdata('user_id'),
+      'tgl_plotting' => date('Y-m-d'),
+      'status_kerjaan' => $status,
+      'keterangan' => $keterangan
+    ];
+
+    if ($this->Riwayat_model->insert($data_riwayat)) {
+      $this->session->set_flashdata('success', "Successfully approved");
+      redirect('Submission/list_editor_proofreader');
+    } else {
+      $this->session->set_flashdata('success', "Failed to approve");
+      redirect('Submission/list_editor_proofreader');
+    }
+  }
+
+  public function plot_editor_desainer($id_produk) // Plotting Editor desainer oleh Lead Editor
+  {
+    $this->form_validation->set_rules('editor', 'Editor', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $data['id_produk'] = $id_produk;
+      $data['produk'] = $this->Produk_model->get_by_id($id_produk);
+      $data['title'] = 'Plot Editor Desainer';
+      $data['label'] = 'Editor Desainer';
+      $data['subtitle'] = '';
+      $data['action'] = 'Submission/plot_editor_desainer/' . $id_produk;
+      $data['crumb'] = [
+        'Plot Editor' => '',
+      ];
+      $data['list_editor'] = $this->Users_model->get_all_by_id_groups(37);
+
+      $data['page'] = 'Submission/plot_editor';
+      $this->load->view('template/backend', $data);
+    } else {
+      $editor = $this->input->post('editor');
+      $id_editor = $editor;
+      $tgl_plotting = date('Y-m-d');
+      $status = 21; // Desainer Plotted
+      $data_riwayat = [
+        'id_user' => $id_editor,
+        'id_produk' => $id_produk,
+        'tgl_plotting' => $tgl_plotting,
+        'status_kerjaan' => $status,
+        'keterangan' => 'Editor Layout Cover Plotted'
+      ];
+
+      if ($this->Riwayat_model->insert($data_riwayat)) {
+        $this->session->set_flashdata('success', "Successfully plotted");
+        redirect('Submission/list');
+      } else {
+        $this->session->set_flashdata('error', "Failed to plot");
+        redirect('Submission/list');
+      }
+    }
+  }
+
+  public function layout_cover($id_produk) // Tambah layout cover oleh Desainer
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['action'] = 'Submission/layout_cover_action/' . $id_produk;
+    $data['label'] = 'File layout_cover';
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'layout cover';
+    $data['crumb'] = [
+      'layout cover' => '',
+    ];
+
+    $data['page'] = 'Submission/submission_form';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function layout_cover_action() // Action Tambah layout cover oleh Desainer
+  {
+    // rules
+    $this->form_validation->set_rules('id_produk', 'Id Produk', 'required');
+    $this->form_validation->set_rules('keterangan', 'Keteragan', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Penyuntingan gagal dilakukan');
+      redirect('Submission/layout_cover/' . $this->input->post('id_produk'));
+    } else {
+      $id_produk = $this->input->post('id_produk');
+      $keterangan = $this->input->post('keterangan');
+      $file_attach = $_FILES['file_attach']['name'];
+      $status = 7; // Layout Cover Processed
+      if ($file_attach) {
+        $config['upload_path'] = './assets/uploads/files/file_attach/';
+        $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pdf';
+        $config['max_size']     = '2048';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file_attach')) {
+          $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+          $data_riwayat = [
+            'id_produk' => $id_produk,
+            'id_user' => $this->session->userdata('user_id'),
+            'tgl_plotting' => date('Y-m-d'),
+            'status_kerjaan' => $status,
+            'keterangan' => $keterangan
+          ];
+
+          $this->Riwayat_model->insert($data_riwayat);
+          $id_riwayat = $this->db->insert_id();
+
+          $data_file_attach = [
+            'id_riwayat' => $id_riwayat,
+            'nama_file' => $new_file_attach,
+            'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          ];
+          $this->Produk_model->insert_file_attach($data_file_attach);
+
+          $this->session->set_flashdata('success', 'Layout Cover berhasil ditambahkan');
+          redirect('Submission/list_desainer');
+        } else {
+          $this->session->set_flashdata('error', 'Layout Cover gagal ditambahkan');
+          redirect('Submission/list_desainer');
+        }
+      }
+    }
+  }
+
+  public function approve_dummy() // Penulis Approve Layout Cover dan Dummy dari Desainer
+  {
+    $id_produk = $this->input->post('id');
+    $keterangan = $this->input->post('keterangan');
+
+    $status = 8; // Status : ISBN Processed
+
+    $data_riwayat = [
+      'id_user' => $this->session->userdata('user_id'),
+      'id_produk' => $id_produk,
+      'status_kerjaan' => $status,
+      'keterangan' => $keterangan,
+    ];
+
+    if ($this->Riwayat_model->insert($data_riwayat)) {
+      $this->session->set_flashdata('success', "Successfully approved");
+      redirect('Submission');
+    } else {
+      $this->session->set_flashdata('success', "Failed to approve");
+      redirect('Submission');
+    }
+  }
+
+  public function reject_dummy()  // Penulis Reject Layout Cover dan Dummy dari Desainer
+  {
+    $id_produk = $this->input->post('id');
+    $status = 22; // Status : Rejected
+    $keterangan = $this->input->post('keterangan');
+    $data_riwayat = [
+      'id_user' => $this->session->userdata('user_id'),
+      'id_produk' => $id_produk,
+      'status_kerjaan' => $status,
+      'tgl_selesai' => date('Y-m-d'),
+      'keterangan' => $keterangan,
+    ];
+
+    if ($this->Riwayat_model->insert($data_riwayat)) {
+      $this->session->set_flashdata('success', "Successfully rejected");
+      redirect('Submission');
+    } else {
+      $this->session->set_flashdata('success', "Failed to reject");
+      redirect('Submission');
+    }
+  }
+
+  public function add_isbn($id_produk)
+  {
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Add ISBN';
+    $data['crumb'] = [
+      'Add ISBN' => '',
+    ];
+
+    $data['page'] = 'Submission/add_isbn';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function add_isbn_action()
+  {
+    $id_produk = $this->input->post('id_produk');
+    $no_isbn = $this->input->post('no_isbn');
+    $status = 9; // Status : Complete
+
+    $data_produk = [
+      'no_isbn' => $no_isbn
+    ];
+
+    $keterangan = 'No ISBN : ' . $no_isbn;
+
+    $data_riwayat = [
+      'id_user' => $this->session->userdata('user_id'),
+      'id_produk' => $id_produk,
+      'status_kerjaan' => $status,
+      'keterangan' => $keterangan,
+    ];
+
+    if ($this->Produk_model->update($id_produk, $data_produk) && $this->Riwayat_model->insert($data_riwayat)) {
+      $this->session->set_flashdata('success', 'No ISBN berhasil ditambahkan');
+      redirect('Submission/list');
+    } else {
+      $this->session->set_flashdata('success', 'No ISBN gagal ditambahkan');
+      redirect('Submission/list');
+    }
+  }
+
+
   public function bayar_cetak($id_produk)
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id_cetak($id_produk);
@@ -688,86 +1039,9 @@ class Submission extends CI_Controller
     }
   }
 
-  public function proofreading($id_produk)
-  {
-    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
 
-    $data['title'] = 'Submission';
-    $data['subtitle'] = 'Proofreading';
-    $data['crumb'] = [
-      'Proofreading' => '',
-    ];
 
-    $data['page'] = 'Submission/proofreading';
-    $this->load->view('template/backend', $data);
-  }
 
-  public function proofreading_action()
-  {
-    $id_produk = $this->input->post('id_produk');
-    $keterangan = $this->input->post('keterangan');
-    $file_attach = $_FILES['file_attach']['name'];
-    $status = 13;
-    if ($file_attach) {
-      $config['upload_path'] = './assets/uploads/files/file_attach/';
-      $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-      $config['max_size']     = '2048';
-
-      $this->load->library('upload', $config);
-
-      if ($this->upload->do_upload('file_attach')) {
-        $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
-        $data_riwayat = [
-          'id_produk' => $id_produk,
-          'id_user' => $this->session->userdata('user_id'),
-          'tgl_plotting' => date('Y-m-d'),
-          'status_kerjaan' => $status,
-          'keterangan' => $keterangan
-        ];
-
-        $this->Riwayat_model->insert($data_riwayat);
-        $id_riwayat = $this->db->insert_id();
-
-        $data_file_attach = [
-          'id_riwayat' => $id_riwayat,
-          'nama_file' => $new_file_attach,
-          'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
-
-        ];
-        $this->Produk_model->insert_file_attach($data_file_attach);
-
-        $data_produk = [
-          'status' => $status,
-        ];
-        $this->Produk_model->update($id_produk, $data_produk);
-
-        $this->session->set_flashdata('success', 'Naskah berhasil disunting');
-        redirect('Submission/list_editors');
-      } else {
-        $this->session->set_flashdata('success', $this->upload->display_errors());
-        redirect('Submission/list_editors');
-      }
-    }
-  }
-
-  public function proofreading_approve()
-  {
-    $id_produk = $this->input->post('id');
-    $status = 6;
-    $data_produk = [
-      'status' => $status,
-    ];
-    $this->Produk_model->update($id_produk, $data_produk);
-
-    $data_riwayat = [
-      'id_produk' => $id_produk,
-      'id_user' => $this->session->userdata('user_id'),
-      'tgl_plotting' => date('Y-m-d'),
-      'status_kerjaan' => $status,
-    ];
-
-    $this->Riwayat_model->insert($data_riwayat);
-  }
 
   public function approve_cetak()
   {
@@ -808,100 +1082,8 @@ class Submission extends CI_Controller
     $this->Riwayat_model->insert($data_riwayat);
   }
 
-  public function layout_cover($id_produk)
-  {
-    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
 
-    $data['title'] = 'Submission';
-    $data['subtitle'] = 'Layout Cover';
-    $data['crumb'] = [
-      'Layout Cover' => '',
-    ];
 
-    $data['page'] = 'Submission/layout_cover';
-    $this->load->view('template/backend', $data);
-  }
-
-  public function layout_cover_action()
-  {
-    $id_produk = $this->input->post('id_produk');
-    $keterangan = $this->input->post('keterangan');
-    $file_attach = $_FILES['file_attach']['name'];
-    $status = 7;
-    if ($file_attach) {
-      $config['upload_path'] = './assets/uploads/files/file_attach/';
-      $config['allowed_types'] = 'pdf|jpg|png|jpeg';
-      $config['max_size']     = '2048';
-
-      $this->load->library('upload', $config);
-
-      if ($this->upload->do_upload('file_attach')) {
-        $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
-        $data_riwayat = [
-          'id_produk' => $id_produk,
-          'id_user' => $this->session->userdata('user_id'),
-          'tgl_plotting' => date('Y-m-d'),
-          'status_kerjaan' => $status,
-          'keterangan' => $keterangan
-        ];
-
-        $this->Riwayat_model->insert($data_riwayat);
-        $id_riwayat = $this->db->insert_id();
-
-        $data_file_attach = [
-          'id_riwayat' => $id_riwayat,
-          'nama_file' => $new_file_attach,
-          'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
-
-        ];
-        $this->Produk_model->insert_file_attach($data_file_attach);
-
-        $data_produk = [
-          'status' => $status,
-        ];
-        $this->Produk_model->update($id_produk, $data_produk);
-
-        $this->session->set_flashdata('success', 'Layout Cover berhasil ditambahkan');
-        redirect('Submission/list_editors');
-      } else {
-        $this->session->set_flashdata('success', $this->upload->display_errors());
-        redirect('Submission/list_editors');
-      }
-    }
-  }
-
-  public function add_isbn($id_produk)
-  {
-    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
-
-    $data['title'] = 'Submission';
-    $data['subtitle'] = 'Add ISBN';
-    $data['crumb'] = [
-      'Add ISBN' => '',
-    ];
-
-    $data['page'] = 'Submission/add_isbn';
-    $this->load->view('template/backend', $data);
-  }
-
-  public function add_isbn_action()
-  {
-    $id_produk = $this->input->post('id_produk');
-    $no_isbn = $this->input->post('no_isbn');
-    $status = 8;
-
-    $data_produk = [
-      'status' => $status,
-      'no_isbn' => $no_isbn,
-    ];
-    if ($this->Produk_model->update($id_produk, $data_produk)) {
-      $this->session->set_flashdata('success', 'No ISBN berhasil ditambahkan');
-      redirect('Submission/list_editors');
-    } else {
-      $this->session->set_flashdata('success', 'No ISBN gagal ditambahkan');
-      redirect('Submission/list_editors');
-    }
-  }
 
   public function list() // List Submission Penulis
   {
@@ -931,14 +1113,40 @@ class Submission extends CI_Controller
     $this->load->view('template/backend', $data);
   }
 
+  public function list_editor_proofreader() // List Submission Editor Proofreader
+  {
+    $id_user = $this->session->userdata('user_id');
+    $data['list_submission'] = $this->Produk_model->get_list_editor_proofreader_submission($id_user);
+    $data['title'] = 'Submission List';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Submission List' => '',
+    ];
+
+    $data['page'] = 'Submission/list_editor_proofreader';
+    $this->load->view('template/backend', $data);
+  }
+  public function list_desainer() // List Submission Desainer
+  {
+    $id_user = $this->session->userdata('user_id');
+    $data['list_submission'] = $this->Produk_model->get_list_desainer_submission($id_user);
+    $data['title'] = 'Submission List';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Submission List' => '',
+    ];
+
+    $data['page'] = 'Submission/list_desainer';
+    $this->load->view('template/backend', $data);
+  }
   public function list_editors() // List Submission Editor Sunting
   {
     $id_user = $this->session->userdata('user_id');
     $data['list_submission'] = $this->Produk_model->get_list_editors_submission($id_user);
-    $data['title'] = 'List Submission';
+    $data['title'] = 'Submission List';
     $data['subtitle'] = '';
     $data['crumb'] = [
-      'List Submission' => '',
+      'Submission List' => '',
     ];
 
     $data['page'] = 'Submission/list_editors';

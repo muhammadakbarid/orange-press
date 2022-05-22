@@ -125,6 +125,16 @@ class Produk_model extends CI_Model
         return $this->db->query("SELECT * FROM produk JOIN riwayat ON produk.id_produk=riwayat.id_produk WHERE riwayat.id_user=$id_editor_sunting AND riwayat.status_kerjaan=12 ORDER BY riwayat.id_produk DESC")->result();
     }
 
+    function get_list_editor_proofreader_submission($id_editor_proofreader)
+    {
+        return $this->db->query("SELECT * FROM produk JOIN riwayat ON produk.id_produk=riwayat.id_produk WHERE riwayat.id_user=$id_editor_proofreader AND riwayat.status_kerjaan=19 ORDER BY riwayat.id_produk DESC")->result();
+    }
+
+    function get_list_desainer_submission($id_desainer)
+    {
+        return $this->db->query("SELECT * FROM produk JOIN riwayat ON produk.id_produk=riwayat.id_produk WHERE riwayat.id_user=$id_desainer AND riwayat.status_kerjaan=21 ORDER BY riwayat.id_produk DESC")->result();
+    }
+
     function insert_file_attach($data_file_attach)
     {
         $this->db->insert('file_attach', $data_file_attach);

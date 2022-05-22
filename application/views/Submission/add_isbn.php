@@ -31,21 +31,11 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="">File</label>
-          <input type="text" class="form-control" value="<?= $produk->file_hakcipta; ?>" disabled>
-        </div>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Jenis Karya Tulis Ilmiah</label>
               <input type="text" class="form-control" value="<?= $produk->nama_kti; ?>" disabled>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="">Harga Terbit</label>
-              <p class="text-bold bg-success" style="padding: 10px;"><?= rupiah($produk->harga_terbit); ?></p>
             </div>
           </div>
         </div>
