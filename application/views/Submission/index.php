@@ -35,7 +35,7 @@
             ?>
               <tr>
                 <td class="text-center" style="width: 10px;"><?php echo $no++ ?></td>
-                <td><?php echo $value->judul ?></td>
+                <td><a href="<?= base_url('Riwayat/detail/' . $value->id_produk); ?>"><?php echo $value->judul ?></a></td>
                 <td><?php echo check_kti($value->id_kti) ?></td>
                 <td><?php echo $value->edisi ?></td>
                 <td><?php echo date_surat($value->tgl_submit) ?></td>

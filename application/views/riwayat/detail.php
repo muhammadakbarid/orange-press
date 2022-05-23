@@ -14,12 +14,65 @@
       <div class="col-md-2">
         : <?= ucfirst($lead_editor); ?>
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-md-4">
+
+      </div>
     </div>
   </div>
   <!-- /.box-header -->
   <!-- box-body -->
   <div class="box-body">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingTwo">
+        <h4 class="panel-title text-center">
+          <a class="collapsed " role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Detail Produk
+          </a>
+        </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+          <div id="data_produk">
+            <table class="table table-responsive table-bordered" id="riwayat_sunting">
+              <tr>
+                <td>Judul</td>
+                <td><?= $produk->judul; ?></td>
+              </tr>
+              <tr>
+                <td>Jenis Karya Tulis Ilmiah</td>
+                <td><?= check_kti($produk->id_kti); ?></td>
+              </tr>
+              <tr>
+                <td>Edisi</td>
+                <td><?= $produk->edisi; ?></td>
+              </tr>
+              <tr>
+                <td>Tanggal Submit</td>
+                <td><?= $produk->tgl_submit; ?></td>
+              </tr>
+              <tr>
+                <td>ISBN</td>
+                <td><?= $produk->no_isbn; ?></td>
+              </tr>
+              <tr>
+                <td>File Hak Cipta</td>
+                <td>xxx</td>
+              </tr>
+              <tr>
+                <td>Daftar Penulis</td>
+                <td>
+                  <ol>
+                    <?php foreach ($daftar_penulis as $penulis) : ?>
+                      <li><?= $penulis->first_name . " " . $penulis->last_name . " (" . $penulis->email . ")"; ?></li>
+                    <?php endforeach; ?>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <ul class="timeline">

@@ -15,6 +15,15 @@ class Tim_penulis_model extends CI_Model
         parent::__construct();
     }
 
+    function get_daftar_penulis($id_produk)
+    {
+        $this->db->select('tim_penulis.*,users.first_name,users.last_name,users.email');
+        $this->db->join('users', 'tim_penulis.id_penulis = users.id');
+        $this->db->where('id_produk', $id_produk);
+        $this->db->order_by('penulis_ke', 'ASC');
+        return $this->db->get($this->table)->result();
+    }
+
     // get all
     function get_all()
     {
@@ -28,27 +37,29 @@ class Tim_penulis_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('id_penulis', $q);
-	$this->db->or_like('id_produk', $q);
-	$this->db->or_like('penulis_ke', $q);
-	$this->db->or_like('status', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('id_penulis', $q);
+        $this->db->or_like('id_produk', $q);
+        $this->db->or_like('penulis_ke', $q);
+        $this->db->or_like('status', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('id_penulis', $q);
-	$this->db->or_like('id_produk', $q);
-	$this->db->or_like('penulis_ke', $q);
-	$this->db->or_like('status', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('id_penulis', $q);
+        $this->db->or_like('id_produk', $q);
+        $this->db->or_like('penulis_ke', $q);
+        $this->db->or_like('status', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -73,13 +84,13 @@ class Tim_penulis_model extends CI_Model
     }
 
     // delete bulkdata
-    function deletebulk(){
+    function deletebulk()
+    {
         $data = $this->input->post('msg_', TRUE);
-        $arr_id = explode(",", $data); 
+        $arr_id = explode(",", $data);
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
     }
-
 }
 
 /* End of file Tim_penulis_model.php */

@@ -56,6 +56,7 @@ class Riwayat extends CI_Controller
 
     public function detail($id_produk)
     {
+        $this->load->model('Tim_penulis_model');
         $this->load->model('Produk_model');
         $lead_editor = $this->Riwayat_model->get_lead_editor($id_produk);
         if ($lead_editor) {
@@ -66,6 +67,7 @@ class Riwayat extends CI_Controller
         }
 
         $data['produk'] = $this->Produk_model->get_by_id($id_produk);
+        $data['daftar_penulis'] = $this->Tim_penulis_model->get_daftar_penulis($id_produk);
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
 
         $data['editors'] = $this->Riwayat_model->get_editors($id_produk);

@@ -16,6 +16,7 @@ class Riwayat_model extends CI_Model
     }
 
 
+
     function get_last_riwayat_by_id_produk()
     {
         $this->db->select('*');
