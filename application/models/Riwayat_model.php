@@ -53,16 +53,32 @@ class Riwayat_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_riwayat_penulis()
+    {
+        $id_penulis = $this->session->userdata('user_id');
+
+        $this->db->select('produk.id_produk,produk.judul,produk.no_isbn');
+        $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
+        $this->db->where('riwayat.status_kerjaan', 11);
+        $this->db->where('riwayat.id_user', $id_penulis);
+
+        $this->db->order_by($this->id, $this->order);
+        $this->db->group_by('riwayat.id_produk');
+        return $this->db->get($this->table)->result();
+    }
+
     function get_detail($id_produk)
     {
-        $this->db->select('riwayat.id_riwayat,riwayat.keterangan, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status,users.id as user_id,riwayat.status_kerjaan');
+        $this->db->select('riwayat.id_riwayat,riwayat.keterangan, riwayat.tgl_plotting,riwayat.tgl_selesai,produk.judul,users.first_name,users.email,users.last_name,status_sunting.nama_status,users.id as user_id,riwayat.status_kerjaan,file_attach.nama_file');
 
-        $this->db->join('users', 'Users.id = Riwayat.id_user');
+        $this->db->join('file_attach', 'riwayat.id_riwayat=file_attach.id_riwayat', 'left');
+        $this->db->join('status_sunting', ' riwayat.status_kerjaan=status_sunting.id_status');
+        $this->db->join('users', 'riwayat.id_user=users.id');
         $this->db->join('produk', 'produk.id_produk = riwayat.id_produk');
-        $this->db->join('status_sunting', 'status_sunting.id_status = riwayat.status_kerjaan');
+
         $this->db->where('riwayat.id_produk', $id_produk);
 
-        $this->db->order_by($this->id, 'ASC');
+        $this->db->order_by('riwayat.id_riwayat', 'ASC');
         return $this->db->get($this->table)->result();
     }
 
@@ -158,7 +174,12 @@ class Riwayat_model extends CI_Model
         $this->db->where('status_kerjaan', 10);
         $this->db->where('id_produk', $id_produk);
         $this->db->order_by('id_riwayat', 'DESC');
-        return $this->db->get($this->table)->row();
+        $data = $this->db->get($this->table)->row();
+        if ($data) {
+            return $data->id_user;
+        } else {
+            return false;
+        }
     }
 }
 

@@ -143,7 +143,8 @@ class Produk_model extends CI_Model
 
     function get_produk_distribusi()
     {
-        $this->db->where('status', '16');
+        $where = "no_isbn is  NOT NULL"; // Ambil jika no ISBN ada
+        $this->db->where($where);
         return $this->db->get($this->table)->result();
     }
 }

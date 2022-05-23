@@ -29,6 +29,18 @@ class M_Distribusi extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function get_distribusi_penulis($id_penulis)
+    {
+        $this->db->select('distribusi.*, produk.judul, produk.no_isbn,riwayat.id_user');
+        $this->db->join('produk', 'distribusi.id_produk = produk.id_produk');
+        $this->db->join('riwayat', 'distribusi.id_produk = riwayat.id_produk');
+        $this->db->where('riwayat.status_kerjaan', 11);
+        $this->db->where('riwayat.id_user', $id_penulis);
+
+        $this->db->order_by('distribusi.tanggal_distribusi', $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
     // get total rows
     function total_rows($q = NULL)
     {

@@ -41,19 +41,33 @@ class Riwayat extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
+    public function riwayat_sunting_penulis()
+    {
+        $data['riwayat_sunting'] = $this->Riwayat_model->get_riwayat_penulis();
+        $data['title'] = 'Riwayat Sunting';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Riwayat Sunting' => '',
+        ];
+
+        $data['page'] = 'Riwayat/riwayat_sunting';
+        $this->load->view('template/backend', $data);
+    }
+
     public function detail($id_produk)
     {
         $this->load->model('Produk_model');
         $lead_editor = $this->Riwayat_model->get_lead_editor($id_produk);
-        $lead_editor =  $lead_editor->id_user;
-        $lead_editor = $this->ion_auth->user($lead_editor)->row();
-        $data['lead_editor'] = $lead_editor->first_name . ' ' . $lead_editor->last_name;
-        $data['id_lead_editor'] = $lead_editor->id;
+        if ($lead_editor) {
+            $lead_editor = $this->ion_auth->user($lead_editor)->row();
+            $data['lead_editor'] = $lead_editor->first_name . ' ' . $lead_editor->last_name;
+        } else {
+            $data['lead_editor'] = " - ";
+        }
 
         $data['produk'] = $this->Produk_model->get_by_id($id_produk);
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
-        // print_r($data['detail']);
-        // die;
+
         $data['editors'] = $this->Riwayat_model->get_editors($id_produk);
         $data['title'] = 'Riwayat Sunting';
         $data['subtitle'] = 'Detail Riwayat';

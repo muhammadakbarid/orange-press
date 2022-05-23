@@ -421,15 +421,7 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Layout Cover + Dummy Processed</span>';
         break;
 
-      case '14': // Proses Mencetak
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Proses Mencetak Buku Dummy</span>';
-        break;
-      case '15': // Selesai Mencetak
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Selesai Mencetak, Menunggu Approval Penulis</span>';
-        break;
-      case '16': // Approve Cetak
-        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
-        break;
+
       case '19': // Proofreader Plotted
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Proofreader Plotted</span>';
         break;
@@ -448,6 +440,18 @@ if (!function_exists('dateIna')) {
         break;
       case '9': // Completed
         return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed </span>';
+        break;
+      case '23': // Menunggu verifikasi pembayaran Admin
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Waiting for Payment Verification</span>';
+        break;
+      case '14': // Proses Mencetak
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Proses Mencetak Buku</span>';
+        break;
+      case '15': // Selesai Mencetak
+        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Selesai Mencetak, Menunggu Approval Penulis</span>';
+        break;
+      case '16': // Approve Cetak
+        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
         break;
 
       default:
@@ -475,6 +479,12 @@ if (!function_exists('dateIna')) {
       case '8': // ISBN Processed
         return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/add_isbn/') . $id_produk . "'>Input ISBN</a>";
         break;
+      case '23': // Menunggu verifikasi pembayaran admin
+        return "<a href='" . base_url('Submission/verify_payment_opotional/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Verifikasi Pembayaran (Cetak)</a>";
+        break;
+      case '14': // Proses Mencetak -> Proses cetak selesai
+        return "<a data-id='" . $id_produk . "' id='selesai_mencetak' style='margin-right: 5px;' class='btn btn-xs btn-success'>Selesai Mencetak</a>";
+        break;
       default:
         return '';
         break;
@@ -491,9 +501,7 @@ if (!function_exists('dateIna')) {
       case '7': //layout processed
         return "<a href='" . base_url('Submission/add_isbn/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Input ISBN</a>";
         break;
-      case '14': // Proses Mencetak
-        return "<a data-id='" . $id_produk . "' id='selesai_mencetak' style='margin-right: 5px;' class='btn btn-xs btn-success'>Selesai Mencetak</a>";
-        break;
+
       case '17': // Menunggu verifikasi pembayaran
         return "<a href='" . base_url('Submission/verify_payment/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Verifikasi Pembayaran</a>";
         break;
@@ -517,11 +525,7 @@ if (!function_exists('dateIna')) {
     $id_status = get_last_produk_status($id_produk);
     switch ($id_status) {
       case '1':
-        return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
-        break;
-
-      case '15': // Approve Cetak
-        return "<a data-id='" . $id_produk . "' id='approve_cetak' class='btn btn-xs btn-success'>Approve Cetakan</a>";
+        return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
         break;
       case '4': //Correction
         return "<a href='" . base_url('Submission/resubmit_penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Re-submit Draft</a>";
@@ -531,6 +535,12 @@ if (!function_exists('dateIna')) {
         break;
       case '7': // Layout Cover + Dummy Processed
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
+        break;
+      case '9': // Completed -> Cetak
+        return "<a href='" . base_url('Submission/bayar_oposional/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'><i class='fas fa-print'></i> &nbsp; Cetak (Oposional)</a>";
+        break;
+      case '15': // Approve Cetak
+        return "<a data-id='" . $id_produk . "' id='approve_cetak' class='btn btn-xs btn-success'>Approve Cetakan</a>";
         break;
       default:
         return '';

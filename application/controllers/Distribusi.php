@@ -54,6 +54,24 @@ class Distribusi extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
+    public function penulis()
+    {
+        $user_id = $this->session->userdata('user_id');
+        $id_penulis = $user_id;
+
+        $distribusi = $this->M_Distribusi->get_distribusi_penulis($id_penulis);
+
+        $data['list_distribusi'] = $distribusi;
+        $data['title'] = 'Distribusi Produk';
+        $data['subtitle'] = 'Distribusi Produk';
+        $data['crumb'] = [
+            'Distribusi Produk' => '',
+        ];
+
+        $data['page'] = 'Distribusi/distribusi_penulis';
+        $this->load->view('template/backend', $data);
+    }
+
     public function read($id)
     {
         $row = $this->M_Distribusi->get_by_id($id);
@@ -98,6 +116,7 @@ class Distribusi extends CI_Controller
         ];
         $data['produk'] = $this->Produk_model->get_produk_distribusi();
 
+
         $data['page'] = 'distribusi/distribusi_form';
         $this->load->view('template/backend', $data);
     }
@@ -109,13 +128,13 @@ class Distribusi extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            $id_produk = $this->input->post('id_produk', TRUE);
             $data = array(
-                'id_produk' => $this->input->post('id_produk', TRUE),
+                'id_produk' => $id_produk,
                 'tujuan_distribusi' => $this->input->post('tujuan_distribusi', TRUE),
                 'tanggal_distribusi' => $this->input->post('tanggal_distribusi', TRUE),
                 'jumlah' => $this->input->post('jumlah', TRUE),
             );
-
             $this->M_Distribusi->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('distribusi'));

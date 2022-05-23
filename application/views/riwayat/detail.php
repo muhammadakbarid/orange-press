@@ -54,6 +54,14 @@
                 <td><?= $value->tgl_selesai; ?></td>
               </tr>
             <?php } ?>
+            <?php if (isset($value->nama_file)) { ?>
+              <tr>
+                <td>File Attachment</td>
+                <td>:</td>
+                <td><a href="<?= base_url('Submission/get_file_riwayat/' . $value->nama_file); ?>"><?= $value->nama_file; ?></a>
+                </td>
+              </tr>
+            <?php } ?>
             <tr>
               <td>Status Produk</td>
               <td>:</td>

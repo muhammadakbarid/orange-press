@@ -254,7 +254,7 @@ class Submission extends CI_Controller
 
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['paket'] = $this->Paket_model->get_all();
-
+    $data['action'] = base_url('Submission/bayar_action');
     $data['title'] = 'Pembayaran';
     $data['subtitle'] = '';
     $data['crumb'] = [
@@ -339,7 +339,7 @@ class Submission extends CI_Controller
 
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['pembayaran'] = $this->Pembayaran_model->get_by_id_produk($id_produk);
-
+    $data['action'] = base_url('Submission/verify_payment_action');
     $data['paket'] = $this->Paket_model->get_by_id($data['pembayaran']->jenis);
 
     $data['title'] = 'Verifikasi Pembayaran';
@@ -978,78 +978,155 @@ class Submission extends CI_Controller
 
 
   // CETAK OPOSIONAL //
-  public function bayar_cetak($id_produk)
+  public function bayar_oposional($id_produk) // Penulis membayar oposional
   {
-    $data['produk'] = $this->Produk_model->get_produk_by_id_cetak($id_produk);
+    $this->load->model('Paket_model');
 
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+    $data['paket'] = $this->Paket_model->get_paket_cetak();
+    $data['action'] = base_url('Submission/bayar_oposional_action');
     $data['title'] = 'Pembayaran';
     $data['subtitle'] = '';
     $data['crumb'] = [
       'Pembayaran' => '',
     ];
 
-    $data['page'] = 'Submission/bayar_cetak';
+    $data['page'] = 'Submission/bayar';
     $this->load->view('template/backend', $data);
   }
 
-  public function bayar_cetak_action()
+  public function bayar_oposional_action() // Action Penulis membayar oposional
   {
-    $this->load->model('Pembayaran_model');
-    $id_produk = $this->input->post('id_produk');
-    $jumlah_bayar = $this->input->post('jumlah_bayar');
-    $jenis_pembayaran = $this->input->post('jenis_pembayaran');
-    $status_produk = 14;
-    $data_produk = [
-      'status' => $status_produk,
-    ];
-    $data_pembayaran = [
-      'tanggal_bayar' => date('Y-m-d'),
-      'jumlah' => $jumlah_bayar,
-      'id_produk' => $id_produk,
-      'jenis' => $jenis_pembayaran,
-    ];
+    // rules
+    $this->form_validation->set_rules('paket', 'Paket', 'required');
+    $this->form_validation->set_rules('jumlah_bayar', 'Jumlah bayar', 'required|trim');
 
-    if ($this->Produk_model->update($id_produk, $data_produk) && $this->Pembayaran_model->insert($data_pembayaran)) {
-      $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Pembayaran gagal dilakukan');
       redirect('Submission');
     } else {
-      $this->session->set_flashdata('error', 'Pembayaran gagal dilakukan');
+      $this->load->model('Pembayaran_model');
+      $id_produk = $this->input->post('id_produk');
+      $jumlah_bayar = $this->input->post('jumlah_bayar');
+      $jumlah_bayar = str_replace('.', '', $jumlah_bayar);
+      $paket = $this->input->post('paket');
+      $status = 23; // Waiting for Payment Verification by Admin
+
+      // bukti bayar
+      if ($_FILES['file_attach']['name'] != "") {
+        $file_attach = $_FILES['file_attach']['name'];
+      } else {
+        $file_attach = false;
+      }
+      // cek apakah ada file yang diupload
+      if ($file_attach) {
+        $config['upload_path'] = './assets/uploads/files/bukti_bayar/';
+        $config['allowed_types'] = 'pdf|png|jpg|jpeg';
+        $config['max_size']     = '2048';
+
+        $this->load->library('upload', $config);
+
+        // upload file ke repository
+        if ($this->upload->do_upload('file_attach')) {
+          $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+        } else {
+          $this->session->set_flashdata('error', $this->upload->display_errors());
+          redirect('Submission/bayar_oposional/' . $id_produk);
+        }
+      } else {
+        $new_file_attach = NULL;
+      }
+
+      $data_pembayaran = [
+        'id_produk' => $id_produk,
+        'tanggal_bayar' => date('Y-m-d'),
+        'status' => 0, // 0 = belum lunas
+        'bukti_bayar' => $new_file_attach,
+        'jumlah' => $jumlah_bayar,
+        'jenis' => $paket,
+      ];
+
+      $data_riwayat = [
+        'id_produk' => $id_produk,
+        'id_user' => $this->session->userdata('user_id'),
+        'keterangan' => 'Penulis melakukan pembayaran',
+        'status_kerjaan' => $status,
+      ];
+
+      $this->Riwayat_model->insert($data_riwayat);
+      $this->Pembayaran_model->insert($data_pembayaran);
+
+      $this->session->set_flashdata('success', 'Pembayaran berhasil dilakukan');
       redirect('Submission');
     }
   }
 
-  public function approve_cetak()
+  public function verify_payment_opotional($id_produk) // Verifikasi Pembayaran oleh Lead Editor
   {
-    $id_produk = $this->input->post('id');
-    $status = 16;
-    $data_produk = [
-      'status' => $status,
-    ];
-    $this->Produk_model->update($id_produk, $data_produk);
+    $this->load->model('Paket_model');
+    $this->load->model('Pembayaran_model');
 
-    $data_riwayat = [
-      'id_produk' => $id_produk,
-      'id_user' => $this->session->userdata('user_id'),
-      'tgl_plotting' => date('Y-m-d'),
-      'status_kerjaan' => $status,
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+    $data['pembayaran'] = $this->Pembayaran_model->get_by_id_produk($id_produk);
+    $data['action'] = base_url('Submission/verify_payment_opotional_action');
+    $data['paket'] = $this->Paket_model->get_by_id($data['pembayaran']->jenis);
+
+    $data['title'] = 'Verifikasi Pembayaran';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Verifikasi Pembayaran' => '',
     ];
 
-    $this->Riwayat_model->insert($data_riwayat);
+    $data['page'] = 'Submission/verify_payment';
+    $this->load->view('template/backend', $data);
   }
 
-  public function selesai_mencetak()
+  public function verify_payment_opotional_action() // Action Verifikasi Pembayaran
+  {
+
+    $this->form_validation->set_rules('id_produk', 'Id Produk', 'required');
+    $this->form_validation->set_rules('id_pembayaran', 'Id Pembayaran', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Verifikasi gagal dilakukan');
+      redirect('Submission/list_editor');
+    } else {
+      $this->load->model('Pembayaran_model');
+
+      $id_produk = $this->input->post('id_produk');
+      $id_pembayaran = $this->input->post('id_pembayaran');
+
+      $status = 14; // Proses Mencetak
+      $data_riwayat = [
+        'id_produk' => $id_produk,
+        'id_user' => $this->session->userdata('user_id'),
+        'keterangan' => 'Pembayaran telah diverifikasi, Proses cetak dimulai',
+        'status_kerjaan' => $status,
+      ];
+
+      $data_pembayaran = [
+        'status' => 1, // 1 = lunas
+      ];
+
+      $this->Riwayat_model->insert($data_riwayat);
+      $this->Pembayaran_model->update($id_pembayaran, $data_pembayaran);
+
+      $this->session->set_flashdata('success', 'Pembayaran berhasil diverifikasi');
+      redirect('Submission/list');
+    }
+  }
+
+
+  public function selesai_cetak() // selesai mencetak
   {
     $id_produk = $this->input->post('id');
-    $status = 15;
-    $data_produk = [
-      'status' => $status,
-    ];
-    $this->Produk_model->update($id_produk, $data_produk);
+    $status = 9; // selesai mencetak
 
     $data_riwayat = [
       'id_produk' => $id_produk,
       'id_user' => $this->session->userdata('user_id'),
-      'tgl_plotting' => date('Y-m-d'),
+      'keterangan' => 'Proses cetak selesai',
       'status_kerjaan' => $status,
     ];
 
@@ -1085,7 +1162,7 @@ class Submission extends CI_Controller
     }
   }
 
-  public function list() // List Submission Penulis
+  public function list() // List Submission admin
   {
     $data['list_submission'] = $this->Produk_model->get_list_submission();
     $data['title'] = 'List Submission';
@@ -1185,6 +1262,12 @@ class Submission extends CI_Controller
 
     $file_path = 'assets/uploads/files/file_attach/';
     get_file($file_path, $file_name);
+  }
+
+  public function get_file_riwayat($nama_file)
+  {
+    $file_path = 'assets/uploads/files/file_attach/';
+    get_file($file_path, $nama_file);
   }
 
   public function get_bukti_bayar($file_name)

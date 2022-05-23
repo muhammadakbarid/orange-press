@@ -5,7 +5,7 @@
         <h3 class="box-title"><?= $title; ?></h3>
       </div>
 
-      <?php echo form_open_multipart('Submission/verify_payment_action'); ?>
+      <?php echo form_open_multipart($action); ?>
       <div class="box-body">
         <div class="form-group">
           <label for="">Judul</label>

@@ -16,7 +16,7 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Editor</th>
+              <th>Aktor</th>
               <th>Judul</th>
               <th>Tanggal Plotting</th>
               <th>Tanggal Selesai</th>
@@ -58,7 +58,7 @@
           <tfoot>
             <tr>
               <th>No</th>
-              <th>Editor</th>
+              <th>Aktor</th>
               <th>Judul</th>
               <th>Tanggal Plotting</th>
               <th>Tanggal Selesai</th>

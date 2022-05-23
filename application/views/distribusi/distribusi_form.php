@@ -45,7 +45,7 @@
 
                     <div class="form-group">
                         <label for="tanggal_distribusi">Tanggal Distribusi <?php echo form_error('tanggal_distribusi') ?></label>
-                        <input class="formdate form-control" rows="3" name="tanggal_distribusi" id="tanggal_distribusi" placeholder="Tujuan Distribusi" value="<?php echo $tanggal_distribusi; ?>">
+                        <input class="formdate form-control" rows="3" name="tanggal_distribusi" id="tanggal_distribusi" placeholder="Tanggal Distribusi" value="<?php echo $tanggal_distribusi; ?>">
                     </div>
 
 

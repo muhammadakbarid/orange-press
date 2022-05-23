@@ -5,7 +5,7 @@
         <h3 class="box-title"><?= $title; ?></h3>
       </div>
 
-      <?php echo form_open_multipart('Submission/bayar_action'); ?>
+      <?php echo form_open_multipart($action); ?>
       <div class="box-body">
         <?php if ($this->session->flashdata('message')) : ?>
           <div class="form-group">
