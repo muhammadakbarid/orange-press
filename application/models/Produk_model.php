@@ -147,4 +147,46 @@ class Produk_model extends CI_Model
         $this->db->where($where);
         return $this->db->get($this->table)->result();
     }
+
+    function penulis_jumlah_produk($id_user)
+    {
+        $this->db->join('riwayat', 'produk.id_produk = riwayat.id_produk');
+        $this->db->where('riwayat.status_kerjaan', 11);
+        $this->db->where('riwayat.id_user', $id_user);
+        return $this->db->get($this->table)->num_rows();
+    }
+
+    function penulis_proses_penerbitan($id_user)
+    {
+        $this->db->join('riwayat', 'produk.id_produk = riwayat.id_produk');
+        $where = "riwayat.status_kerjaan NOT IN (2,9,14,15,16,23) AND riwayat.id_user = $id_user";
+        $this->db->where($where);
+        $this->db->group_by('riwayat.id_produk');
+
+        return $this->db->get($this->table)->num_rows();
+    }
+
+    function penulis_produk_diterbitkan($id_user)
+    {
+        $this->db->join('riwayat', 'produk.id_produk = riwayat.id_produk');
+        $where = "riwayat.status_kerjaan NOT IN (2,9,14,15,16,23) AND riwayat.id_user = $id_user";
+        $this->db->where($where);
+        $this->db->group_by('riwayat.id_produk');
+
+        return $this->db->get($this->table)->num_rows();
+    }
+
+    function admin_jumlah_produk()
+    {
+        return $this->db->get($this->table)->num_rows();
+    }
+
+    function admin_jumlah_produk_proses_terbit()
+    {
+        $this->db->join('riwayat', 'produk.id_produk = riwayat.id_produk');
+        $ignore = array(2, 9, 14, 15, 16, 23);
+        $this->db->where_not_in('riwayat.status_kerjaan', $ignore);
+        $this->db->group_by('riwayat.id_produk');
+        return $this->db->get($this->table)->num_rows();
+    }
 }
