@@ -49,7 +49,7 @@
                         </p>
 
 
-                        <p>
+                        <!-- <p>
                               <label for="">Nomor KTP<sup>*</sup></label>
                               <?php echo form_input($no_ktp); ?>
                         </p>
@@ -60,7 +60,7 @@
                         <p>
                               <label for="">Nomor NPWP<sup>*</sup></label>
                               <?php echo form_input($no_npwp); ?>
-                        </p>
+                        </p> -->
                         <p>
                               <label for="int">Jenis Kelamin <sup>*</sup><?php echo form_error('jenis_kelamin') ?></label>
                               <select class="form-select form-control" name="jenis_kelamin" id="jenis_kelamin">
@@ -76,7 +76,7 @@
                                     ?>
                               </select>
                         </p>
-                        <p>
+                        <!-- <p>
                               <label for="">Tempat Lahir<sup>*</sup></label>
                               <?php echo form_input($tempat_lahir); ?>
                         </p>
@@ -87,12 +87,12 @@
                         <p>
                               <label for="">Alamat<sup>*</sup></label>
                               <?php echo form_input($alamat); ?>
-                        </p>
+                        </p> -->
                         <p>
                               <label for="">Nomor Telepon<sup>*</sup></label>
                               <?php echo form_input($no_hp); ?>
                         </p>
-                        <p>
+                        <!-- <p>
                               <label for="">Profesi<sup>*</sup></label>
                               <?php echo form_input($profesi); ?>
                         </p>
@@ -111,7 +111,7 @@
                                     }
                                     ?>
                               </select>
-                        </p>
+                        </p> -->
 
                         <p>
                               <?php echo lang('create_user_password_label', 'password'); ?> <br />

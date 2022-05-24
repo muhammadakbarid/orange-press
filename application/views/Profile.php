@@ -53,21 +53,7 @@
 
           </div>
         </div>
-        <div class="form-group">
-          <label for="no_ktp">Nomor Kartu Tanda Penduduk (KTP)<sup>*</sup></label>
-          <input type="text" class="form-control" id="no_ktp" value="<?= $user['no_ktp']; ?>" name="no_ktp">
-          <?= form_error('no_ktp', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <label for="nip">Nomor Induk Pekerja (NIP)<sup>*</sup></label>
-          <input type="text" class="form-control" id="nip" value="<?= $user['nip']; ?>" name="nip">
-          <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <label for="no_npwp">Nomor Pokok Wajib Pajak (NPWP)<sup>*</sup></label>
-          <input type="text" class="form-control" id="no_npwp" value="<?= $user['no_npwp']; ?>" name="no_npwp">
-          <?= form_error('no_npwp', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
+
         <div class="form-group">
           <label for="int">Jenis Kelamin<sup>*</sup> <?php echo form_error('jenis_kelamin') ?></label>
           <select class="form-select form-control" name="jenis_kelamin" id="jenis_kelamin">
@@ -83,32 +69,49 @@
             ?>
           </select>
         </div>
-        <div class="form-group">
-          <label for="tempat_lahir">Tempat Lahir<sup>*</sup></label>
-          <input type="text" class="form-control" id="tempat_lahir" value="<?= $user['tempat_lahir']; ?>" name="tempat_lahir">
-          <?= form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
-        <div class="form-group">
-          <label for="date">Tanggal Lahir <sup>*</sup><?php echo form_error('tanggal_lahir') ?></label>
-          <input type="text" class="form-control formdate" name="tanggal_lahir" id="tanggal_lahir" required="true" value="<?php echo $user['tanggal_lahir']; ?>" />
-        </div>
-        <div class="form-group">
-          <label for="alamat">Alamat<sup>*</sup></label>
-          <textarea type="text" class="form-control" id="alamat" value="<?= $user['alamat']; ?>" name="alamat"><?= $user['alamat']; ?></textarea>
-          <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
+
         <div class="form-group">
           <label for="no_hp">Nomor Handphone<sup>*</sup></label>
-          <input type="text" class="form-control" id="no_hp" value="<?= $user['no_hp']; ?>" name="no_hp">
+          <input type="number" class="form-control" id="no_hp" value="<?= $user['no_hp']; ?>" name="no_hp">
           <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
-        <div class="form-group">
-          <label for="profesi">Profesi<sup>*</sup></label>
-          <input type="text" class="form-control" id="profesi" value="<?= $user['profesi']; ?>" name="profesi">
-          <?= form_error('profesi', '<small class="text-danger pl-3">', '</small>'); ?>
-        </div>
+
         <!-- jika penulis -->
         <?php if ($this->ion_auth->in_group('penulis')) { ?>
+          <div class="form-group">
+            <label for="no_ktp">Nomor Kartu Tanda Penduduk (KTP)<sup>*</sup></label>
+            <input type="number" class="form-control" id="no_ktp" value="<?= $user['no_ktp']; ?>" name="no_ktp">
+            <?= form_error('no_ktp', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group">
+            <label for="nip">Nomor Induk Pekerja (NIP)<sup>*</sup></label>
+            <input type="text" class="form-control" id="nip" value="<?= $user['nip']; ?>" name="nip">
+            <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group">
+            <label for="no_npwp">Nomor Pokok Wajib Pajak (NPWP)<sup>*</sup></label>
+            <input type="text" class="form-control" id="no_npwp" value="<?= $user['no_npwp']; ?>" name="no_npwp">
+            <?= form_error('no_npwp', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group">
+            <label for="tempat_lahir">Tempat Lahir<sup>*</sup></label>
+            <input type="text" class="form-control" id="tempat_lahir" value="<?= $user['tempat_lahir']; ?>" name="tempat_lahir">
+            <?= form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group">
+            <label for="date">Tanggal Lahir <sup>*</sup><?php echo form_error('tanggal_lahir') ?></label>
+            <input type="text" class="form-control formdate" name="tanggal_lahir" id="tanggal_lahir" required="true" value="<?php echo $user['tanggal_lahir']; ?>" />
+          </div>
+          <div class="form-group">
+            <label for="alamat">Alamat<sup>*</sup></label>
+            <textarea type="text" class="form-control" id="alamat" value="<?= $user['alamat']; ?>" name="alamat"><?= $user['alamat']; ?></textarea>
+            <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group">
+            <label for="profesi">Profesi<sup>*</sup></label>
+            <input type="text" class="form-control" id="profesi" value="<?= $user['profesi']; ?>" name="profesi">
+            <?= form_error('profesi', '<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
           <div class="form-group">
             <label for="nama_instansi">Nama Instansi<sup>*</sup></label>
             <input type="text" class="form-control" id="nama_instansi" value="<?= $user['nama_instansi']; ?>" name="nama_instansi">
@@ -126,7 +129,7 @@
           </div>
           <div class="form-group">
             <label for="no_telp_instansi">No Telp Instansi<sup>*</sup></label>
-            <input type="text" class="form-control" id="no_telp_instansi" value="<?= $user['no_telp_instansi']; ?>" name="no_telp_instansi">
+            <input type="number" class="form-control" id="no_telp_instansi" value="<?= $user['no_telp_instansi']; ?>" name="no_telp_instansi">
             <?= form_error('no_telp_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
@@ -174,22 +177,23 @@
               </label>
             </div>
           </div>
-        <?php } ?>
-        <div class="form-group">
-          <label for="int">Bidang Kompetensi <sup>*</sup><?php echo form_error('bidang_kompetensi') ?></label>
-          <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
-            <option value="">-- Pilih Bidang Kompetensi --</option>
-            <?php
-            foreach ($bidang_kompetensi as $bidang_kompetensi) {
-              echo "<option value='" . $bidang_kompetensi . "'";
-              if ($user['bidang_kompetensi'] == $bidang_kompetensi) {
-                echo " selected";
+          <div class="form-group">
+            <label for="int">Bidang Kompetensi <sup>*</sup><?php echo form_error('bidang_kompetensi') ?></label>
+            <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
+              <option value="">-- Pilih Bidang Kompetensi --</option>
+              <?php
+              foreach ($bidang_kompetensi as $bidang_kompetensi) {
+                echo "<option value='" . $bidang_kompetensi . "'";
+                if ($user['bidang_kompetensi'] == $bidang_kompetensi) {
+                  echo " selected";
+                }
+                echo ">" . $bidang_kompetensi . "</option>";
               }
-              echo ">" . $bidang_kompetensi . "</option>";
-            }
-            ?>
-          </select>
-        </div>
+              ?>
+            </select>
+          </div>
+        <?php } ?>
+
 
       </div>
 

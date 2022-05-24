@@ -87,12 +87,43 @@ class Profile extends CI_Controller
 
 
 			//cek jika ada gambar yang akan diupload
-			$upload_image = $_FILES['image']['name'];
-			$upload_sc_form_penulis = $_FILES['sc_form_penulis']['name'];
-			$upload_sc_ktp = $_FILES['sc_ktp']['name'];
-			$upload_sc_cv = $_FILES['sc_cv']['name'];
-			$upload_sc_npwp = $_FILES['sc_npwp']['name'];
-			$upload_sc_foto = $_FILES['sc_foto']['name'];
+
+
+			if ($_FILES['image'] != Null) {
+				$upload_image = $_FILES['image']['name'];
+			} else {
+				$upload_image = false;
+			}
+
+			if ($_FILES['sc_form_penulis'] != Null) {
+				$upload_sc_form_penulis = $_FILES['sc_form_penulis']['name'];
+			} else {
+				$upload_sc_form_penulis = false;
+			}
+
+			if ($_FILES['sc_ktp'] != Null) {
+				$upload_sc_ktp = $_FILES['sc_ktp']['name'];
+			} else {
+				$upload_sc_ktp = false;
+			}
+
+			if ($_FILES['sc_cv'] != Null) {
+				$upload_sc_cv = $_FILES['sc_cv']['name'];
+			} else {
+				$upload_sc_cv = false;
+			}
+
+			if ($_FILES['sc_npwp'] != Null) {
+				$upload_sc_npwp = $_FILES['sc_npwp']['name'];
+			} else {
+				$upload_sc_npwp = false;
+			}
+
+			if ($_FILES['sc_foto'] != Null) {
+				$upload_sc_foto = $_FILES['sc_foto']['name'];
+			} else {
+				$upload_sc_foto = false;
+			}
 
 
 

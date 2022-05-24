@@ -449,15 +449,15 @@ class Auth extends CI_Controller
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'phone' => $this->input->post('no_hp'),
-				'no_ktp' => $this->input->post('no_ktp'),
-				'nip' => $this->input->post('nip'),
-				'no_npwp' => $this->input->post('no_npwp'),
+				// 'no_ktp' => $this->input->post('no_ktp'),
+				// 'nip' => $this->input->post('nip'),
+				// 'no_npwp' => $this->input->post('no_npwp'),
 				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-				'tempat_lahir' => $this->input->post('tempat_lahir'),
-				'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-				'alamat' => $this->input->post('alamat'),
-				'profesi' => $this->input->post('profesi'),
-				'bidang_kompetensi' => $this->input->post('bidang_kompetensi')
+				// 'tempat_lahir' => $this->input->post('tempat_lahir'),
+				// 'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+				// 'alamat' => $this->input->post('alamat'),
+				// 'profesi' => $this->input->post('profesi'),
+				// 'bidang_kompetensi' => $this->input->post('bidang_kompetensi')
 
 			);
 			$hak_akses = $this->input->post('groups[]');
@@ -512,21 +512,21 @@ class Auth extends CI_Controller
 			$this->data['no_ktp'] = array(
 				'name' => 'no_ktp',
 				'id' => 'no_ktp',
-				'type' => 'text',
+				'type' => 'number',
 				'value' => $this->form_validation->set_value('no_ktp'),
 				'class' => 'form-control'
 			);
 			$this->data['nip'] = array(
 				'name' => 'nip',
 				'id' => 'nip',
-				'type' => 'text',
+				'type' => 'number',
 				'value' => $this->form_validation->set_value('nip'),
 				'class' => 'form-control'
 			);
 			$this->data['no_npwp'] = array(
 				'name' => 'no_npwp',
 				'id' => 'no_npwp',
-				'type' => 'text',
+				'type' => 'number',
 				'value' => $this->form_validation->set_value('no_npwp'),
 				'class' => 'form-control'
 			);
@@ -554,7 +554,7 @@ class Auth extends CI_Controller
 			$this->data['no_hp'] = array(
 				'name' => 'no_hp',
 				'id' => 'no_hp',
-				'type' => 'text',
+				'type' => 'number',
 				'value' => $this->form_validation->set_value('no_hp'),
 				'class' => 'form-control'
 			);
