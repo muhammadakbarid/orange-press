@@ -87,9 +87,9 @@
         <div class="timeline-body">
           <table id="riwayat_sunting" class="table table-responsive">
             <tr>
-              <td><?php $user_group = $this->ion_auth->get_users_groups($value->user_id)->row();
-                  echo ucfirst($user_group->name);
-                  ?></td>
+              <td style="width: 30%;"><?php $user_group = $this->ion_auth->get_users_groups($value->user_id)->row();
+                                      echo ucfirst($user_group->name);
+                                      ?></td>
               <td>:</td>
               <td><?= $value->first_name . " " . $value->last_name . " (" . $value->email . ")"; ?></td>
             </tr>
