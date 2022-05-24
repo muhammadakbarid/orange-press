@@ -18,7 +18,7 @@
           <div id="infoMessage" class="callout callout-danger"><?php echo $message; ?></div>
         <?php } ?>
         <div class="form-group">
-          <label for="judul">Judul</label>
+          <label for="judul">Judul<sup>*</sup></label>
           <input type="text" class="form-control" id="judul" value="<?= $judul; ?>" name="judul">
           <?= form_error('judul', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
@@ -26,19 +26,19 @@
           <div class="row">
             <div class="col-md-6">
               <div class="custom-file">
-                <label for="formFile" class="form-label">Draft Buku</label>
+                <label for="formFile" class="form-label">Draft Buku<sup>*</sup></label>
                 <input type="file" class="custom-file-input form-control" id="file_attach" name="file_attach">
               </div>
             </div>
             <div class="col-md-6">
-              <label for="edisi">Edisi</label>
+              <label for="edisi">Edisi<sup>*</sup></label>
               <input type="text" class="form-control" id="edisi" value="<?= $edisi; ?>" name="edisi">
               <?= form_error('edisi', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="int">Jenis Karya Tulis Ilmiah <?php echo form_error('jenis_kti') ?></label>
+          <label for="int">Jenis Karya Tulis Ilmiah <sup>*</sup><?php echo form_error('jenis_kti') ?></label>
           <select class="form-select form-control" name="jenis_kti" id="jenis_kti">
             <option value="">-- Pilih Karya Tulis Ilmiah --</option>
             <?php
@@ -50,7 +50,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="date">Tim Penulis</label>
+          <label for="date">Tim Penulis<sup>*</sup></label>
           <select class="form-control select2" name="tim_penulis[]" id="tim_penulis[]" multiple="multiple" value="<?= $tim_penulis; ?>">
             <?php if ($list_penulis) : ?>
               <?php foreach ($list_penulis as $value) : ?>

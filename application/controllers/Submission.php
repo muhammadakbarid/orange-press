@@ -36,6 +36,7 @@ class Submission extends CI_Controller
       $data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
       $data['title'] = 'Submission';
       $data['subtitle'] = '';
+
       $data['crumb'] = [
         'Submission' => '',
       ];
@@ -132,6 +133,7 @@ class Submission extends CI_Controller
       $data['title'] = 'Plot Lead Editor';
       $data['label'] = 'Lead Editor';
       $data['subtitle'] = '';
+      $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
       $data['action'] = 'Submission/plot_lead_editor/' . $id_produk;
       $data['crumb'] = [
         'Plot Lead Editor' => '',
@@ -173,6 +175,7 @@ class Submission extends CI_Controller
       $data['id_produk'] = $id_produk;
       $data['id_lead_editor'] = $riwayat->id_user;
       $data['id_riwayat'] = $riwayat->id_riwayat;
+      $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
       $data['produk'] = $this->Produk_model->get_by_id($id_produk);
       $data['list_editor'] = $this->Users_model->get_all_by_id_groups(33);
       $data['title'] = 'Change Lead Editor';
@@ -260,6 +263,7 @@ class Submission extends CI_Controller
     $data['crumb'] = [
       'Pembayaran' => '',
     ];
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
 
     $data['page'] = 'Submission/bayar';
     $this->load->view('template/backend', $data);
@@ -341,7 +345,7 @@ class Submission extends CI_Controller
     $data['pembayaran'] = $this->Pembayaran_model->get_by_id_produk($id_produk);
     $data['action'] = base_url('Submission/verify_payment_action');
     $data['paket'] = $this->Paket_model->get_by_id($data['pembayaran']->jenis);
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['title'] = 'Verifikasi Pembayaran';
     $data['subtitle'] = '';
     $data['crumb'] = [
@@ -397,6 +401,7 @@ class Submission extends CI_Controller
       $data['title'] = 'Plot Editor Sunting';
       $data['label'] = 'Editor Sunting';
       $data['subtitle'] = '';
+      $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
       $data['action'] = 'Submission/plot_editor/' . $id_produk;
       $data['crumb'] = [
         'Plot Editor' => '',
@@ -431,7 +436,7 @@ class Submission extends CI_Controller
   public function penyuntingan_naskah($id_produk) // Penyuntingan Naskah oleh Editor Sunting
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['title'] = 'Submission';
     $data['subtitle'] = 'Penyuntingan Naskah';
     $data['label'] = 'File Penyuntingan Naskah';
@@ -505,6 +510,7 @@ class Submission extends CI_Controller
     $data['crumb'] = [
       'Resubmit Penyuntingan Naskah' => '',
     ];
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
 
     $data['page'] = 'Submission/submission_form';
     $this->load->view('template/backend', $data);
@@ -594,6 +600,7 @@ class Submission extends CI_Controller
       $data['title'] = 'Plot Editor Proofreading';
       $data['label'] = 'Editor Proofreading';
       $data['subtitle'] = '';
+      $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
       $data['action'] = 'Submission/plot_editor_proofreading/' . $id_produk;
       $data['crumb'] = [
         'Plot Editor' => '',
@@ -628,7 +635,7 @@ class Submission extends CI_Controller
   public function proofreading($id_produk) // Proofreading Form
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['action'] = 'Submission/proofreading_action/' . $id_produk;
     $data['label'] = 'File Proofreading';
     $data['title'] = 'Submission';
@@ -697,6 +704,7 @@ class Submission extends CI_Controller
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['action'] = 'Submission/resubmit_proofreading_action';
     $data['title'] = 'Submission';
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['label'] = 'File Naskah';
     $data['subtitle'] = 'Resubmit Proofreading Naskah';
     $data['crumb'] = [
@@ -791,6 +799,7 @@ class Submission extends CI_Controller
       $data['title'] = 'Plot Editor Desainer';
       $data['label'] = 'Editor Desainer';
       $data['subtitle'] = '';
+      $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
       $data['action'] = 'Submission/plot_editor_desainer/' . $id_produk;
       $data['crumb'] = [
         'Plot Editor' => '',
@@ -825,7 +834,7 @@ class Submission extends CI_Controller
   public function layout_cover($id_produk) // Tambah layout cover oleh Desainer
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['action'] = 'Submission/layout_cover_action/' . $id_produk;
     $data['label'] = 'File layout_cover';
     $data['title'] = 'Submission';
@@ -937,7 +946,7 @@ class Submission extends CI_Controller
   public function add_isbn($id_produk) // Input ISBN
   {
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['title'] = 'Submission';
     $data['subtitle'] = 'Add ISBN';
     $data['crumb'] = [
@@ -981,7 +990,7 @@ class Submission extends CI_Controller
   public function bayar_oposional($id_produk) // Penulis membayar oposional
   {
     $this->load->model('Paket_model');
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['paket'] = $this->Paket_model->get_paket_cetak();
     $data['action'] = base_url('Submission/bayar_oposional_action');
@@ -1066,7 +1075,7 @@ class Submission extends CI_Controller
   {
     $this->load->model('Paket_model');
     $this->load->model('Pembayaran_model');
-
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['pembayaran'] = $this->Pembayaran_model->get_by_id_produk($id_produk);
     $data['action'] = base_url('Submission/verify_payment_opotional_action');

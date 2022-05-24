@@ -36,7 +36,7 @@
           <input type="text" class="form-control" value="<?= $produk->nama_kti; ?>" disabled>
         </div>
         <div class="form-group">
-          <label for="int">Pilih Paket <?php echo form_error('paket') ?></label>
+          <label for="int">Pilih Paket <sup>*</sup> <?php echo form_error('paket') ?></label>
           <select class="form-select form-control" name="paket" id="paket">
             <option value="NULL">-- Pilih Paket --</option>
             <?php foreach ($paket as $p) : ?>
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="decimal" class="form-label">Jumlah yang dibayar</label>
+          <label for="decimal" class="form-label">Jumlah yang dibayar<sup>*</sup></label>
           <input type="text" name="jumlah_bayar" id="jumlah_bayar" class="form-control rupiah" placeholder="Masukan nominal yang telah dibayarkan.." value="">
         </div>
         <input type="hidden" name="id_produk" value="<?= $produk->id_produk; ?>">
@@ -63,30 +63,48 @@
         <?= form_close(); ?>
       </div>
     </div>
-    <div class="col-md-3"></div>
+
 
   </div>
-
-  <script>
-    // saat #paket diubah maka tampilkan harga_paket pada #pesan_paket
-    $('#paket').change(function() {
-      var id_paket = $('#paket').val();
-      // if id_paket not null
-      if (id_paket != 'NULL') {
-        $.ajax({
-          url: "<?php echo base_url('Submission/get_harga_paket') ?>",
-          type: "POST",
-          data: {
-            id_paket: id_paket
-          },
-          success: function(data) {
-            $('#pesan_paket').html(
-              '<div class="bg-warning" style="padding:10px;">' + 'Silahkan bayar sebesar <b>' + data + '</b></div>'
-            );
-          }
-        });
-      } else {
-        $('#pesan_paket').html('');
-      }
-    });
-  </script>
+  <div class="col-md-5">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Keterangan</h3>
+      </div>
+      <div class="box-body">
+        <table class="table" id="riwayat_sunting">
+          <?php foreach ($keterangan as $value) : ?>
+            <tr>
+              <td><?= riwayat_status($value->status_kerjaan); ?></td>
+              <td>|</td>
+              <td><?= $value->keterangan; ?></td>
+            </tr>
+          <?php endforeach ?>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // saat #paket diubah maka tampilkan harga_paket pada #pesan_paket
+  $('#paket').change(function() {
+    var id_paket = $('#paket').val();
+    // if id_paket not null
+    if (id_paket != 'NULL') {
+      $.ajax({
+        url: "<?php echo base_url('Submission/get_harga_paket') ?>",
+        type: "POST",
+        data: {
+          id_paket: id_paket
+        },
+        success: function(data) {
+          $('#pesan_paket').html(
+            '<div class="bg-warning" style="padding:10px;">' + 'Silahkan bayar sebesar <b>' + data + '</b></div>'
+          );
+        }
+      });
+    } else {
+      $('#pesan_paket').html('');
+    }
+  });
+</script>

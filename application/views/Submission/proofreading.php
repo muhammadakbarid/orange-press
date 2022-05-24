@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="">keterangan</label>
+          <label for="">keterangan<sup>*</sup></label>
           <input type="text" class="form-control" name="keterangan" id="keterangan">
         </div>
         <input type="hidden" name="id_produk" value="<?= $produk->id_produk; ?>">

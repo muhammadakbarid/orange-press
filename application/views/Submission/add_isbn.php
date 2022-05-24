@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="">Nomor ISBN</label>
+          <label for="">Nomor ISBN<sup>*</sup></label>
           <input class="form-control" type="text" name="no_isbn" id="no_isbn">
         </div>
         <input type="hidden" name="id_produk" value="<?= $produk->id_produk; ?>">
@@ -50,6 +50,25 @@
         <?php echo form_close() ?>
       </div>
     </div>
-    <div class="col-md-3"></div>
+
 
   </div>
+  <div class="col-md-5">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Keterangan</h3>
+      </div>
+      <div class="box-body">
+        <table class="table" id="riwayat_sunting">
+          <?php foreach ($keterangan as $value) : ?>
+            <tr>
+              <td><?= riwayat_status($value->status_kerjaan); ?></td>
+              <td>|</td>
+              <td><?= $value->keterangan; ?></td>
+            </tr>
+          <?php endforeach ?>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

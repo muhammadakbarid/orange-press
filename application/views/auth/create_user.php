@@ -44,25 +44,25 @@
                         ?>
 
                         <p>
-                              <label for="">Email</label>
+                              <label for="">Email<sup>*</sup></label>
                               <?php echo form_input($email); ?>
                         </p>
 
 
                         <p>
-                              <label for="">Nomor KTP</label>
+                              <label for="">Nomor KTP<sup>*</sup></label>
                               <?php echo form_input($no_ktp); ?>
                         </p>
                         <p>
-                              <label for="">Nomor Induk Pekerja</label>
+                              <label for="">Nomor Induk Pekerja<sup>*</sup></label>
                               <?php echo form_input($nip); ?>
                         </p>
                         <p>
-                              <label for="">Nomor NPWP</label>
+                              <label for="">Nomor NPWP<sup>*</sup></label>
                               <?php echo form_input($no_npwp); ?>
                         </p>
                         <p>
-                              <label for="int">Jenis Kelamin <?php echo form_error('jenis_kelamin') ?></label>
+                              <label for="int">Jenis Kelamin <sup>*</sup><?php echo form_error('jenis_kelamin') ?></label>
                               <select class="form-select form-control" name="jenis_kelamin" id="jenis_kelamin">
                                     <option value="">-- Pilih Jenis Kelamin --</option>
                                     <?php
@@ -77,28 +77,28 @@
                               </select>
                         </p>
                         <p>
-                              <label for="">Tempat Lahir</label>
+                              <label for="">Tempat Lahir<sup>*</sup></label>
                               <?php echo form_input($tempat_lahir); ?>
                         </p>
                         <div class="form-group">
-                              <label for="date">Tanggal Lahir <?php echo form_error('tanggal_lahir') ?></label>
+                              <label for="date">Tanggal Lahir <sup>*</sup><?php echo form_error('tanggal_lahir') ?></label>
                               <input type="text" class="form-control formdate" name="tanggal_lahir" id="tanggal_lahir" />
                         </div>
                         <p>
-                              <label for="">Alamat</label>
+                              <label for="">Alamat<sup>*</sup></label>
                               <?php echo form_input($alamat); ?>
                         </p>
                         <p>
-                              <label for="">Nomor Telepon</label>
+                              <label for="">Nomor Telepon<sup>*</sup></label>
                               <?php echo form_input($no_hp); ?>
                         </p>
                         <p>
-                              <label for="">Profesi</label>
+                              <label for="">Profesi<sup>*</sup></label>
                               <?php echo form_input($profesi); ?>
                         </p>
 
                         <p>
-                              <label for="int">Bidang Kompetensi <?php echo form_error('bidang_kompetensi') ?></label>
+                              <label for="int">Bidang Kompetensi<sup>*</sup> <?php echo form_error('bidang_kompetensi') ?></label>
                               <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
                                     <option value="">-- Pilih Bidang Kompetensi --</option>
                                     <?php

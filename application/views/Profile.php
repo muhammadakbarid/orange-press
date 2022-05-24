@@ -24,12 +24,12 @@
         <div class="form-group">
           <div class="row">
             <div class="col-md-6">
-              <label for="first_name">First Name</label>
+              <label for="first_name">First Name<sup>*</sup></label>
               <input type="text" class="form-control" id="first_name" value="<?= $user['first_name']; ?>" name="first_name">
               <?= form_error('first_name', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
             <div class="col-md-6">
-              <label for="last_name">Last Name</label>
+              <label for="last_name">Last Name<sup>*</sup></label>
               <input type="text" class="form-control" id="last_name" value="<?= $user['last_name']; ?>" name="last_name">
               <?= form_error('last_name', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
@@ -38,14 +38,14 @@
 
 
         <div class="form-group">
-          <label for="email">Email address</label>
+          <label for="email">Email address<sup>*</sup></label>
           <input type="text" class="form-control" id="email" value="<?= $user['email']; ?>" name="email">
           <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
 
         <div class="form-group">
           <div class="custom-file">
-            <label for="formFile" class="form-label">Photo</label>
+            <label for="formFile" class="form-label">Photo<sup>*</sup></label>
             <input type="file" class="custom-file-input form-control" id="image" name="image">
             <label for="formFile" class="form-label">
               File : <a class="text-light" href="<?= base_url('/assets/uploads/image/profile/'); ?><?php echo $user['image']; ?>"><?php echo $user['image']; ?></a>
@@ -54,22 +54,22 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="no_ktp">Nomor Kartu Tanda Penduduk (KTP)</label>
+          <label for="no_ktp">Nomor Kartu Tanda Penduduk (KTP)<sup>*</sup></label>
           <input type="text" class="form-control" id="no_ktp" value="<?= $user['no_ktp']; ?>" name="no_ktp">
           <?= form_error('no_ktp', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <div class="form-group">
-          <label for="nip">Nomor Induk Pekerja (NIP)</label>
+          <label for="nip">Nomor Induk Pekerja (NIP)<sup>*</sup></label>
           <input type="text" class="form-control" id="nip" value="<?= $user['nip']; ?>" name="nip">
           <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <div class="form-group">
-          <label for="no_npwp">Nomor Pokok Wajib Pajak (NPWP)</label>
+          <label for="no_npwp">Nomor Pokok Wajib Pajak (NPWP)<sup>*</sup></label>
           <input type="text" class="form-control" id="no_npwp" value="<?= $user['no_npwp']; ?>" name="no_npwp">
           <?= form_error('no_npwp', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <div class="form-group">
-          <label for="int">Jenis Kelamin <?php echo form_error('jenis_kelamin') ?></label>
+          <label for="int">Jenis Kelamin<sup>*</sup> <?php echo form_error('jenis_kelamin') ?></label>
           <select class="form-select form-control" name="jenis_kelamin" id="jenis_kelamin">
             <option value="">-- Pilih Jenis Kelamin --</option>
             <?php
@@ -84,54 +84,54 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="tempat_lahir">Tempat Lahir</label>
+          <label for="tempat_lahir">Tempat Lahir<sup>*</sup></label>
           <input type="text" class="form-control" id="tempat_lahir" value="<?= $user['tempat_lahir']; ?>" name="tempat_lahir">
           <?= form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <div class="form-group">
-          <label for="date">Tanggal Lahir <?php echo form_error('tanggal_lahir') ?></label>
+          <label for="date">Tanggal Lahir <sup>*</sup><?php echo form_error('tanggal_lahir') ?></label>
           <input type="text" class="form-control formdate" name="tanggal_lahir" id="tanggal_lahir" required="true" value="<?php echo $user['tanggal_lahir']; ?>" />
         </div>
         <div class="form-group">
-          <label for="alamat">Alamat</label>
+          <label for="alamat">Alamat<sup>*</sup></label>
           <textarea type="text" class="form-control" id="alamat" value="<?= $user['alamat']; ?>" name="alamat"><?= $user['alamat']; ?></textarea>
           <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <div class="form-group">
-          <label for="no_hp">Nomor Handphone</label>
+          <label for="no_hp">Nomor Handphone<sup>*</sup></label>
           <input type="text" class="form-control" id="no_hp" value="<?= $user['no_hp']; ?>" name="no_hp">
           <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <div class="form-group">
-          <label for="profesi">Profesi</label>
+          <label for="profesi">Profesi<sup>*</sup></label>
           <input type="text" class="form-control" id="profesi" value="<?= $user['profesi']; ?>" name="profesi">
           <?= form_error('profesi', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
         <!-- jika penulis -->
         <?php if ($this->ion_auth->in_group('penulis')) { ?>
           <div class="form-group">
-            <label for="nama_instansi">Nama Instansi</label>
+            <label for="nama_instansi">Nama Instansi<sup>*</sup></label>
             <input type="text" class="form-control" id="nama_instansi" value="<?= $user['nama_instansi']; ?>" name="nama_instansi">
             <?= form_error('nama_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
-            <label for="alamat_instansi">Alamat Instansi</label>
+            <label for="alamat_instansi">Alamat Instansi<sup>*</sup></label>
             <textarea type="text" class="form-control" id="alamat_instansi" value="<?= $user['alamat_instansi']; ?>" name="alamat_instansi"><?= $user['alamat_instansi']; ?></textarea>
             <?= form_error('alamat_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
-            <label for="email_instansi">Email Instansi</label>
+            <label for="email_instansi">Email Instansi<sup>*</sup></label>
             <input type="text" class="form-control" id="email_instansi" value="<?= $user['email_instansi']; ?>" name="email_instansi">
             <?= form_error('email_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
-            <label for="no_telp_instansi">No Telp Instansi</label>
+            <label for="no_telp_instansi">No Telp Instansi<sup>*</sup></label>
             <input type="text" class="form-control" id="no_telp_instansi" value="<?= $user['no_telp_instansi']; ?>" name="no_telp_instansi">
             <?= form_error('no_telp_instansi', '<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group">
             <div class="custom-file">
-              <label for="sc_form_penulis" class="form-label">Scan Form Penulis</label>
+              <label for="sc_form_penulis" class="form-label">Scan Form Penulis<sup>*</sup></label>
               <input type="file" class="custom-file-input form-control" id="sc_form_penulis" name="sc_form_penulis">
               <label for="formFile" class="form-label">
                 File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_form_penulis/'); ?><?php echo $user['sc_form_penulis']; ?>"><?php echo $user['sc_form_penulis']; ?></a>
@@ -140,7 +140,7 @@
           </div>
           <div class="form-group">
             <div class="custom-file">
-              <label for="sc_ktp" class="form-label">Scan KTP</label>
+              <label for="sc_ktp" class="form-label">Scan KTP<sup>*</sup></label>
               <input type="file" class="custom-file-input form-control" id="sc_ktp" name="sc_ktp">
               <label for="formFile" class="form-label">
                 File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_ktp/'); ?><?php echo $user['sc_ktp']; ?>"><?php echo $user['sc_ktp']; ?></a>
@@ -149,7 +149,7 @@
           </div>
           <div class="form-group">
             <div class="custom-file">
-              <label for="sc_cv" class="form-label">Scan CV</label>
+              <label for="sc_cv" class="form-label">Scan CV<sup>*</sup></label>
               <input type="file" class="custom-file-input form-control" id="sc_cv" name="sc_cv">
               <label for="formFile" class="form-label">
                 File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_cv/'); ?><?php echo $user['sc_cv']; ?>"><?php echo $user['sc_cv']; ?></a>
@@ -158,7 +158,7 @@
           </div>
           <div class="form-group">
             <div class="custom-file">
-              <label for="sc_npwp" class="form-label">Scan NPWP</label>
+              <label for="sc_npwp" class="form-label">Scan NPWP<sup>*</sup></label>
               <input type="file" class="custom-file-input form-control" id="sc_npwp" name="sc_npwp">
               <label for="formFile" class="form-label">
                 File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_npwp/'); ?><?php echo $user['sc_npwp']; ?>"><?php echo $user['sc_npwp']; ?></a>
@@ -167,7 +167,7 @@
           </div>
           <div class="form-group">
             <div class="custom-file">
-              <label for="sc_foto" class="form-label">Scan Foto</label>
+              <label for="sc_foto" class="form-label">Scan Foto<sup>*</sup></label>
               <input type="file" class="custom-file-input form-control" id="sc_foto" name="sc_foto">
               <label for="formFile" class="form-label">
                 File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_foto/'); ?><?php echo $user['sc_foto']; ?>"><?php echo $user['sc_foto']; ?></a>
@@ -176,7 +176,7 @@
           </div>
         <?php } ?>
         <div class="form-group">
-          <label for="int">Bidang Kompetensi <?php echo form_error('bidang_kompetensi') ?></label>
+          <label for="int">Bidang Kompetensi <sup>*</sup><?php echo form_error('bidang_kompetensi') ?></label>
           <select class="form-select form-control" name="bidang_kompetensi" id="bidang_kompetensi">
             <option value="">-- Pilih Bidang Kompetensi --</option>
             <?php
