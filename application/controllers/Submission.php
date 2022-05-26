@@ -169,7 +169,6 @@ class Submission extends CI_Controller
   {
     // if form validation success
     $this->form_validation->set_rules('editor', 'Lead Editor', 'required');
-
     if ($this->form_validation->run() == FALSE) {
       $riwayat = $this->Riwayat_model->get_lead_by_id_produk($id_produk);
       $data['id_produk'] = $id_produk;
@@ -254,7 +253,6 @@ class Submission extends CI_Controller
   public function bayar($id_produk) // Penulis membayar
   {
     $this->load->model('Paket_model');
-
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['paket'] = $this->Paket_model->get_all();
     $data['action'] = base_url('Submission/bayar_action');
@@ -340,7 +338,6 @@ class Submission extends CI_Controller
   {
     $this->load->model('Paket_model');
     $this->load->model('Pembayaran_model');
-
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['pembayaran'] = $this->Pembayaran_model->get_by_id_produk($id_produk);
     $data['action'] = base_url('Submission/verify_payment_action');
@@ -394,7 +391,6 @@ class Submission extends CI_Controller
   public function plot_editor($id_produk) // Plotting Editor sunting oleh Lead Editor
   {
     $this->form_validation->set_rules('editor', 'Editor', 'required');
-
     if ($this->form_validation->run() == FALSE) {
       $data['id_produk'] = $id_produk;
       $data['produk'] = $this->Produk_model->get_by_id($id_produk);
@@ -435,6 +431,7 @@ class Submission extends CI_Controller
 
   public function penyuntingan_naskah($id_produk) // Penyuntingan Naskah oleh Editor Sunting
   {
+
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['title'] = 'Submission';
@@ -502,6 +499,7 @@ class Submission extends CI_Controller
 
   public function resubmit_penyuntingan_naskah($id_produk) // Resubmit Penyuntingan Naskah oleh Penulis
   {
+
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['action'] = 'Submission/resubmit_penyuntingan_naskah_action';
     $data['title'] = 'Submission';
@@ -592,6 +590,7 @@ class Submission extends CI_Controller
 
   public function plot_editor_proofreading($id_produk) // Plotting Editor proofreading oleh Lead Editor
   {
+
     $this->form_validation->set_rules('editor', 'Editor', 'required');
 
     if ($this->form_validation->run() == FALSE) {
@@ -634,6 +633,7 @@ class Submission extends CI_Controller
 
   public function proofreading($id_produk) // Proofreading Form
   {
+
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['action'] = 'Submission/proofreading_action/' . $id_produk;
@@ -701,6 +701,7 @@ class Submission extends CI_Controller
 
   public function resubmit_proofreading($id_produk) // Resubmit Proofreading oleh Penulis
   {
+
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['action'] = 'Submission/resubmit_proofreading_action';
     $data['title'] = 'Submission';
@@ -791,6 +792,7 @@ class Submission extends CI_Controller
 
   public function plot_editor_desainer($id_produk) // Plotting Editor desainer oleh Lead Editor
   {
+
     $this->form_validation->set_rules('editor', 'Editor', 'required');
 
     if ($this->form_validation->run() == FALSE) {
@@ -833,6 +835,7 @@ class Submission extends CI_Controller
 
   public function layout_cover($id_produk) // Tambah layout cover oleh Desainer
   {
+
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['action'] = 'Submission/layout_cover_action/' . $id_produk;
@@ -945,6 +948,7 @@ class Submission extends CI_Controller
 
   public function add_isbn($id_produk) // Input ISBN
   {
+
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
     $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['title'] = 'Submission';
@@ -989,6 +993,7 @@ class Submission extends CI_Controller
   // CETAK OPOSIONAL //
   public function bayar_oposional($id_produk) // Penulis membayar oposional
   {
+
     $this->load->model('Paket_model');
     $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
     $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
@@ -1073,6 +1078,7 @@ class Submission extends CI_Controller
 
   public function verify_payment_opotional($id_produk) // Verifikasi Pembayaran oleh Lead Editor
   {
+
     $this->load->model('Paket_model');
     $this->load->model('Pembayaran_model');
     $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);

@@ -15,6 +15,12 @@ class Tim_penulis_model extends CI_Model
         parent::__construct();
     }
 
+    function admin_jumlah_penulis()
+    {
+        $this->db->group_by('id_penulis');
+        return $this->db->get($this->table)->num_rows();
+    }
+
     function get_daftar_penulis($id_produk)
     {
         $this->db->select('tim_penulis.*,users.first_name,users.last_name,users.email');

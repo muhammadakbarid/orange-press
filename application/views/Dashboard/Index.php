@@ -55,6 +55,25 @@ if ($this->ion_auth->in_group(1)) {
         <span class="info-box-icon"><i class="fas fa-users"></i></span>
 
         <div class="info-box-content">
+          <span class="info-box-text">Jumlah Penulis</span>
+          <span class="info-box-number"><?= $admin_jumlah_penulis; ?></span>
+
+          <div class="progress">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <span class="progress-description">
+            Total Jumlah Penulis
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fas fa-book"></i></span>
+
+        <div class="info-box-content">
           <span class="info-box-text">Jumlah Produk</span>
           <span class="info-box-number"><?= $admin_jumlah_produk; ?></span>
 
@@ -68,6 +87,129 @@ if ($this->ion_auth->in_group(1)) {
         <!-- /.info-box-content -->
       </div>
       <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-yellow">
+        <span class="info-box-icon"><i class="fas fa-refresh"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Produk Dalam Proses Terbit</span>
+          <span class="info-box-number"><?= $admin_jumlah_produk_proses_terbit; ?></span>
+
+          <div class="progress">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <span class="progress-description">
+            Total Produk Dalam Proses Terbit
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-green">
+        <span class="info-box-icon"><i class="fas fa-check-circle"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Produk Diterbitkan</span>
+          <span class="info-box-number"><?= $admin_jumlah_produk_terbit; ?></span>
+
+          <div class="progress">
+            <div class="progress-bar" style="width: 100%"></div>
+          </div>
+          <span class="progress-description">
+            Total Produk Diterbitkan
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Aktivitas Terakhir</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+
+        <div class="box-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <th>Aktor</th>
+              <th>Judul</th>
+              <th>Status</th>
+            </thead>
+            <tbody>
+              <?php foreach ($admin_riwayat as $value) { ?>
+                <tr>
+                  <td><?= $value->first_name . " " . $value->last_name; ?></td>
+                  <td><?= $value->judul; ?></td>
+                  <td><?= $value->nama_status; ?></td>
+                </tr>
+              <?php } ?>
+              <tr class="text-center">
+                <td colspan="3"><a class="btn " href="<?= base_url('Riwayat/log'); ?>">Lihat Selengkapnya</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Distribusi Terakhir</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+
+        <div class="box-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <th>Tanggal</th>
+              <th>Produk</th>
+              <th>Jumlah</th>
+              <th>Tujuan</th>
+            </thead>
+            <tbody>
+              <?php foreach ($admin_distribusi as $value) { ?>
+                <tr>
+                  <td><?= $value->tanggal_distribusi; ?></td>
+                  <td><?= $value->judul; ?></td>
+                  <td><?= $value->jumlah; ?></td>
+                  <td><?= $value->tujuan_distribusi; ?></td>
+                </tr>
+              <?php } ?>
+              <tr class="text-center">
+                <td colspan="4"> <a class="btn" href="<?= base_url('Distribusi'); ?>">Lihat Selengkapnya</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
     </div>
   </div>
 <?php

@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 // akbr helper
 
+
 function test_email($to, $subject, $message)
 {
 
@@ -468,7 +469,9 @@ if (!function_exists('dateIna')) {
 
   function submission_check_action($id_produk)
   {
+
     $id_status = get_last_produk_status($id_produk);
+
     switch ($id_status) {
       case '11': // Submitted
         return "<a class='btn btn-xs btn-danger' href='" . base_url('Submission/plot_lead_editor/') . $id_produk . "'>Plot Lead Editor</a>";
@@ -494,6 +497,7 @@ if (!function_exists('dateIna')) {
   function submission_check_action_lead($id_produk)
   {
     $id_status = get_last_produk_status($id_produk);
+
     switch ($id_status) {
       case '10': //lead editor plotted
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
@@ -523,6 +527,7 @@ if (!function_exists('dateIna')) {
   function submission_check_action_penulis($id_produk)
   {
     $id_status = get_last_produk_status($id_produk);
+
     switch ($id_status) {
       case '1':
         return "<a href='" . base_url('Submission/bayar/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Bayar</a>";
@@ -551,6 +556,7 @@ if (!function_exists('dateIna')) {
   function submission_check_action_editor($id_produk) // editor sunting
   {
     $id_status = get_last_produk_status($id_produk);
+
     switch ($id_status) {
       case '12': // Editor Plotted
       case '18': // Correction : Resubmit
@@ -566,6 +572,7 @@ if (!function_exists('dateIna')) {
   function submission_check_action_editor_proofreader($id_produk) // editor proofreader
   {
     $id_status = get_last_produk_status($id_produk);
+
     switch ($id_status) {
       case '19': // Proofreader Plotted
       case '20': // Proofreading : Resubmit
@@ -580,6 +587,7 @@ if (!function_exists('dateIna')) {
   function submission_check_action_desainer($id_produk) // editor proofreader
   {
     $id_status = get_last_produk_status($id_produk);
+
     switch ($id_status) {
       case '21': // Desainer Plotted
       case '22': // Layout Cover + Dummy Rejected

@@ -15,6 +15,14 @@ class M_Distribusi extends CI_Model
         parent::__construct();
     }
 
+    function admin_distribusi()
+    {
+        $this->db->join('produk', 'distribusi.id_produk = produk.id_produk', 'left');
+        $this->db->order_by('tanggal_distribusi', $this->order);
+        $this->db->limit(5);
+        return $this->db->get($this->table)->result();
+    }
+
     // get all
     function get_all()
     {
