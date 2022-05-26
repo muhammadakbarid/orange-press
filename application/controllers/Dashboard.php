@@ -23,14 +23,6 @@ class Dashboard extends CI_Controller
 		$data['crumb'] = [
 			'Dashboard' => '',
 		];
-		$id_user = $this->session->userdata('user_id');
-
-		// dashboard penulis
-		if ($this->ion_auth->in_group(34)) {
-			$data['penulis_jumlah_produk'] = $this->Dashboard_model->penulis_jumlah_produk($id_user);
-			$data['penulis_proses_penerbitan'] = $this->Dashboard_model->penulis_proses_penerbitan($id_user);
-			$data['penulis_produk_diterbitkan'] = $this->Dashboard_model->penulis_produk_diterbitkan($id_user);
-		}
 
 		// dashboard admin
 		if ($this->ion_auth->in_group(1)) {

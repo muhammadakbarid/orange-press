@@ -18,33 +18,6 @@
   </div>
 </div>
 
-<?php
-if ($this->ion_auth->in_group(34)) {
-?>
-  <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-aqua">
-        <span class="info-box-icon"><i class="fas fa-users"></i></span>
-
-        <div class="info-box-content">
-          <span class="info-box-text">Jumlah Produk</span>
-          <span class="info-box-number"><?= $penulis_jumlah_produk; ?></span>
-
-          <div class="progress">
-            <div class="progress-bar" style="width: 100%"></div>
-          </div>
-          <span class="progress-description">
-            Total Produk
-          </span>
-        </div>
-        <!-- /.info-box-content -->
-      </div>
-      <!-- /.info-box -->
-    </div>
-  </div>
-<?php
-}
-?>
 
 <?php
 if ($this->ion_auth->in_group(1)) {

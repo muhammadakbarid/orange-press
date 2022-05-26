@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2022 at 06:18 AM
+-- Generation Time: May 26, 2022 at 05:12 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -40,10 +40,13 @@ CREATE TABLE `distribusi` (
 --
 
 INSERT INTO `distribusi` (`id`, `id_produk`, `jumlah`, `tujuan_distribusi`, `tanggal_distribusi`) VALUES
-(1, 13, 10, 'Perpustakaan Cimahi', '2022-05-17'),
-(2, 13, 10, 'Perpustakaan Cimahi', '2022-05-19'),
 (3, 41, 10, 'Perpustakaan Daerah Cimahi', '2022-05-23'),
-(4, 43, 102, 'Perpustakaan Kota Bandung', '2022-05-25');
+(4, 43, 102, 'Perpustakaan Kota Bandung', '2022-05-25'),
+(5, 44, 10, 'Perpustakaan Nasional', '2022-05-27'),
+(6, 41, 100, 'Perpustakaan Daerah Sumedang', '2022-05-26'),
+(7, 43, 10, 'Perpustakaan Daerah Cianjur', '2022-05-28'),
+(8, 43, 90, 'Perpustakaan Kota Bandung', '2022-06-01'),
+(9, 41, 10, 'Perpustakaan Cimahi', '2022-05-11');
 
 -- --------------------------------------------------------
 
@@ -100,7 +103,9 @@ INSERT INTO `file_attach` (`id_file`, `id_riwayat`, `nama_file`, `url_file`, `cr
 (46, 202, 'Dummy_PDF30.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF30.docx', '2022-05-24 11:01:41'),
 (47, 203, 'Dummy_PDF31.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF31.docx', '2022-05-24 11:01:59'),
 (48, 206, 'Dummy_PDF32.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF32.docx', '2022-05-24 11:04:02'),
-(49, 208, 'Dummy_PDF33.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF33.docx', '2022-05-24 11:04:47');
+(49, 208, 'Dummy_PDF33.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF33.docx', '2022-05-24 11:04:47'),
+(50, 215, 'Dummy_PDF34.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF34.docx', '2022-05-24 16:55:47'),
+(51, 216, 'Dummy_PDF35.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF35.docx', '2022-05-24 21:12:33');
 
 -- --------------------------------------------------------
 
@@ -229,7 +234,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (36, 121),
 (35, 124),
 (37, 125),
-(34, 126),
 (34, 127);
 
 -- --------------------------------------------------------
@@ -302,7 +306,6 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (123, 14, 2, 92, 'fas fa-dollar-sign', 'Paket', 'Paket', '#', 1),
 (124, 5, 2, 1, 'fas fa-check', 'Submission List', 'Submission/list_editor_proofreader', '#', 1),
 (125, 3, 2, 1, 'far fa-check-circle', 'Submission List', 'Submission/list_desainer', '#', 1),
-(126, 12, 2, 1, 'fas fa-book', 'Riwayat Sunting', 'Riwayat/riwayat_sunting_penulis', '#', 1),
 (127, 2, 2, 1, 'fas fa-boxes', 'Distribusi Produk', 'Distribusi/Penulis', '#', 1);
 
 -- --------------------------------------------------------
@@ -386,7 +389,8 @@ INSERT INTO `pembayaran` (`id_bayar`, `id_produk`, `tanggal_bayar`, `status`, `b
 (34, 43, '2022-05-23', 1, 'Dummy_JPG2.jpg', 2000000, 14),
 (35, 43, '2022-05-23', 0, 'Dummy_PDF.pdf', 2000000, 14),
 (36, 44, '2022-05-24', 1, 'Dummy_JPG3.jpg', 3700000, 10),
-(37, 44, '2022-05-24', 1, 'Dummy_JPG4.jpg', 2000000, 9);
+(37, 44, '2022-05-24', 1, 'Dummy_JPG4.jpg', 2000000, 9),
+(38, 46, '2022-05-24', 1, 'Dummy_PDF1.pdf', 2000000, 6);
 
 -- --------------------------------------------------------
 
@@ -422,7 +426,9 @@ INSERT INTO `produk` (`id_produk`, `id_kti`, `judul`, `edisi`, `tgl_submit`, `no
 (41, 12, 'Absensi ABC', '213', '2022-05-22', 'ISBN 978-602-8519-93-11', NULL),
 (42, 13, 'Coba Coba', '123', '2022-05-23', NULL, NULL),
 (43, 14, 'Penelitian Hutan Meksiko', '123', '2022-05-23', 'ISBN 978-602-8519-93-12', NULL),
-(44, 13, '12 Minggu Buku', '2', '2022-05-24', 'ISBN 978-602-8519-93-14', NULL);
+(44, 13, '12 Minggu Buku', '2', '2022-05-24', 'ISBN 978-602-8519-93-14', NULL),
+(45, 13, 'Penelitian Air Bersih', '12', '2022-05-24', NULL, NULL),
+(46, 11, 'Penelitian Sumber Mata Air', '1', '2022-05-24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -550,7 +556,15 @@ INSERT INTO `riwayat` (`id_riwayat`, `id_produk`, `id_user`, `tgl_plotting`, `tg
 (210, 44, 1, NULL, NULL, 'No ISBN : ISBN 978-602-8519-93-14', 9),
 (211, 44, 68, NULL, NULL, 'Penulis melakukan pembayaran', 23),
 (212, 44, 1, NULL, NULL, 'Pembayaran telah diverifikasi, Proses cetak dimulai', 14),
-(213, 44, 1, NULL, NULL, 'Proses cetak selesai', 9);
+(213, 44, 1, NULL, NULL, 'Proses cetak selesai', 9),
+(214, 42, 58, '2022-05-24', NULL, 'Lead Editor Plotted', 10),
+(215, 45, 68, NULL, NULL, 'Penulis melakukan submit', 11),
+(216, 46, 68, NULL, NULL, 'Penulis melakukan submit', 11),
+(219, 46, 58, '2022-05-24', NULL, 'Lead Editor Plotted', 10),
+(220, 46, 58, NULL, NULL, 'saya setujui', 1),
+(221, 46, 68, NULL, NULL, 'Penulis melakukan pembayaran', 17),
+(222, 46, 58, NULL, NULL, 'Pembayaran telah diverifikasi', 3),
+(223, 46, 63, '2022-05-24', NULL, 'Editor Sunting PLotted', 12);
 
 -- --------------------------------------------------------
 
@@ -649,7 +663,10 @@ INSERT INTO `tim_penulis` (`id`, `id_penulis`, `id_produk`, `penulis_ke`, `statu
 (38, 51, 42, 1, NULL),
 (39, 51, 43, 1, NULL),
 (40, 57, 43, 2, NULL),
-(41, 51, 44, 1, NULL);
+(41, 51, 44, 1, NULL),
+(42, 51, 45, 1, NULL),
+(43, 51, 46, 1, NULL),
+(44, 66, 46, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -665,26 +682,26 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `active` tinyint(1) UNSIGNED DEFAULT NULL,
   `image` varchar(128) NOT NULL DEFAULT 'default.jpg',
-  `no_ktp` varchar(16) NOT NULL COMMENT '16 digit',
-  `nip` varchar(20) NOT NULL,
-  `no_npwp` varchar(15) NOT NULL COMMENT '15 digit',
-  `jenis_kelamin` enum('Laki-Laki','Perempuan') NOT NULL COMMENT '- Laki-Laki\r\n- Perempuan',
-  `tempat_lahir` varchar(50) NOT NULL,
+  `no_ktp` varchar(16) DEFAULT NULL COMMENT '16 digit',
+  `nip` varchar(20) DEFAULT NULL,
+  `no_npwp` varchar(15) DEFAULT NULL COMMENT '15 digit',
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') DEFAULT NULL COMMENT '- Laki-Laki\r\n- Perempuan',
+  `tempat_lahir` varchar(50) DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
-  `alamat` text NOT NULL,
-  `no_hp` varchar(15) NOT NULL,
-  `profesi` varchar(50) NOT NULL,
-  `nama_instansi` varchar(100) NOT NULL,
-  `alamat_instansi` text NOT NULL,
-  `email_instansi` varchar(100) NOT NULL,
-  `no_telp_instansi` varchar(15) NOT NULL,
-  `sc_form_penulis` varchar(256) NOT NULL,
-  `sc_ktp` varchar(256) NOT NULL,
-  `sc_cv` varchar(256) NOT NULL,
-  `sc_npwp` varchar(256) NOT NULL,
-  `sc_foto` varchar(256) NOT NULL,
-  `bidang_kompetensi` varchar(100) NOT NULL,
-  `create_on` datetime NOT NULL
+  `alamat` text DEFAULT NULL,
+  `no_hp` varchar(15) DEFAULT NULL,
+  `profesi` varchar(50) DEFAULT NULL,
+  `nama_instansi` varchar(100) DEFAULT NULL,
+  `alamat_instansi` text DEFAULT NULL,
+  `email_instansi` varchar(100) DEFAULT NULL,
+  `no_telp_instansi` varchar(15) DEFAULT NULL,
+  `sc_form_penulis` varchar(256) DEFAULT NULL,
+  `sc_ktp` varchar(256) DEFAULT NULL,
+  `sc_cv` varchar(256) DEFAULT NULL,
+  `sc_npwp` varchar(256) DEFAULT NULL,
+  `sc_foto` varchar(256) DEFAULT NULL,
+  `bidang_kompetensi` varchar(100) DEFAULT NULL,
+  `create_on` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -694,7 +711,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `active`, `image`, `no_ktp`, `nip`, `no_npwp`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `no_hp`, `profesi`, `nama_instansi`, `alamat_instansi`, `email_instansi`, `no_telp_instansi`, `sc_form_penulis`, `sc_ktp`, `sc_cv`, `sc_npwp`, `sc_foto`, `bidang_kompetensi`, `create_on`) VALUES
 (1, 'admin@muhakbar.com', 'Akbar', 'Admin', '$2y$08$xW6CqiKByp3QEXUKdkHIhu.N6gMFQz3KYh5CsbwgcMc39dxYP7TXi', 1, 'akbr_pp_2.jpg', '', '', '', 'Laki-Laki', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
 (51, 'penulis1@gmail.com', 'penulis', '1', '$2y$08$t3AEH6.JmraK9cdTPdc7luHfXG36CXkeD1/KzS0HxglMJXDceGDM.', 1, 'ezgif_com-gif-maker.jpg', '123', '123', '123', 'Perempuan', 'asdasd', '1999-11-25', 'asdasdasd', '123213', 'asdasd', 'asdasd', 'asdasd', 'ins@gmail.com', '123213', 'vlcsnap-2022-01-23-12h20m45s850.png', 'vlcsnap-2021-12-21-23h25m07s5171.png', 'Picture1.png', 'Pengumuman_Pembayaran_UTS.pdf', 'Pelaksanaan_KBM_Luring_Semester_Genap_2021-2022.pdf', 'Akuntansi', '2022-05-02 08:55:32'),
-(56, 'editor1@gmail.com', 'Lead editor', '1', '$2y$08$b8T715OYXnOr/weBYWE.rOOKO1WJ28DJshEmH5v7rQ7jEtpZbFlDW', 1, 'ezgif_com-gif-maker1.jpg', '123', '123', '123', 'Laki-Laki', 'PURWOREJO', '2022-01-01', 'asdasdasd', '1233', 'asdasd', '', '', '', '', '20210918_071215jpg-20210918101648.jpg', '', '', '', '', 'Informatika', '2022-05-11 13:18:10'),
+(56, 'editor1@gmail.com', 'Lead editor', '1', '$2y$08$b8T715OYXnOr/weBYWE.rOOKO1WJ28DJshEmH5v7rQ7jEtpZbFlDW', 1, 'Dummy_JPG.jpg', NULL, NULL, NULL, 'Laki-Laki', NULL, NULL, NULL, '1233', NULL, NULL, NULL, NULL, NULL, '20210918_071215jpg-20210918101648.jpg', '', '', '', '', NULL, '2022-05-11 13:18:10'),
 (57, 'penulis2@gmail.com', 'Penulis', '2', '$2y$08$Slhw7Ac/pceQlshCw9JW..g92SbFWtt/5PYdjHr0HOHoR8j6wdc5K', 1, 'default.jpg', '1234567891123456', '123', '123456789112345', 'Perempuan', 'PURWOREJO', '1999-02-23', 'Jalan Sarijadi Blok 02 No 118 Rt 06/02', '+6289646817762', 'Sekretariat', 'Poltekpos', 'Jalan sariasih', 'asep@poltekpos.ac.id', '123456789112345', 'dummy.jpg', 'dummy1.jpg', 'dummy2.jpg', 'dummy3.jpg', 'dummy4.jpg', 'Bahasa Inggris', '2022-05-13 09:03:39'),
 (58, 'editor2@gmail.com', 'Lead editor', '2', '$2y$08$KRuGak76slWG1nwpzRzykehTwAib3eQmR8qcBnmMQHDWrwu6kC7K6', 1, 'default.jpg', '1234567891123456', '2193013', '123456789112345', 'Perempuan', 'bandung', '2022-05-26', 'asdasdasd', '', 'asdasd', '', '', '', '', '', '', '', '', '', 'Informatika', '2022-05-13 19:19:30'),
 (59, 'editor3@gmail.com', 'Lead editor', '3', '$2y$08$ctA9DsLeGEHPDtPgpyiHjO0oifqEFgvPINvDgcOhf6DRkCSD38UHG', 1, 'default.jpg', '1234567891123456', '321', '123456789112345', 'Perempuan', 'CIMAHI', '1999-02-11', 'asdasdasd', '', 'Sekretariat', '', '', '', '', '', '', '', '', '', 'Akuntansi', '2022-05-14 08:50:21'),
@@ -709,7 +726,9 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `password`, `acti
 (68, 'penulis30@gmail.com', 'Penulis', '30', '$2y$08$fnq/ZkCYNrTy94nMVK7HaepR.FSgdta8nmzkXOT0.EV9d5w3Qhpnu', 1, 'default.jpg', '1234567891123456', '2193013', '123456789112345', 'Laki-Laki', 'PURWOREJO', '1999-09-05', 'Jalan Sarijadi', '089464817762', 'Sekretariat', 'Poltekpos', 'asdsadasd', 'a@a.com', '123456789112345', 'Dummy_JPG2.jpg', 'Dummy_JPG3.jpg', 'Dummy_JPG4.jpg', 'Dummy_JPG5.jpg', 'Dummy_JPG6.jpg', 'Manajemen', '2022-05-22 18:22:10'),
 (69, 'proofreader1@gmail.com', 'Proofreader', '1', '$2y$08$5Cg0fJJCxlKlToJlOxbqh.7hNMJd6OI2A85v3NpwPxNva0DC8cdZq', 1, 'default.jpg', '1234567891123456', '321', '123456789112345', 'Laki-Laki', 'PURWOREJO', '1999-09-22', 'ghvghvghvghv', '', 'Sekretariat', '', '', '', '', '', '', '', '', '', 'Informatika', '2022-05-22 20:39:50'),
 (70, 'desainer1@gmail.com', 'Desainer', '1', '$2y$08$8RMUfK2KOQk7ZzN1IHCckuHSwgOevCiq6.MM5qJTTLmtIvJwj8L7.', 1, 'default.jpg', '1234567891123456', '321', '123456789112345', 'Laki-Laki', 'CIMAHI', '2022-05-12', 'asdsadasd', '', 'asndkjasdn', '', '', '', '', '', '', '', '', '', 'Informatika', '2022-05-22 22:02:33'),
-(71, 'penulis40@gmail.com', 'Penulis', '40', '$2y$08$GLqREKoV0f2wrCKJINiky.uol3rlJqLdKsftdRcQuJb7nhu/DHpM6', 1, 'default.jpg', '1234567891123456', '21930132', '123456789112345', 'Perempuan', 'PURWOREJO', '2022-05-11', 'kjdsbnfkjnkj', '89789789', 'kjasdkjasdkj', 'jasndjasdn', 'hjasbdhjasbdhj', 'muh@gmail.com', '213213', 'Dummy_PDF8.pdf', 'Dummy_PDF9.pdf', 'Dummy_PDF10.pdf', 'Dummy_PDF11.pdf', 'Dummy_PDF12.pdf', 'Humaniora', '2022-05-23 17:23:20');
+(71, 'penulis40@gmail.com', 'Penulis', '40', '$2y$08$GLqREKoV0f2wrCKJINiky.uol3rlJqLdKsftdRcQuJb7nhu/DHpM6', 1, 'default.jpg', '1234567891123456', '21930132', '123456789112345', 'Perempuan', 'PURWOREJO', '2022-05-11', 'kjdsbnfkjnkj', '89789789', 'kjasdkjasdkj', 'jasndjasdn', 'hjasbdhjasbdhj', 'muh@gmail.com', '213213', 'Dummy_PDF8.pdf', 'Dummy_PDF9.pdf', 'Dummy_PDF10.pdf', 'Dummy_PDF11.pdf', 'Dummy_PDF12.pdf', 'Humaniora', '2022-05-23 17:23:20'),
+(72, 'proofreader2@gmail.com', 'Proofreader', '2', '$2y$08$01Hk9Zawna6Xs2mYp7T2HuJh0qVFSNad6AN3.8dPIAP3.aIfSW9ku', 1, 'default.jpg', NULL, NULL, NULL, 'Laki-Laki', NULL, NULL, NULL, '200002', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-24 13:13:03'),
+(73, 'desainer2@gmail.com', 'Desainer', '2', '$2y$08$qapm2BynB8Uxq3l8rBIGSuiiXxcJvQhrpJu2ZNfnpUC/Ol8ghScIm', 1, 'default.jpg', NULL, NULL, NULL, 'Perempuan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-24 13:41:40');
 
 -- --------------------------------------------------------
 
@@ -755,7 +774,35 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (194, 68, 34),
 (195, 69, 35),
 (196, 70, 37),
-(197, 71, 34);
+(197, 71, 34),
+(201, 72, 35),
+(202, 73, 37);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_last_riwayat`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_last_riwayat` (
+`id_riwayat` int(11)
+,`id_produk` int(11)
+,`id_user` int(11)
+,`tgl_plotting` date
+,`tgl_selesai` date
+,`keterangan` text
+,`status_kerjaan` int(11)
+,`rn` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_last_riwayat`
+--
+DROP TABLE IF EXISTS `v_last_riwayat`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_last_riwayat`  AS  (select `ranked_messages`.`id_riwayat` AS `id_riwayat`,`ranked_messages`.`id_produk` AS `id_produk`,`ranked_messages`.`id_user` AS `id_user`,`ranked_messages`.`tgl_plotting` AS `tgl_plotting`,`ranked_messages`.`tgl_selesai` AS `tgl_selesai`,`ranked_messages`.`keterangan` AS `keterangan`,`ranked_messages`.`status_kerjaan` AS `status_kerjaan`,`ranked_messages`.`rn` AS `rn` from (select `riwayat`.`id_riwayat` AS `id_riwayat`,`riwayat`.`id_produk` AS `id_produk`,`riwayat`.`id_user` AS `id_user`,`riwayat`.`tgl_plotting` AS `tgl_plotting`,`riwayat`.`tgl_selesai` AS `tgl_selesai`,`riwayat`.`keterangan` AS `keterangan`,`riwayat`.`status_kerjaan` AS `status_kerjaan`,row_number() over ( partition by `riwayat`.`id_produk` order by `riwayat`.`id_riwayat` desc) AS `rn` from `riwayat`) `ranked_messages` where `ranked_messages`.`rn` = 1) ;
 
 --
 -- Indexes for dumped tables
@@ -868,13 +915,13 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `distribusi`
 --
 ALTER TABLE `distribusi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `file_attach`
 --
 ALTER TABLE `file_attach`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -916,19 +963,19 @@ ALTER TABLE `paket`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_bayar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_bayar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -946,19 +993,19 @@ ALTER TABLE `status_sunting`
 -- AUTO_INCREMENT for table `tim_penulis`
 --
 ALTER TABLE `tim_penulis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
