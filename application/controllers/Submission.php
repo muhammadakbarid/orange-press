@@ -935,7 +935,7 @@ class Submission extends CI_Controller
       $file_attach = $_FILES['file_attach']['name'];
       $status = 24; // File hak cipta added
       if ($file_attach) {
-        $config['upload_path'] = './assets/uploads/files/file_attach/';
+        $config['upload_path'] = './assets/uploads/files/file_hakcipta/';
         $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pdf|jpg|jpeg|png';
         $config['max_size']     = '2048';
 
@@ -1342,6 +1342,15 @@ class Submission extends CI_Controller
     $file_attach = $this->File_attach_model->get_by_id_riwayat($id_riwayat);
 
     return $file_attach;
+  }
+
+  public function get_file_hakcipta($id_produk)
+  {
+    $file_name = $this->Produk_model->get_by_id($id_produk);
+    $file_name = $file_name->file_hakcipta;
+
+    $file_path = 'assets/uploads/files/file_hakcipta/';
+    get_file($file_path, $file_name);
   }
 
   public function get_file_submission($id_produk)

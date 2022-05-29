@@ -402,6 +402,18 @@ if (!function_exists('dateIna')) {
     }
   }
 
+  function tombol_detail_hak_cipta($id_produk)
+  {
+    // $cek_isbn = check_isbn($id_produk);
+    $cek_hak_cipta = check_hak_cipta($id_produk);
+    // cek jika ada ISBN dan hak cipta masih kosong
+    if ($cek_hak_cipta == 1) {
+      return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/get_file_hakcipta/') . $id_produk . "'><i class='fa fa-download'></i>&nbsp; Download</a>";
+    } else {
+      return "";
+    }
+  }
+
 
 
   function tombol_hak_cipta($id_produk)
@@ -414,7 +426,7 @@ if (!function_exists('dateIna')) {
       // cek apakah user milih paket hak cipta atau tidak
       $cek_paket_hc = check_paket_hc($id_produk);
       if ($cek_paket_hc == 1) {
-        return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/add_file_hak_cipta/') . $id_produk . "'><i class='fa fa-download'></i>&nbsp; Add File Hak Cipta</a>";
+        return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/add_file_hak_cipta/') . $id_produk . "'><i class='fa fa-plus-circle'></i>&nbsp; Add File Hak Cipta</a>";
       }
     } else {
       return "";

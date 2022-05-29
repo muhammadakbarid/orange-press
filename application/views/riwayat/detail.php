@@ -56,7 +56,7 @@
               </tr>
               <tr>
                 <td>File Hak Cipta</td>
-                <td>xxx</td>
+                <td><?= tombol_detail_hak_cipta($produk->id_produk); ?></a></td>
               </tr>
               <tr>
                 <td>Daftar Penulis</td>

@@ -65,7 +65,7 @@ class Riwayat extends CI_Controller
         } else {
             $data['lead_editor'] = " - ";
         }
-
+        // ambil data file hak cipta
         $data['produk'] = $this->Produk_model->get_by_id($id_produk);
         $data['daftar_penulis'] = $this->Tim_penulis_model->get_daftar_penulis($id_produk);
         $data['detail'] = $this->Riwayat_model->get_detail($id_produk);
