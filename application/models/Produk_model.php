@@ -153,4 +153,28 @@ class Produk_model extends CI_Model
         $this->db->where("no_isbn IS NOT NULL");
         return $this->db->get($this->table)->num_rows();
     }
+
+    function check_isbn($id_produk)
+    {
+        $this->db->where('id_produk', $id_produk);
+        $this->db->where('no_isbn IS NOT NULL');
+        return $this->db->get($this->table)->num_rows();
+    }
+    function check_hak_cipta($id_produk)
+    {
+        $this->db->where('id_produk', $id_produk);
+        $this->db->where('file_hakcipta IS NOT NULL');
+        return $this->db->get($this->table)->num_rows();
+    }
+
+    function check_paket_hc($id_produk)
+    {
+        $this->db->select('paket.nama_paket');
+        $this->db->join('pembayaran', 'produk.id_produk = pembayaran.id_produk');
+        $this->db->join('paket', 'pembayaran.jenis = paket.id_paket');
+        $this->db->where('produk.id_produk', $id_produk);
+        // $this->db->where_in('paket.nama_paket', 'HC');
+
+        return $this->db->get($this->table)->result();
+    }
 }

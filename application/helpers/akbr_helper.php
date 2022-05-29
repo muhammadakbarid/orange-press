@@ -362,9 +362,63 @@ if (!function_exists('dateIna')) {
     }
   }
 
+
+
   function tombol_download($id_produk)
   {
-    return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/get_file_submission/') . $id_produk . "'><i class='fa fa-download'></i>&nbsp; Download</a>";
+    return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/get_file_submission/') . $id_produk . "'><i class='fa fa-download'></i>&nbsp; Draft Buku</a>";
+  }
+
+  function check_isbn($id_produk)
+  {
+    $ci = get_instance();
+    $ci->load->model('Produk_model');
+
+    return $ci->Produk_model->check_isbn($id_produk);
+  }
+  function check_hak_cipta($id_produk)
+  {
+    $ci = get_instance();
+    $ci->load->model('Produk_model');
+
+    return $ci->Produk_model->check_hak_cipta($id_produk);
+  }
+
+  function check_paket_hc($id_produk)
+  {
+    $ci = get_instance();
+    $ci->load->model('Produk_model');
+
+    $paket = $ci->Produk_model->check_paket_hc($id_produk);
+    $paket = $paket[0];
+    $paket = $paket->nama_paket;
+    $paket = explode(" ", $paket);
+
+    // cek apakah didalam $paket ada HC
+    if (in_array("HC", $paket)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
+  function tombol_hak_cipta($id_produk)
+  {
+    $cek_isbn = check_isbn($id_produk);
+    $cek_hak_cipta = check_hak_cipta($id_produk);
+
+    // cek jika ada ISBN dan hak cipta masih kosong
+    if ($cek_isbn == 1 && $cek_hak_cipta == 0) {
+      // cek apakah user milih paket hak cipta atau tidak
+      $cek_paket_hc = check_paket_hc($id_produk);
+      if ($cek_paket_hc == 1) {
+        return "<a class='btn btn-xs btn-warning' href='" . base_url('Submission/add_file_hak_cipta/') . $id_produk . "'><i class='fa fa-download'></i>&nbsp; Add File Hak Cipta</a>";
+      }
+    } else {
+      return "";
+    }
   }
 
   function get_last_produk_status($id_produk)
@@ -416,7 +470,7 @@ if (!function_exists('dateIna')) {
         return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Proofreading Approved</span>';
         break;
       case '13': // Correction PR
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Proofreading : Correction </span>';
+        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-check-circle"></i> &nbsp; Proofreading : Correction </span>';
         break;
       case '7': // Layout Cover Processed
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Layout Cover + Dummy Processed</span>';
@@ -454,6 +508,10 @@ if (!function_exists('dateIna')) {
       case '16': // Approve Cetak
         return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
         break;
+      case '24': // File hak cipta added
+        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; File Hak Cipta Added </span>';
+        break;
+
 
       default:
         return '<span class="badge badge-primary" style="background-color:#ccc;color:#000;">No Status</span>';
@@ -513,9 +571,10 @@ if (!function_exists('dateIna')) {
         return "<a href='" . base_url('Submission/plot_editor/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor Sunting</a>";
         break;
       case '5': // Approved : Sunting Naskah
-        return "<a href='" . base_url('Submission/plot_editor_proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Editor Sunting</a>";
+        return "<a href='" . base_url('Submission/plot_editor_proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Proofreader</a>";
         break;
       case '6': // Approved : Proofreading
+      case '13': // Approved : Proofreading
         return "<a href='" . base_url('Submission/plot_editor_desainer/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Plot Desainer</a>";
         break;
       default:
@@ -535,13 +594,14 @@ if (!function_exists('dateIna')) {
       case '4': //Correction
         return "<a href='" . base_url('Submission/resubmit_penyuntingan_naskah/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Re-submit Draft</a>";
         break;
-      case '13': //Correction PR
-        return "<a href='" . base_url('Submission/resubmit_proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Re-submit Draft</a>";
-        break;
+        // case '13': //Correction PR
+        //   return "<a href='" . base_url('Submission/resubmit_proofreading/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Re-submit Draft</a>";
+        //   break;
       case '7': // Layout Cover + Dummy Processed
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
         break;
       case '9': // Completed -> Cetak
+      case '24': // file hak cipta added
         return "<a href='" . base_url('Submission/bayar_oposional/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'><i class='fas fa-print'></i> &nbsp; Cetak (Oposional)</a>";
         break;
       case '15': // Approve Cetak

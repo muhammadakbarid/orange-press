@@ -901,6 +901,80 @@ class Submission extends CI_Controller
     }
   }
 
+  public function add_file_hak_cipta($id_produk) // Tambah file hak cipta oleh admin
+  {
+
+    $this->load->model('Tim_penulis_model');
+
+    $data['produk'] = $this->Produk_model->get_produk_by_id($id_produk);
+    $data['keterangan'] = $this->Riwayat_model->get_detail($id_produk);
+    $data['action'] = 'Submission/add_file_hak_cipta_action/' . $id_produk;
+    $data['label'] = 'File hak cipta';
+    $data['daftar_penulis'] = $this->Tim_penulis_model->get_daftar_penulis_hak_cipta($id_produk);
+
+    $data['title'] = 'Submission';
+    $data['subtitle'] = 'Hak Cipta';
+    $data['crumb'] = [
+      'Hak Cipta' => '',
+    ];
+
+    $data['page'] = 'Submission/hak_cipta';
+    $this->load->view('template/backend', $data);
+  }
+
+  public function add_file_hak_cipta_action() // Action Tambah file hak cipta oleh admin
+  {
+    // rules
+    $this->form_validation->set_rules('id_produk', 'Id Produk', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('error', 'Penyuntingan gagal dilakukan');
+      redirect('Submission/layout_cover/' . $this->input->post('id_produk'));
+    } else {
+      $id_produk = $this->input->post('id_produk');
+      $file_attach = $_FILES['file_attach']['name'];
+      $status = 24; // File hak cipta added
+      if ($file_attach) {
+        $config['upload_path'] = './assets/uploads/files/file_attach/';
+        $config['allowed_types'] = 'txt|xls|xlsx|doc|docx|pdf|jpg|jpeg|png';
+        $config['max_size']     = '2048';
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file_attach')) {
+          $new_file_attach = htmlspecialchars($this->upload->data('file_name'));
+          $data_riwayat = [
+            'id_produk' => $id_produk,
+            'id_user' => $this->session->userdata('user_id'),
+            'tgl_plotting' => date('Y-m-d'),
+            'status_kerjaan' => $status,
+          ];
+
+          $data_produk = [
+            'file_hakcipta' => $new_file_attach,
+          ];
+
+          $this->Produk_model->update($id_produk, $data_produk);
+          $this->Riwayat_model->insert($data_riwayat);
+          $id_riwayat = $this->db->insert_id();
+
+          $data_file_attach = [
+            'id_riwayat' => $id_riwayat,
+            'nama_file' => $new_file_attach,
+            'url_file' => base_url('assets/uploads/files/file_attach/' . $new_file_attach),
+          ];
+          $this->Produk_model->insert_file_attach($data_file_attach);
+
+          $this->session->set_flashdata('success', 'File Hak Cipta berhasil ditambahkan');
+          redirect('Submission/list');
+        } else {
+          $this->session->set_flashdata('error', 'File Hak Cipta gagal ditambahkan');
+          redirect('Submission/list');
+        }
+      }
+    }
+  }
+
   public function approve_dummy() // Penulis Approve Layout Cover dan Dummy dari Desainer
   {
     $id_produk = $this->input->post('id');
@@ -1279,6 +1353,39 @@ class Submission extends CI_Controller
     get_file($file_path, $file_name);
   }
 
+  public function get_file_user($path, $nama_file)
+  {
+    $file_name = $nama_file;
+    $file_path = $path;
+    get_file($file_path, $file_name);
+  }
+
+  public function get_sc_form_penulis($file_name)
+  {
+    $file_path = 'assets/uploads/files/sc_form_penulis/';
+    get_file($file_path, $file_name);
+  }
+  public function get_sc_ktp($file_name)
+  {
+    $file_path = 'assets/uploads/files/sc_ktp/';
+    get_file($file_path, $file_name);
+  }
+  public function get_sc_cv($file_name)
+  {
+    $file_path = 'assets/uploads/files/sc_cv/';
+    get_file($file_path, $file_name);
+  }
+  public function get_sc_npwp($file_name)
+  {
+    $file_path = 'assets/uploads/files/sc_npwp/';
+    get_file($file_path, $file_name);
+  }
+  public function get_sc_foto($file_name)
+  {
+    $file_path = 'assets/uploads/files/sc_foto/';
+    get_file($file_path, $file_name);
+  }
+
   public function get_file_riwayat($nama_file)
   {
     $file_path = 'assets/uploads/files/file_attach/';
@@ -1299,5 +1406,6 @@ class Submission extends CI_Controller
     $harga_paket = rupiah($harga_paket);
     echo json_encode($harga_paket);
   }
+
   // ENDOTHER ENDOTHER ENDOTHER ENDOTHER ENDOTHER //
 }

@@ -30,6 +30,15 @@ class Tim_penulis_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_daftar_penulis_hak_cipta($id_produk)
+    {
+        $this->db->select('tim_penulis.*,users.id as id_user,users.first_name,users.last_name,users.email');
+        $this->db->join('users', 'tim_penulis.id_penulis = users.id');
+        $this->db->where('id_produk', $id_produk);
+        $this->db->order_by('penulis_ke', 'ASC');
+        return $this->db->get($this->table)->result();
+    }
+
     // get all
     function get_all()
     {

@@ -56,3 +56,7 @@
 #riwayat_sunting.table > tbody > tr > td {
 	padding: 10px;
 }
+/* hide #riwayat_sunting_all */
+#riwayat_sunting_all {
+	display: none;
+}

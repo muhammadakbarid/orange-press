@@ -21,7 +21,7 @@
               <th>Edisi</th>
               <th>Tanggal Submit</th>
               <th>Nomor ISBN</th>
-              <th>Draft Buku</th>
+              <th>File Draft Buku</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -40,7 +40,7 @@
                 <td><?php echo $value->no_isbn ?></td>
                 <td><?= tombol_download($value->id_produk); ?></td>
                 <td><?php echo submission_status_color($value->id_produk) ?></td>
-                <td><?php echo submission_check_action($value->id_produk) ?></td>
+                <td><?php echo submission_check_action($value->id_produk) ?><?= tombol_hak_cipta($value->id_produk); ?></td>
               </tr>
             <?php } ?>
 
@@ -53,7 +53,7 @@
               <th>Edisi</th>
               <th>Tanggal Submit</th>
               <th>Nomor ISBN</th>
-              <th>Draft Buku</th>
+              <th>File Draft Buku</th>
               <th>Status</th>
               <th>Action</th>
 

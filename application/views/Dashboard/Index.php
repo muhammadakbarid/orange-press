@@ -141,7 +141,7 @@ if ($this->ion_auth->in_group(1)) {
       </div>
       <!-- /.box -->
     </div>
-    <div class="col-md-4 col-xs-12">
+    <div class="col-md-6 col-xs-12">
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">Distribusi Terakhir</h3>
