@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2022 at 08:04 AM
+-- Generation Time: May 30, 2022 at 07:35 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -117,7 +117,9 @@ INSERT INTO `file_attach` (`id_file`, `id_riwayat`, `nama_file`, `url_file`, `cr
 (59, 250, 'Dummy_PDF43.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF43.docx', '2022-05-28 20:15:21'),
 (60, 251, 'Dummy_PDF44.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF44.docx', '2022-05-28 20:15:44'),
 (61, 254, 'Dummy_PDF45.docx', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF45.docx', '2022-05-28 20:28:40'),
-(62, 255, 'Dummy_PDF22.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF22.pdf', '2022-05-29 10:39:51');
+(62, 255, 'Dummy_PDF22.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF22.pdf', '2022-05-29 10:39:51'),
+(63, 256, 'Dummy_PDF23.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF23.pdf', '2022-05-29 15:27:15'),
+(64, 257, 'Dummy_PDF5.pdf', 'http://localhost/orange-press/assets/uploads/files/file_attach/Dummy_PDF5.pdf', '2022-05-29 15:29:28');
 
 -- --------------------------------------------------------
 
@@ -446,13 +448,13 @@ INSERT INTO `produk` (`id_produk`, `id_kti`, `judul`, `edisi`, `tgl_submit`, `no
 (38, 13, 'Akuntansi Pengantar', '1', '2022-05-21', NULL, NULL),
 (39, 14, 'Coba edit', '2', '2022-05-21', NULL, NULL),
 (40, 12, 'Pingin di edit', '23', '2022-05-21', NULL, NULL),
-(41, 12, 'Absensi ABC', '213', '2022-05-22', 'ISBN 978-602-8519-93-11', NULL),
+(41, 12, 'Absensi ABC', '213', '2022-05-22', 'ISBN 978-602-8519-93-11', 'Dummy_PDF23.pdf'),
 (42, 13, 'Coba Coba', '123', '2022-05-23', NULL, NULL),
 (43, 14, 'Penelitian Hutan Meksiko', '123', '2022-05-23', 'ISBN 978-602-8519-93-12', NULL),
 (44, 13, '12 Minggu Buku', '2', '2022-05-24', 'ISBN 978-602-8519-93-14', NULL),
 (45, 13, 'Penelitian Air Bersih', '12', '2022-05-24', NULL, NULL),
 (46, 11, 'Penelitian Sumber Mata Air', '1', '2022-05-24', NULL, NULL),
-(47, 12, 'Penelitian A', '11', '2022-05-27', 'ISBN 978-602-8519-93-20', 'Dummy_PDF22.pdf'),
+(47, 12, 'Penelitian A', '11', '2022-05-27', 'ISBN 978-602-8519-93-20', 'Dummy_PDF5.pdf'),
 (48, 13, 'Coba Coba', '1', '2022-05-28', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -621,7 +623,9 @@ INSERT INTO `riwayat` (`id_riwayat`, `id_produk`, `id_user`, `tgl_plotting`, `tg
 (252, 48, 63, '2022-05-28', NULL, 'ok sudah saya approve', 5),
 (253, 48, 72, '2022-05-28', NULL, 'Editor Proofreading Plotted', 19),
 (254, 48, 72, '2022-05-28', NULL, 'saya perbaiki typonya', 13),
-(255, 47, 1, '2022-05-29', NULL, NULL, 24);
+(255, 47, 1, '2022-05-29', NULL, NULL, 24),
+(256, 41, 1, '2022-05-29', NULL, NULL, 24),
+(257, 47, 1, '2022-05-29', NULL, NULL, 24);
 
 -- --------------------------------------------------------
 
@@ -982,7 +986,7 @@ ALTER TABLE `distribusi`
 -- AUTO_INCREMENT for table `file_attach`
 --
 ALTER TABLE `file_attach`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -1036,7 +1040,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=258;
 
 --
 -- AUTO_INCREMENT for table `setting`

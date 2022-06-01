@@ -572,9 +572,9 @@ if (!function_exists('dateIna')) {
       case '10': //lead editor plotted
         return "<a data-id='" . $id_produk . "' id='approve' style='margin-right: 5px;' class='btn btn-xs btn-success'>Aprrove</a><a data-id='" . $id_produk . "' id='reject' class='btn btn-xs btn-danger'>Reject</a>";
         break;
-      case '7': //layout processed
-        return "<a href='" . base_url('Submission/add_isbn/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Input ISBN</a>";
-        break;
+        // case '7': //layout processed
+        //   return "<a href='" . base_url('Submission/add_isbn/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'>Input ISBN</a>";
+        //   break;
 
       case '17': // Menunggu verifikasi pembayaran
         return "<a href='" . base_url('Submission/verify_payment/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-warning'>Verifikasi Pembayaran</a>";
@@ -614,7 +614,7 @@ if (!function_exists('dateIna')) {
         break;
       case '9': // Completed -> Cetak
       case '24': // file hak cipta added
-        return "<a href='" . base_url('Submission/bayar_oposional/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'><i class='fas fa-print'></i> &nbsp; Cetak (Oposional)</a>";
+        return "<a href='" . base_url('Submission/bayar_oposional/') . $id_produk . "' style='margin-right: 5px;' class='btn btn-xs btn-primary'><i class='fas fa-print'></i> &nbsp; Cetak (Opsional)</a>";
         break;
       case '15': // Approve Cetak
         return "<a data-id='" . $id_produk . "' id='approve_cetak' class='btn btn-xs btn-success'>Approve Cetakan</a>";
