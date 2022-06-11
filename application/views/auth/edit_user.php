@@ -96,71 +96,7 @@
           <?php echo form_input($profesi); ?>
         </div>
 
-        <?php if ($currentGroups[0]->name === "penulis") : ?>
-          <div class="form-group">
-            <label for="">Nama Instansi</label>
-            <?php echo form_input($nama_instansi); ?>
-          </div>
-          <div class="form-group">
-            <label for="">Alamat Instansi</label>
-            <?php echo form_input($alamat_instansi); ?>
-          </div>
-          <div class="form-group">
-            <label for="">Email Instansi</label>
-            <?php echo form_input($email_instansi); ?>
-          </div>
-          <div class="form-group">
-            <label for="">Nomor Telepon Instansi</label>
-            <?php echo form_input($no_telp_instansi); ?>
-          </div>
 
-          <div class="form-group">
-            <div class="custom-file">
-              <label for="sc_form_penulis" class="form-label">Scan Form Penulis</label>
-              <input type="file" class="custom-file-input form-control" id="sc_form_penulis" name="sc_form_penulis">
-              <label for="formFile" class="form-label">
-                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_form_penulis/'); ?><?php echo $sc_form_penulis['value']; ?>"><?php echo $sc_form_penulis['value']; ?></a>
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="custom-file">
-              <label for="sc_ktp" class="form-label">Scan KTP</label>
-              <input type="file" class="custom-file-input form-control" id="sc_ktp" name="sc_ktp">
-              <label for="formFile" class="form-label">
-                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_ktp/'); ?><?php echo $sc_ktp['value']; ?>"><?php echo $sc_ktp['value']; ?></a>
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="custom-file">
-              <label for="sc_cv" class="form-label">Scan CV</label>
-              <input type="file" class="custom-file-input form-control" id="sc_cv" name="sc_cv">
-              <label for="formFile" class="form-label">
-                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_cv/'); ?><?php echo $sc_cv['value']; ?>"><?php echo $sc_cv['value']; ?></a>
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="custom-file">
-              <label for="sc_npwp" class="form-label">Scan NPWP</label>
-              <input type="file" class="custom-file-input form-control" id="sc_npwp" name="sc_npwp">
-              <label for="formFile" class="form-label">
-                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_npwp/'); ?><?php echo $sc_npwp['value']; ?>"><?php echo $sc_npwp['value']; ?></a>
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="custom-file">
-              <label for="sc_foto" class="form-label">Scan Foto</label>
-              <input type="file" class="custom-file-input form-control" id="sc_foto" name="sc_foto">
-              <label for="formFile" class="form-label">
-                File : <a class="text-light" href="<?= base_url('/assets/uploads/files/sc_foto/'); ?><?php echo $sc_foto['value']; ?>"><?php echo $sc_foto['value']; ?></a>
-              </label>
-            </div>
-          </div>
-
-        <?php endif; ?>
 
         <div class="form-group">
           <label for="int">Bidang Kompetensi <?php echo form_error('bidang_kompetensi') ?></label>

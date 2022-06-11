@@ -449,79 +449,79 @@ if (!function_exists('dateIna')) {
   {
     switch ($id_status) {
       case '11': // Submitted
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
+        return '<span title="Penulis telah melakukan submit produk/draft buku" class="badge badge-primary" style="background-color:#ffc857;color:#000;">Submitted</span>';
         break;
       case '10': // Lead Editor PLotted
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Lead Editor Plotted</span>';
+        return '<span title="Admin telah melakukan ploting Lead Editor" class="badge badge-primary" style="background-color:#ffc857;color:#000;">Lead Editor Plotted</span>';
         break;
       case '1': // Acceptance Submission
-        return '<span class="badge badge-primary" style="background-color:#41ead4;color:#000;"><i class="fa fa-check-circle"></i> &nbsp;Acceptance Submission</span>';
+        return '<span title="Lead Editor telah menyetujui (Approve) kelayakan awal untuk produk yang telah di ajukan oleh penulis" class="badge badge-primary" style="background-color:#41ead4;color:#000;"><i class="fa fa-check-circle"></i> &nbsp;Acceptance Submission</span>';
         break;
       case '2': // Rejected
-        return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;"><i class="fa fa-times"></i> &nbsp;Rejected</span>';
+        return '<span title="Lead Editor tidak menyetujui produk, Penulis harus submit ulang" class="badge badge-primary" style="background-color:#bc4749;color:#fff;"><i class="fa fa-times"></i> &nbsp;Rejected</span>';
         break;
       case '17': // Menunggu verifikasi pembayaran
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Waiting for Payment Verification</span>';
+        return '<span title="Penulis telah melakukan pembayaran untuk produk yang telah disetujui oleh Lead Editor dan sedang menunggu verifikasi pembayaran oleh Lead Editor" class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Waiting for Payment Verification</span>';
         break;
       case '3': // Paid
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-usd"></i> &nbsp;Paid</span>';
+        return '<span title="Lead Editor telah melakukan verifikasi pembayaran" class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-usd"></i> &nbsp;Paid</span>';
         break;
       case '12': // Editor Plotted
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Editor Sunting Plotted</span>';
+        return '<span title="Lead Editor telah melakukan plotting Editor sunting" class="badge badge-primary" style="background-color:#ffc857;color:#000;">Editor Sunting Plotted</span>';
         break;
       case '4': // Correction
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction</span>';
+        return '<span title="Editor Sunting telah melakukan koreksi, yang selanjutnya penulis harus mengunggah file draft yang telah diperbaiki" class="badge badge-primary" style="background-color:#ffc857;color:#000;">Correction</span>';
         break;
       case '18': // Correction : Resubmit
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Correction : Resubmit</span>';
+        return '<span title="Penulis telah mengunggah file draft yang telah diperbaiki" class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Correction : Resubmit</span>';
         break;
       case '5': // Approved
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp;   Approved</span>';
+        return '<span title="Editor Sunting telah menyetujui draft buku/produk" class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp;   Approved</span>';
         break;
       case '6': // Approved PR
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Proofreading Approved</span>';
+        return '<span title="Menunjukan bahwa penerbitan lanjut ke tahap selanjutnya tanpa koreksi dari Proofreader" class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Proofreading Approved</span>';
         break;
       case '13': // Correction PR
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-check-circle"></i> &nbsp; Proofreading : Correction </span>';
+        return '<span title="Menunjukan bahwa penerbitan lanjut ke tahap selanjutnya dengan koreksi dari Proofreader" class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-check-circle"></i> &nbsp; Proofreading : Correction </span>';
         break;
       case '7': // Layout Cover Processed
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Layout Cover + Dummy Processed</span>';
+        return '<span title="Desainer telah menambahkan Layout cover yang selanjutnya akan di review oleh penulis" class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Layout Cover + Dummy Processed</span>';
         break;
 
 
       case '19': // Proofreader Plotted
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Proofreader Plotted</span>';
+        return '<span title="Lead Editor telah melakukan plotting Proofreader" class="badge badge-primary" style="background-color:#ffc857;color:#000;">Proofreader Plotted</span>';
         break;
 
       case '20': // Proofreading : Resubmit
         return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp;Proofreading : Resubmit</span>';
         break;
       case '21': // Desainer Plotted
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;">Desainer Plotted</span>';
+        return '<span title="Lead editor melakukan plotting Desainer untuk membuat desain Layout Cover" class="badge badge-primary" style="background-color:#ffc857;color:#000;">Desainer Plotted</span>';
         break;
       case '22': // Layout Cover + Dummy 
-        return '<span class="badge badge-primary" style="background-color:#bc4749;color:#fff;"><i class="fa fa-times"></i> &nbsp;Layout Cover + Dummy Rejected</span>';
+        return '<span title="Penulis telah menolak bentuk desain yang telah ditambahkan oleh Desainer, desainer akan memperbaiki desain" class="badge badge-primary" style="background-color:#bc4749;color:#fff;"><i class="fa fa-times"></i> &nbsp;Layout Cover + Dummy Rejected</span>';
         break;
       case '8': // ISBN Processed
-        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-refresh"></i> &nbsp; ISBN Processed </span>';
+        return '<span title="Penulis telah menyetujui Desain cover, selanjutnya ISBN akan di proses oleh admin" class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-refresh"></i> &nbsp; ISBN Processed </span>';
         break;
       case '9': // Completed
-        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed </span>';
+        return '<span title="Admin telah menambahkan ISBN, proses selesai" class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed </span>';
         break;
       case '23': // Menunggu verifikasi pembayaran Admin
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Waiting for Payment Verification</span>';
+        return '<span title="Menunggu verifikasi pembayaran dari Admin" class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Waiting for Payment Verification</span>';
         break;
       case '14': // Proses Mencetak
-        return '<span class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Proses Mencetak Buku</span>';
+        return '<span title="Proses cetak sedang berlangsung" class="badge badge-primary" style="background-color:#ffc857;color:#000;"><i class="fa fa-refresh"></i> &nbsp; Proses Mencetak Buku</span>';
         break;
       case '15': // Selesai Mencetak
-        return '<span class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Selesai Mencetak, Menunggu Approval Penulis</span>';
+        return '<span title="cetak selesai" class="badge badge-primary" style="background-color:#00a65a;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Selesai Mencetak, Menunggu Approval Penulis</span>';
         break;
       case '16': // Approve Cetak
-        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
+        return '<span title="Buku selesai dicetak" class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; Completed, Buku Tercetak </span>';
         break;
       case '24': // File hak cipta added
-        return '<span class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; File Hak Cipta Added </span>';
+        return '<span title="Admin telah menambahkan file hak cipta" class="badge badge-primary" style="background-color:#3897f0;color:#fff;"><i class="fa fa-check-circle"></i> &nbsp; File Hak Cipta Added </span>';
         break;
 
 

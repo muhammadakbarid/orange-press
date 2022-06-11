@@ -652,14 +652,9 @@ class Auth extends CI_Controller
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
-		// $this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim|required');
-		// $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim|required');
+
 
 		if (isset($_POST) && !empty($_POST)) {
-			// do we have a valid request?
-			// if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
-			// 	show_error($this->lang->line('error_csrf'));
-			// }
 
 			// update the password if it was posted
 			if ($this->input->post('password')) {
@@ -670,22 +665,13 @@ class Auth extends CI_Controller
 			if ($this->form_validation->run() === TRUE) {
 
 				//cek jika ada gambar yang akan diupload
-				$upload_image = $_FILES['image']['name'];
-				if (isset($_FILES['sc_form_penulis'])) {
-					$upload_sc_form_penulis = $_FILES['sc_form_penulis']['name'];
+				if ($_FILES['image'] != Null) {
+					$upload_image = $_FILES['image']['name'];
+				} else {
+					$upload_image = false;
 				}
-				if (isset($_FILES['sc_ktp'])) {
-					$upload_sc_ktp = $_FILES['sc_ktp']['name'];
-				}
-				if (isset($_FILES['sc_cv'])) {
-					$upload_sc_cv = $_FILES['sc_cv']['name'];
-				}
-				if (isset($_FILES['sc_npwp'])) {
-					$upload_sc_npwp = $_FILES['sc_npwp']['name'];
-				}
-				if (isset($_FILES['sc_foto'])) {
-					$upload_sc_foto = $_FILES['sc_foto']['name'];
-				}
+
+
 
 				if ($upload_image) {
 
@@ -716,132 +702,10 @@ class Auth extends CI_Controller
 				}
 
 
-				if ($upload_sc_form_penulis) {
-
-					$config['upload_path'] = './assets/uploads/files/sc_form_penulis/';
-					$config['allowed_types'] = 'pdf|jpg|png|jpeg';
-					$config['max_size']     = '2048';
-
-					$this->load->library('upload', $config);
-
-					if ($this->upload->do_upload('sc_form_penulis')) {
-
-						$old_sc_form_penulis = $user->sc_form_penulis;
-
-						if ($old_sc_form_penulis != 'default.jpg') {
-							// unlink(FCPATH . 'assets/uploads/files/sc_form_penulis/' . $old_sc_form_penulis);
-							$this->unlink_file('assets/uploads/files/sc_form_penulis/', $old_sc_form_penulis);
-						}
-
-						$new_sc_form_penulis = htmlspecialchars($this->upload->data('file_name'));
-						$this->db->set('sc_form_penulis', $new_sc_form_penulis);
-						$this->db->where('id', $user->id);
-						$this->db->update('users');
-					} else {
-						$this->session->set_flashdata('success', $this->upload->display_errors());
-						$this->redirectUser();
-					}
-				}
-				if ($upload_sc_ktp) {
-					$config['upload_path'] = './assets/uploads/files/sc_ktp/';
-					$config['allowed_types'] = 'pdf|jpg|png|jpeg';
-					$config['max_size']     = '2048';
-
-					$this->load->library('upload', $config);
-
-					if ($this->upload->do_upload('sc_ktp')) {
-
-						$old_sc_ktp = $user->sc_ktp;
-						if ($old_sc_ktp != 'default.jpg') {
-							// unlink(FCPATH . 'assets/uploads/files/sc_ktp/' . $old_sc_ktp);
-							$this->unlink_file('assets/uploads/files/sc_ktp/', $old_sc_ktp);
-						}
-
-						$new_sc_ktp = htmlspecialchars($this->upload->data('file_name'));
-						$this->db->set('sc_ktp', $new_sc_ktp);
-						$this->db->where('id', $user->id);
-						$this->db->update('users');
-					} else {
-						$this->session->set_flashdata('success', $this->upload->display_errors());
-						$this->redirectUser();
-					}
-				}
-				if ($upload_sc_cv) {
-					$config['upload_path'] = './assets/uploads/files/sc_cv/';
-					$config['allowed_types'] = 'pdf|jpg|png|jpeg';
-					$config['max_size']     = '2048';
-
-					$this->load->library('upload', $config);
-
-					if ($this->upload->do_upload('sc_cv')) {
-
-						$old_sc_cv = $user->sc_cv;
-						if ($old_sc_cv != 'default.jpg') {
-							// unlink(FCPATH . 'assets/uploads/files/sc_cv/' . $old_sc_cv);
-							$this->unlink_file('assets/uploads/files/sc_cv/', $old_sc_cv);
-						}
-
-						$new_sc_cv = htmlspecialchars($this->upload->data('file_name'));
-						$this->db->set('sc_cv', $new_sc_cv);
-						$this->db->where('id', $user->id);
-						$this->db->update('users');
-					} else {
-						$this->session->set_flashdata('success', $this->upload->display_errors());
-						$this->redirectUser();
-					}
-				}
-				if ($upload_sc_npwp) {
-					$config['upload_path'] = './assets/uploads/files/sc_npwp/';
-					$config['allowed_types'] = 'pdf|jpg|png|jpeg';
-					$config['max_size']     = '2048';
-
-					$this->load->library('upload', $config);
-
-					if ($this->upload->do_upload('sc_npwp')) {
-
-						$old_sc_npwp = $user->sc_npwp;
-						if ($old_sc_npwp != 'default.jpg') {
-							// unlink(FCPATH . 'assets/uploads/files/sc_npwp/' . $old_sc_npwp);
-							$this->unlink_file('assets/uploads/files/sc_npwp/', $old_sc_npwp);
-						}
-
-						$new_sc_npwp = htmlspecialchars($this->upload->data('file_name'));
-						$this->db->set('sc_npwp', $new_sc_npwp);
-						$this->db->where('id', $user->id);
-						$this->db->update('users');
-					} else {
-						$this->session->set_flashdata('success', $this->upload->display_errors());
-						$this->redirectUser();
-					}
-				}
-				if ($upload_sc_foto) {
-					$config['upload_path'] = './assets/uploads/files/sc_foto/';
-					$config['allowed_types'] = 'pdf|jpg|png|jpeg';
-					$config['max_size']     = '2048';
-
-					$this->load->library('upload', $config);
-
-					if ($this->upload->do_upload('sc_foto')) {
-
-						$old_sc_foto = $user->sc_foto;
-						if ($old_sc_foto != 'default.jpg') {
-							// unlink(FCPATH . 'assets/uploads/files/sc_foto/' . $old_sc_foto);
-							$this->unlink_file('assets/uploads/files/sc_foto/', $old_sc_foto);
-						}
-
-						$new_sc_foto = htmlspecialchars($this->upload->data('file_name'));
-						$this->db->set('sc_foto', $new_sc_foto);
-						$this->db->where('id', $user->id);
-						$this->db->update('users');
-					} else {
-						$this->session->set_flashdata('success', $this->upload->display_errors());
-						$this->redirectUser();
-					}
-				}
-
 				$data = array(
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
+					'email' => $this->input->post('email'),
 					'no_ktp' => $this->input->post('no_ktp'),
 					'nip' => $this->input->post('nip'),
 					'no_npwp' => $this->input->post('no_npwp'),
@@ -851,13 +715,15 @@ class Auth extends CI_Controller
 					'alamat' => $this->input->post('alamat'),
 					'no_hp' => $this->input->post('no_hp'),
 					'profesi' => $this->input->post('profesi'),
-					'nama_instansi' => $this->input->post('nama_instansi'),
-					'alamat_instansi' => $this->input->post('alamat_instansi'),
-					'email_instansi' => $this->input->post('email_instansi'),
-					'no_telp_instansi' => $this->input->post('no_telp_instansi'),
+					// 'nama_instansi' => $this->input->post('nama_instansi'),
+					// 'alamat_instansi' => $this->input->post('alamat_instansi'),
+					// 'email_instansi' => $this->input->post('email_instansi'),
+					// 'no_telp_instansi' => $this->input->post('no_telp_instansi'),
 
 					'bidang_kompetensi' => $this->input->post('bidang_kompetensi')
 				);
+
+
 
 
 				// update the password if it was posted
